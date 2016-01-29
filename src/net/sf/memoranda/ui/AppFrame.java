@@ -237,6 +237,13 @@ public class AppFrame extends JFrame {
 
     JMenu jMenuInsertSpecial = new JMenu();
     
+    //---------------------------------------- Gary
+    JMenu jMenuReports = new JMenu();
+    
+    JMenuItem jMenuReportsGenReport = new JMenuItem();  
+    JMenuItem jMenuReportsExpReport = new JMenuItem();
+    //---------------------------------------- Gary
+    
     JMenu jMenuHelp = new JMenu();
     
     JMenuItem jMenuHelpGuide = new JMenuItem();
@@ -437,6 +444,14 @@ public class AppFrame extends JFrame {
         jMenuGoDayBack.setText(Local.getString("One day back"));
         jMenuGoDayFwd.setText(Local.getString("One day forward"));
         jMenuGoToday.setText(Local.getString("To today"));
+        
+        //---------------------------------------------------------------- Gary
+        jMenuReports.setText(Local.getString("Reports"));
+        
+        jMenuReportsGenReport.setText(Local.getString("Generate Report"));
+        jMenuReportsExpReport.setText(Local.getString("Export Report"));
+        
+        //---------------------------------------------------------------- Gary
 
         jMenuInsertSpecial.setText(Local.getString("Special"));
         jMenuInsertBR.setText(Local.getString("Line break"));
@@ -473,6 +488,9 @@ public class AppFrame extends JFrame {
         menuBar.add(jMenuInsert);
         menuBar.add(jMenuFormat);
         menuBar.add(jMenuGo);
+        //---------------------------------------------------------- Gary
+        menuBar.add(jMenuReports);
+        //---------------------------------------------------------- Gary
         menuBar.add(jMenuHelp);
         this.setJMenuBar(menuBar);
         //contentPane.add(toolBar, BorderLayout.NORTH);
@@ -553,6 +571,11 @@ public class AppFrame extends JFrame {
         jMenuGo.add(jMenuGoDayBack);
         jMenuGo.add(jMenuGoDayFwd);
         jMenuGo.add(jMenuGoToday);
+        
+        //----------------------------------------------------- Gary
+        jMenuReports.add(jMenuReportsGenReport);
+        jMenuReports.add(jMenuReportsExpReport);
+        //----------------------------------------------------- Gary
 
         splitPane.setBorder(null);
         workPanel.setBorder(null);
