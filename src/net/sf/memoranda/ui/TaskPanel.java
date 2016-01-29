@@ -48,6 +48,7 @@ public class TaskPanel extends JPanel {
     JButton historyForwardB = new JButton();
     JButton newTaskB = new JButton();
     JButton subTaskB = new JButton();
+    //JButton taskTemplateB = new JButton(); 
     JButton editTaskB = new JButton();
     JButton removeTaskB = new JButton();
     JButton completeTaskB = new JButton();
@@ -114,6 +115,16 @@ public class TaskPanel extends JPanel {
             }
         });
         newTaskB.setBorderPainted(false);
+       
+        
+        //Task template button stuff //------------------//
+        //taskTemplateB.setIcon(
+        	//	new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResouce("resources/icons/ppopen.png")));
+        //taskTemplateB.setEnabled(true);
+        //taskTemplateB.setMaximumSize(new Dimension(24, 24));
+        //taskTemplateB.setMinimumSize(new Dimension(24, 24));
+        //taskTemplateB.setToolTipText(Local.getString("Task Templates"));
+       
         
         subTaskB.setIcon(
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new_sub.png")));
