@@ -38,8 +38,8 @@ public class TaskTemplateWizard extends JDialog {
 		btnRemove.setBounds(325, 226, 100, 29);
 		getContentPane().add(btnRemove);
 		
-		TaskPanel panel_1 = new TaskPanel();
-		panel_1.setBounds(205, 121, 10, 10);
+		TaskPanel panel_1 = new TaskPanel(null);
+		panel_1.setBounds(30, 24, 381, 191);
 		getContentPane().add(panel_1);
 		
 		
