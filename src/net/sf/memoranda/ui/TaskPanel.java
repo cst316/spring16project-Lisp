@@ -117,14 +117,22 @@ public class TaskPanel extends JPanel {
         newTaskB.setBorderPainted(false);
        
         
-        //Task template button stuff //------------------//
-        //taskTemplateB.setIcon(
-        	//	new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResouce("resources/icons/ppopen.png")));
-        //taskTemplateB.setEnabled(true);
-        //taskTemplateB.setMaximumSize(new Dimension(24, 24));
-        //taskTemplateB.setMinimumSize(new Dimension(24, 24));
-        //taskTemplateB.setToolTipText(Local.getString("Task Templates"));
-       
+       /* //Task template button stuff //------------------//
+        taskTemplateB.setIcon(
+        		new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/ppopen.png")));
+        taskTemplateB.setEnabled(true);
+        taskTemplateB.setMaximumSize(new Dimension(24, 24));
+        taskTemplateB.setMinimumSize(new Dimension(24, 24));
+        taskTemplateB.setToolTipText(Local.getString("Task Templates"));
+        taskTemplateB.setRequestFocusEnabled(false);
+        taskTemplateB.setPreferredSize(new Dimension(24, 24));
+        taskTemplateB.setFocusable(false);
+        taskTemplateB.addActionListener(new java.awt.event.ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		//_actionPerformed(e);////////////////////////
+        	}
+        });
+        */
         
         subTaskB.setIcon(
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new_sub.png")));
@@ -320,8 +328,7 @@ public class TaskPanel extends JPanel {
 		});
 	ppCalcTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
 	ppCalcTask.setEnabled(false);
-
-    scrollPane.getViewport().add(taskTable, null);
+    scrollPane.setViewportView(taskTable);
         this.add(scrollPane, BorderLayout.CENTER);
         tasksToolBar.add(historyBackB, null);
         tasksToolBar.add(historyForwardB, null);

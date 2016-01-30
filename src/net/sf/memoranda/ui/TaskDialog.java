@@ -39,6 +39,8 @@ import javax.swing.JCheckBox;
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Local;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /*$Id: TaskDialog.java,v 1.25 2005/12/01 08:12:26 alexeya Exp $*/
 public class TaskDialog extends JDialog {
@@ -106,6 +108,8 @@ public class TaskDialog extends JDialog {
 	CalendarDate startDateMax = CurrentProject.get().getEndDate();
 	CalendarDate endDateMin = startDateMin;
 	CalendarDate endDateMax = startDateMax;
+	private final JButton templateB = new JButton("Templates");
+	private final JLabel label = new JLabel("                            ");
     
     public TaskDialog(Frame frame, String title) {
         super(frame, title, true);
@@ -327,6 +331,15 @@ public class TaskDialog extends JDialog {
         getContentPane().add(mPanel);
         mPanel.add(areaPanel, BorderLayout.CENTER);
         mPanel.add(buttonsPanel, BorderLayout.SOUTH);
+        templateB.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		TemplateB_actionPerformed(e);
+        	}
+        });
+       
+        buttonsPanel.add(templateB);
+        
+        buttonsPanel.add(label);
         buttonsPanel.add(okB, null);
         buttonsPanel.add(cancelB, null);
         this.getContentPane().add(dialogTitlePanel, BorderLayout.NORTH);
@@ -399,8 +412,13 @@ public class TaskDialog extends JDialog {
 	}
 	
     void okB_actionPerformed(ActionEvent e) {
-	CANCELLED = false;
+    	CANCELLED = false;
         this.dispose();
+    }
+    //////////////////////////////////////////////////////////////////////////////
+    void TemplateB_actionPerformed(ActionEvent e) {
+    	TaskTemplateWizard ttw = new TaskTemplateWizard();
+    	//ttw.setVisible(true);
     }
 
     void cancelB_actionPerformed(ActionEvent e) {

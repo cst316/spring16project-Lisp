@@ -14,6 +14,7 @@ public class TaskTemplateWizard extends JDialog {
 	private JTextField textField;
 	public TaskTemplateWizard() {
 		setTitle("Create New Template");
+		setVisible(true);
 		getContentPane().setLayout(null);
 		
 		textField = new JTextField();
