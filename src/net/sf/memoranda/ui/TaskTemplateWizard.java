@@ -39,14 +39,40 @@ public class TaskTemplateWizard extends JDialog {
 		getContentPane().add(panel_1);
 		
 		JTree tree = new JTree();
+		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+		
+	//**********// MENU //************// 
+		
+		JPopupMenu menu = new JPopupMenu();
+		
+		JMenuItem add = new JMenuItem("Add Task");
+		add.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Add selected");
+				model.insertNodeInto(new DefaultMutableTreeNode("Sub Task"), root, root.getChildCount());
+
+			}
+		});
+		JMenuItem remove = new JMenuItem("Remove Task");
+		JMenuItem rename = new JMenuItem("Rename");
+		
+		menu.add(add);
+		menu.add(remove);
+		menu.add(rename);
+		
+		//******************************//
+		
+	
+		
+		
 	
 		tree.setPreferredSize(new Dimension(430, 210));
 		tree.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				
-				TemplateMenu menu = new TemplateMenu();
+
 			    if (SwingUtilities.isRightMouseButton(e)) {
 			    	
 			    	System.out.println("Right click detected.");
@@ -66,7 +92,7 @@ public class TaskTemplateWizard extends JDialog {
 		tree.setModel(new DefaultTreeModel(
 			new DefaultMutableTreeNode("Task") {
 				{
-					//getContentPane().add(new DefaultMutableTreeNode("Sub Task"));
+					// Add sub task
 				}
 			}
 		));
@@ -96,6 +122,7 @@ public class TaskTemplateWizard extends JDialog {
 			}
 		});
 		
+
 		
 
 	
