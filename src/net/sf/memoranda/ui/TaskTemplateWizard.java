@@ -49,7 +49,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		tree.setEditable(true);
 	
 		
-	//**********// MENU //************// 
+	    //**********// MENU //************// 
 		
 		JPopupMenu menu = new JPopupMenu();
 		
@@ -92,13 +92,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		});
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		tree.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		tree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("Task") {
-				{
-					// Add sub task
-				}
-			}
-		));
 		panel_1.add(tree);
 		
 		JPanel panel = new JPanel();
@@ -106,21 +99,54 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		getContentPane().add(panel);
 		panel.setLayout(new GridLayout(0, 3, 0, 0));
 		
-		JButton btnAdd = new JButton("Save");
-		panel.add(btnAdd);
+		JButton btnSave = new JButton("Save");
+		panel.add(btnSave);
 		
-		JButton btnRemove = new JButton("Done");
-		panel.add(btnRemove);
+		JButton btnDone = new JButton("Done");
+		panel.add(btnDone);
 		
 		JButton btnReset = new JButton("Reset");
 		panel.add(btnReset);
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnAdd.addMouseListener(new MouseAdapter() {
+		
+		// DONE (KIND OF WORKING)
+		// TO-DO: Instantiate Template class by iterating over tree
+		btnDone.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+				DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+				System.out.println((JButton)e.getSource() + "selected.");
+				dispose();
+
+				
+			}
+		});
+		
+		// RESET (WORKING)
+		btnReset.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+				DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+				System.out.println((JButton)e.getSource() + "selected.");
+				root.removeAllChildren();
+				model.reload(root);
+				
+			}
+		});
+		
+		// SAVE (NOT WORKING)
+		// TO-DO: Need to somehow populate a Template class by iterating over tree
+		btnSave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+				DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+				System.out.println((JButton)e.getSource() + "selected.");
+
 				
 			}
 		});
@@ -140,6 +166,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 		
+		// ADD (WORKING)
 		JMenuItem item = (JMenuItem) e.getSource();
 		if (item.equals(add)){
 			System.out.println("Add selected");
@@ -148,10 +175,14 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			tree.revalidate();
 			model.reload(root);
 		}
+		
+		// REMOVE (WORKING)
 		else if (item.equals(remove)){
 			model.removeNodeFromParent(selected);
 			System.out.println("Remove selected");
 		}
+		
+		// RENAME (WORKING)
 		else if (item.equals(rename)){
 			System.out.println("Rename selected");
 			tree.startEditingAtPath(tree.getSelectionPath());
