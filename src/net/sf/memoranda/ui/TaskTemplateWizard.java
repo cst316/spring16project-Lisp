@@ -21,8 +21,15 @@ import java.awt.FlowLayout;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 
-public class TaskTemplateWizard extends JDialog {
+public class TaskTemplateWizard extends JDialog implements ActionListener{
+	
+	private JMenuItem add;
+	private JMenuItem remove;
+	private JMenuItem rename;
+	private JTree tree;
+	
 	public TaskTemplateWizard() {
+		
 		setLocation(new Point(300, 300));
 		setPreferredSize(new Dimension(500, 200));
 		setModalityType(ModalityType.TOOLKIT_MODAL);
@@ -38,7 +45,7 @@ public class TaskTemplateWizard extends JDialog {
 		panel_1.setBounds(6, 0, 438, 215);
 		getContentPane().add(panel_1);
 		
-		JTree tree = new JTree();
+		tree = new JTree();
 		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 		
@@ -46,17 +53,13 @@ public class TaskTemplateWizard extends JDialog {
 		
 		JPopupMenu menu = new JPopupMenu();
 		
-		JMenuItem add = new JMenuItem("Add Task");
-		add.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println("Add selected");
-				model.insertNodeInto(new DefaultMutableTreeNode("Sub Task"), root, root.getChildCount());
-
-			}
-		});
-		JMenuItem remove = new JMenuItem("Remove Task");
-		JMenuItem rename = new JMenuItem("Rename");
+		add = new JMenuItem("Add Task");
+		remove = new JMenuItem("Remove Task");
+		rename = new JMenuItem("Rename");
+		
+		add.addActionListener(this);
+		remove.addActionListener(this);
+		rename.addActionListener(this);
 		
 		menu.add(add);
 		menu.add(remove);
@@ -77,10 +80,16 @@ public class TaskTemplateWizard extends JDialog {
 			    	
 			    	System.out.println("Right click detected.");
 
-			    	JPopupMenu popupMenu = new JPopupMenu();
 			        int row = tree.getClosestRowForLocation(e.getX(), e.getY());
 			        tree.setSelectionRow(row);
 			        menu.show(e.getComponent(), e.getX(), e.getY());
+			        
+
+			        if (e.getSource().equals(add)){
+						System.out.println("Add selected");
+						model.insertNodeInto(new DefaultMutableTreeNode("Sub Task"), root, root.getChildCount());
+
+			        }
 			    }
 				
 
@@ -128,5 +137,22 @@ public class TaskTemplateWizard extends JDialog {
 	
 
 
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		JMenuItem item = (JMenuItem) e.getSource();
+		if (item.equals(add)){
+			System.out.println("Add selected");
+		}
+		else if (item.equals(remove)){
+			System.out.println("Remove selected");
+		}
+		else if (item.equals(rename)){
+			System.out.println("Rename selected");
+		}
+
+		
 	}
 }
