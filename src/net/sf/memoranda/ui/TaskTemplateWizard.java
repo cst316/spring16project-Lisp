@@ -46,8 +46,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		getContentPane().add(panel_1);
 		
 		tree = new JTree();
-		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+		tree.setEditable(true);
+	
 		
 	//**********// MENU //************// 
 		
@@ -83,13 +83,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			        int row = tree.getClosestRowForLocation(e.getX(), e.getY());
 			        tree.setSelectionRow(row);
 			        menu.show(e.getComponent(), e.getX(), e.getY());
-			        
 
-			        if (e.getSource().equals(add)){
-						System.out.println("Add selected");
-						model.insertNodeInto(new DefaultMutableTreeNode("Sub Task"), root, root.getChildCount());
-
-			        }
 			    }
 				
 
@@ -142,15 +136,25 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		DefaultMutableTreeNode selected = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
+		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+		
 		JMenuItem item = (JMenuItem) e.getSource();
 		if (item.equals(add)){
 			System.out.println("Add selected");
+
+			model.insertNodeInto(new DefaultMutableTreeNode("Sub Task"), root, root.getChildCount());
+			tree.revalidate();
+			model.reload(root);
 		}
 		else if (item.equals(remove)){
+			model.removeNodeFromParent(selected);
 			System.out.println("Remove selected");
 		}
 		else if (item.equals(rename)){
 			System.out.println("Rename selected");
+			tree.startEditingAtPath(tree.getSelectionPath());
 		}
 
 		
