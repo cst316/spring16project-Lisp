@@ -8,6 +8,7 @@ import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -38,6 +39,7 @@ import javax.swing.JCheckBox;
 
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.date.CalendarDate;
+import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.util.Local;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -78,7 +80,7 @@ public class TaskDialog extends JDialog {
     boolean ignoreEndChanged = false;
     JPanel jPanel4 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     JPanel jPanel6 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    JLabel jLabel6 = new JLabel();
+    JLabel jLabel6 = new JLabel(); 
     JButton setStartDateB = new JButton();
     JPanel jPanel1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     JLabel jLabel2 = new JLabel();
@@ -124,7 +126,7 @@ public class TaskDialog extends JDialog {
     
     void jbInit() throws Exception {
 	this.setResizable(false);
-	this.setSize(new Dimension(430,300));
+	this.setSize(new Dimension(430,300)); 
         border1 = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         border2 = BorderFactory.createEtchedBorder(Color.white, 
             new Color(142, 142, 142));
@@ -415,10 +417,14 @@ public class TaskDialog extends JDialog {
     	CANCELLED = false;
         this.dispose();
     }
-    //////////////////////////////////////////////////////////////////////////////
+
     void TemplateB_actionPerformed(ActionEvent e) {
     	TaskTemplateWizard ttw = new TaskTemplateWizard();
-    	//ttw.setVisible(true);
+    	ttw.setLocation(this.getLocation());
+    	ttw.setSize(getPreferredSize());
+    	ttw.setVisible(true);
+    	ttw.toFront();
+
     }
 
     void cancelB_actionPerformed(ActionEvent e) {
