@@ -167,6 +167,7 @@ public class TaskDialog extends JDialog {
         okB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 okB_actionPerformed(e);
+                
             }
         });
         

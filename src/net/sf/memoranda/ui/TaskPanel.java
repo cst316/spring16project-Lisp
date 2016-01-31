@@ -697,6 +697,7 @@ public class TaskPanel extends JPanel {
     }
 
 	void ppCompleteTask_actionPerformed(ActionEvent e) {
+	
 		String msg;
 		Vector tocomplete = new Vector();
 		for (int i = 0; i < taskTable.getSelectedRows().length; i++) {

@@ -68,9 +68,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		//******************************//
 		
 	
-		
-		
-	
 		tree.setPreferredSize(new Dimension(430, 210));
 		tree.addMouseListener(new MouseAdapter() {
 			@Override

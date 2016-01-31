@@ -70,6 +70,7 @@ public class TaskListImpl implements TaskList {
 			Element el = els.get(i);
 			elements.put(el.getAttribute("id").getValue(), el);
 			buildElements(el);
+			
 		}
 	}
 	
