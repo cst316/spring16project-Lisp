@@ -140,7 +140,7 @@ public class Template implements TaskList{
 	//    to keep track of date
 	// 2) Connect the GUI to the back end
 	// 3) Find out how id's are generated
-	// 4) Work with XML
+	// 4) Create an XML file
   	
 	
 	// TO-DO: 
