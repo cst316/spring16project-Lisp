@@ -321,6 +321,8 @@ public class TaskPanel extends JPanel {
         tasksToolBar.add(newTaskB, null);
         tasksToolBar.add(subTaskB, null);
         tasksToolBar.add(removeTaskB, null);
+        
+        //////////////////Task Panel Button///////////////////////
         taskTemplateB.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		TaskTemplateWizard ttw = new TaskTemplateWizard();
@@ -329,7 +331,6 @@ public class TaskPanel extends JPanel {
             	ttw.setVisible(true);
         	}
         });
-        
         taskTemplateB.setToolTipText("Task Templates");
         taskTemplateB.setBorderPainted(false);
         taskTemplateB.setFocusable(false);
@@ -337,7 +338,7 @@ public class TaskPanel extends JPanel {
         taskTemplateB.setPreferredSize(new Dimension(24, 24));
         taskTemplateB.setMinimumSize(new Dimension(24, 24));
         taskTemplateB.setMaximumSize(new Dimension(24, 24));
-        taskTemplateB.setIcon(new ImageIcon(TaskPanel.class.getResource("/net/sf/memoranda/ui/resources/icons/editproject.png")));
+        taskTemplateB.setIcon(new ImageIcon(TaskPanel.class.getResource("/net/sf/memoranda/ui/resources/icons/TemplateP.png")));
         
         tasksToolBar.add(taskTemplateB);
         tasksToolBar.addSeparator(new Dimension(8, 24));
@@ -404,12 +405,10 @@ public class TaskPanel extends JPanel {
                 }
             }
         });
+        
         editTaskB.setEnabled(false);
         removeTaskB.setEnabled(false);
 		completeTaskB.setEnabled(false);
-		
-		/***********Load Task Template**********************///Need to Change the Icon..
-		/**************************************************/
 		ppAddSubTask.setEnabled(false);
 		//ppSubTasks.setEnabled(false);
 		//ppParentTask.setEnabled(false);
