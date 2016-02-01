@@ -39,6 +39,7 @@ import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Util;
+import java.awt.event.ActionListener;
 
 /*$Id: TaskPanel.java,v 1.27 2007/01/17 20:49:12 killerjoe Exp $*/
 public class TaskPanel extends JPanel {
@@ -47,8 +48,7 @@ public class TaskPanel extends JPanel {
     JToolBar tasksToolBar = new JToolBar();
     JButton historyForwardB = new JButton();
     JButton newTaskB = new JButton();
-    JButton subTaskB = new JButton();
-    //JButton taskTemplateB = new JButton(); 
+    JButton subTaskB = new JButton(); 
     JButton editTaskB = new JButton();
     JButton removeTaskB = new JButton();
     JButton completeTaskB = new JButton();
@@ -67,6 +67,7 @@ public class TaskPanel extends JPanel {
 	JMenuItem ppAddSubTask = new JMenuItem();
 	JMenuItem ppCalcTask = new JMenuItem();
 	DailyItemsPanel parentPanel = null;
+	private final JButton taskTemplateB = new JButton("");
 
     public TaskPanel(DailyItemsPanel _parentPanel) {
         try {
@@ -115,24 +116,7 @@ public class TaskPanel extends JPanel {
             }
         });
         newTaskB.setBorderPainted(false);
-       
         
-       /* //Task template button stuff //------------------//
-        taskTemplateB.setIcon(
-        		new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/ppopen.png")));
-        taskTemplateB.setEnabled(true);
-        taskTemplateB.setMaximumSize(new Dimension(24, 24));
-        taskTemplateB.setMinimumSize(new Dimension(24, 24));
-        taskTemplateB.setToolTipText(Local.getString("Task Templates"));
-        taskTemplateB.setRequestFocusEnabled(false);
-        taskTemplateB.setPreferredSize(new Dimension(24, 24));
-        taskTemplateB.setFocusable(false);
-        taskTemplateB.addActionListener(new java.awt.event.ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		//_actionPerformed(e);////////////////////////
-        	}
-        });
-        */
         
         subTaskB.setIcon(
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new_sub.png")));
@@ -337,6 +321,25 @@ public class TaskPanel extends JPanel {
         tasksToolBar.add(newTaskB, null);
         tasksToolBar.add(subTaskB, null);
         tasksToolBar.add(removeTaskB, null);
+        taskTemplateB.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		TaskTemplateWizard ttw = new TaskTemplateWizard();
+            	ttw.setLocationRelativeTo(newTaskB);
+            	ttw.setSize(getPreferredSize());
+            	ttw.setVisible(true);
+        	}
+        });
+        
+        taskTemplateB.setToolTipText("Task Templates");
+        taskTemplateB.setBorderPainted(false);
+        taskTemplateB.setFocusable(false);
+        taskTemplateB.setRequestFocusEnabled(false);
+        taskTemplateB.setPreferredSize(new Dimension(24, 24));
+        taskTemplateB.setMinimumSize(new Dimension(24, 24));
+        taskTemplateB.setMaximumSize(new Dimension(24, 24));
+        taskTemplateB.setIcon(new ImageIcon(TaskPanel.class.getResource("/net/sf/memoranda/ui/resources/icons/editproject.png")));
+        
+        tasksToolBar.add(taskTemplateB);
         tasksToolBar.addSeparator(new Dimension(8, 24));
         tasksToolBar.add(editTaskB, null);
         tasksToolBar.add(completeTaskB, null);
@@ -404,6 +407,9 @@ public class TaskPanel extends JPanel {
         editTaskB.setEnabled(false);
         removeTaskB.setEnabled(false);
 		completeTaskB.setEnabled(false);
+		
+		/***********Load Task Template**********************///Need to Change the Icon..
+		/**************************************************/
 		ppAddSubTask.setEnabled(false);
 		//ppSubTasks.setEnabled(false);
 		//ppParentTask.setEnabled(false);
