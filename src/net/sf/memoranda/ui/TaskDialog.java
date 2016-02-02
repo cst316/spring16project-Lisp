@@ -420,12 +420,12 @@ public class TaskDialog extends JDialog {
     }
 
     void TemplateB_actionPerformed(ActionEvent e) {
+    	this.dispose();
     	TaskTemplateWizard ttw = new TaskTemplateWizard();
     	ttw.setLocation(this.getLocation());
     	ttw.setSize(getPreferredSize());
     	ttw.setVisible(true);
     	ttw.toFront();
-
     }
 
     void cancelB_actionPerformed(ActionEvent e) {

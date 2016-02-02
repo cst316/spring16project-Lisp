@@ -36,7 +36,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		setForeground(Color.DARK_GRAY);
 		setType(Type.UTILITY);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setAlwaysOnTop(true);
+		setAlwaysOnTop(false); //this was keeping it on top.
 		setResizable(false);
 		setTitle("Create New Template");
 		getContentPane().setLayout(null);
