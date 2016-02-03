@@ -2,6 +2,7 @@ package net.sf.memoranda;
 
 import java.util.Collection;
 import java.util.Hashtable;
+import java.util.Vector;
 
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Util;
@@ -9,6 +10,121 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
 
+public class Template{
+	
+	
+	
+	CalendarDate startD,
+				 endD;
+	
+	private String taskDescription,
+				   headTaskTitle;
+	
+	private Vector<Template> subtasks;
+	private int priority;
+	private int taskId,
+	            parentId;
+	private long effort;
+	
+	public Template(int taskId, String headTaskTitle, String taskDescription, CalendarDate startD, CalendarDate endD,
+			int priority, long effort) {
+		
+		setSubtasks(new Vector<Template>());
+		setTaskId(taskId);
+		setHeadTaskTitle(headTaskTitle);
+		setTaskDescription(taskDescription);
+		this.startD = startD;
+		this.endD = endD;
+		setPriority(priority);
+		setEffort(effort);
+		setParentId(0);
+	}
+	
+
+	//getters and setters
+	public String getTaskDescription() {
+		return taskDescription;
+	}
+
+	public void setTaskDescription(String taskDescription) {
+		this.taskDescription = taskDescription;
+	}
+
+	public String getHeadTaskTitle() {
+		return headTaskTitle;
+	}
+
+	public void setHeadTaskTitle(String headTaskTitle) {
+		this.headTaskTitle = headTaskTitle;
+	}
+
+	public Vector<Template> getSubtasks() {
+		return subtasks;
+	}
+
+	public void setSubtasks(Vector<Template> subtasks) {
+		this.subtasks = subtasks;
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
+	public long getEffort() {
+		return effort;
+	}
+
+	public void setEffort(long effort) {
+		this.effort = effort;
+	}
+	
+	//methods
+	
+	//addSubtask will set the parent id and then increment to 
+	public void addSubtasks(Template task) {
+		task.setParentId(getTaskId());
+		task.setTaskId(getTaskId()+1);
+		subtasks.addElement(task);
+	}
+	
+	public boolean removeSubtask(Template task) {
+		try {
+			subtasks.remove(subtasks.indexOf(task));
+		}
+		catch(Exception ex) {
+			System.out.println("The element does not exist.");
+		}
+		return true;
+	}
+
+
+	public int getParentId() {
+		return parentId;
+	}
+
+
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
+	}
+
+
+	public int getTaskId() {
+		return taskId;
+	}
+
+
+	public void setTaskId(int taskId) {
+		this.taskId = taskId;
+	}
+}
+
+
+
+/*
 public class Template implements TaskList{
 
 	private Project _project = null;
@@ -149,4 +265,5 @@ public class Template implements TaskList{
 	// 3) Populate user tasks by iterating over template list and then adding to task list
 	// 4) Implement Save feature
 
+*/
 
