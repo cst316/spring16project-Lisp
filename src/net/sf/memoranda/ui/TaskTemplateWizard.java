@@ -27,7 +27,7 @@ import net.sf.memoranda.Template;
 
 public class TaskTemplateWizard extends JDialog implements ActionListener{
 	
-	// RIGHT CLICK MENU
+	// RIGHT CLICK MENU 
 	private JMenuItem add;
 	private JMenuItem remove;
 	private JMenuItem rename;
