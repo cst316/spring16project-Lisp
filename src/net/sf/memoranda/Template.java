@@ -4,13 +4,15 @@ import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Util;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
 
-public class Template{
+public class Template extends DefaultMutableTreeNode {
 	
 	
 	
@@ -21,13 +23,22 @@ public class Template{
 				   headTaskTitle;
 	
 	private Vector<Template> subtasks;
-	private int priority;
+	private String priority;
 	private int taskId,
-	            parentId;
+	            parentId,
+	            progress;
 	private long effort;
 	
+	public Template(String name){
+		
+		super(name);
+		setHeadTaskTitle(name);
+		setSubtasks(new Vector<Template>());
+		
+	}
+	
 	public Template(int taskId, String headTaskTitle, String taskDescription, CalendarDate startD, CalendarDate endD,
-			int priority, long effort) {
+			String priority, long effort, int progress) {
 		
 		setSubtasks(new Vector<Template>());
 		setTaskId(taskId);
@@ -50,6 +61,15 @@ public class Template{
 		this.taskDescription = taskDescription;
 	}
 
+	
+	public int getProgress() {
+		return progress;
+	}
+
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
+	
 	public String getHeadTaskTitle() {
 		return headTaskTitle;
 	}
@@ -66,11 +86,12 @@ public class Template{
 		this.subtasks = subtasks;
 	}
 
-	public int getPriority() {
+	public String getPriority() {
 		return priority;
 	}
 
-	public void setPriority(int priority) {
+	// CHANGED TO STRING: May need a switch to convert to int
+	public void setPriority(String priority) {
 		this.priority = priority;
 	}
 
@@ -85,9 +106,10 @@ public class Template{
 	//methods
 	
 	//addSubtask will set the parent id and then increment to 
-	public void addSubtasks(Template task) {
-		task.setParentId(getTaskId());
-		task.setTaskId(getTaskId()+1);
+	public void addSubtask(Template task) {
+		// I don't know what these lines do 
+		//task.setParentId(getTaskId());
+		//task.setTaskId(getTaskId()+1);
 		subtasks.addElement(task);
 	}
 	
