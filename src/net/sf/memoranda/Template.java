@@ -14,8 +14,6 @@ import nu.xom.Elements;
 
 public class Template extends DefaultMutableTreeNode {
 	
-	
-	
 	CalendarDate startD,
 				 endD;
 	
@@ -51,7 +49,6 @@ public class Template extends DefaultMutableTreeNode {
 		setParentId(0);
 	}
 	
-
 	//getters and setters
 	public String getTaskDescription() {
 		return taskDescription;
@@ -61,7 +58,6 @@ public class Template extends DefaultMutableTreeNode {
 		this.taskDescription = taskDescription;
 	}
 
-	
 	public int getProgress() {
 		return progress;
 	}
@@ -108,6 +104,7 @@ public class Template extends DefaultMutableTreeNode {
 	//addSubtask will set the parent id and then increment to 
 	public void addSubtask(Template task) {
 		// I don't know what these lines do 
+		// they give an id to the subtask and hold the id of the parent task.
 		//task.setParentId(getTaskId());
 		//task.setTaskId(getTaskId()+1);
 		subtasks.addElement(task);
@@ -123,21 +120,17 @@ public class Template extends DefaultMutableTreeNode {
 		return true;
 	}
 
-
 	public int getParentId() {
 		return parentId;
 	}
-
 
 	public void setParentId(int parentId) {
 		this.parentId = parentId;
 	}
 
-
 	public int getTaskId() {
 		return taskId;
 	}
-
 
 	public void setTaskId(int taskId) {
 		this.taskId = taskId;
