@@ -7,6 +7,8 @@ import java.util.Vector;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import net.sf.memoranda.date.CalendarDate;
+import net.sf.memoranda.ui.TaskPanel;
+import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Util;
 import nu.xom.Document;
 import nu.xom.Element;
@@ -21,7 +23,8 @@ public class Template extends DefaultMutableTreeNode {
 				   headTaskTitle;
 	
 	private Vector<Template> subtasks;
-	private String priority;
+	private int priority; //priority had to be changed to an integer, because of how the system is set up.
+	private String taskName;
 	private int taskId,
 	            parentId,
 	            progress;
@@ -32,11 +35,11 @@ public class Template extends DefaultMutableTreeNode {
 		super(name);
 		setHeadTaskTitle(name);
 		setSubtasks(new Vector<Template>());
-		
+		setTaskName(name);
 	}
 	
 	public Template(int taskId, String headTaskTitle, String taskDescription, CalendarDate startD, CalendarDate endD,
-			String priority, long effort, int progress) {
+			int priority, long effort, int progress) {
 		
 		setSubtasks(new Vector<Template>());
 		setTaskId(taskId);
@@ -47,6 +50,7 @@ public class Template extends DefaultMutableTreeNode {
 		setPriority(priority);
 		setEffort(effort);
 		setParentId(0);
+		setTaskName(headTaskTitle);  //needs to be the name of this task not headTaskTittle.
 	}
 	
 	//getters and setters
@@ -81,13 +85,21 @@ public class Template extends DefaultMutableTreeNode {
 	public void setSubtasks(Vector<Template> subtasks) {
 		this.subtasks = subtasks;
 	}
-
-	public String getPriority() {
+    
+	public String getTaskName() {
+		return taskName;
+	}
+	
+	public void setTaskName(String name) {
+		taskName = name;
+	}
+	
+	public int getPriority() {
 		return priority;
 	}
 
 	// CHANGED TO STRING: May need a switch to convert to int
-	public void setPriority(String priority) {
+	public void setPriority(int priority) {
 		this.priority = priority;
 	}
 
@@ -134,6 +146,25 @@ public class Template extends DefaultMutableTreeNode {
 
 	public void setTaskId(int taskId) {
 		this.taskId = taskId;
+	}
+	
+	//this is the method that loads the nodes onto the list <-----STILL WORKING ----->
+	public void loadTemplate() {
+		Task addTask = CurrentProject.getTaskList().createTask(startD, endD, 
+				getTaskName(), getPriority(), getEffort(), getTaskDescription(), null);
+		Vector<Template> loadvec = getSubtasks();
+		for(int i = 0; i<loadvec.size(); i++) {
+			addTask = CurrentProject.getTaskList().createTask(
+					loadvec.get(i).startD, 
+					loadvec.get(i).endD, 
+					loadvec.get(i).getTaskName(), 
+					loadvec.get(i).getPriority(), 
+					loadvec.get(i).getEffort(), 
+					loadvec.get(i).getTaskDescription(), 
+					loadvec.get(i).getHeadTaskTitle()); 
+		}
+		CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
+		//need to update the task panel.
 	}
 }
 

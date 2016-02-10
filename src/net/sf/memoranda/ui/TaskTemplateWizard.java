@@ -257,7 +257,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				selected.setEffort(Integer.parseInt(est_effort.getText().toString()));
 				selected.setHeadTaskTitle(task_name.getText().toString());
 				selected.setUserObject(task_name.getText().toString());
-				selected.setPriority(priority.getSelectedItem().toString());
+				//selected.setPriority(priority.getSelectedItem().toString());
+				selected.setPriority((int)priority.getSelectedItem());//this needs to be an integer.
 				selected.setTaskDescription(description.getText().toString());
 				selected.setProgress(Integer.parseInt(progress.getText().toString()));
 				
@@ -310,6 +311,16 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				System.out.println((JButton)e.getSource() + "selected.");
 
 				
+			}
+		});
+		
+		//WORKING -- Load the tree from the template screen to the task list.
+		btnLoad.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DefaultTreeModel treeM = (DefaultTreeModel) tree.getModel();
+				Template root = (Template) treeM.getRoot();
+				root.loadTemplate();
 			}
 		});
 		

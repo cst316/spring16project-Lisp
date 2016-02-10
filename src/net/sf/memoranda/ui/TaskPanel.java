@@ -722,6 +722,12 @@ public class TaskPanel extends JPanel {
 		//taskTable.updateUI();
 	}
 
+	//update method for the Template.java class
+	public void updatePanel() {
+		taskTable.tableChanged();
+		parentPanel.updateIndicators();
+	}
+	
 	// toggle "show active only"
 	void toggleShowActiveOnly_actionPerformed(ActionEvent e) {
 		Context.put(
