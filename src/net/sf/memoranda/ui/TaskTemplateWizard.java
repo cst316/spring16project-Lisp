@@ -258,7 +258,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				selected.setHeadTaskTitle(task_name.getText().toString());
 				selected.setUserObject(task_name.getText().toString());
 				//selected.setPriority(priority.getSelectedItem().toString());
-				selected.setPriority((int)priority.getSelectedItem());//this needs to be an integer.
+				selected.setPriority(priority.getSelectedItem().toString());//this needs to be an integer.
 				selected.setTaskDescription(description.getText().toString());
 				selected.setProgress(Integer.parseInt(progress.getText().toString()));
 				

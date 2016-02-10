@@ -23,7 +23,7 @@ public class Template extends DefaultMutableTreeNode {
 				   headTaskTitle;
 	
 	private Vector<Template> subtasks;
-	private int priority; //priority had to be changed to an integer, because of how the system is set up.
+	public String priority; //priority had to be changed to an integer, because of how the system is set up.
 	private String taskName;
 	private int taskId,
 	            parentId,
@@ -39,7 +39,7 @@ public class Template extends DefaultMutableTreeNode {
 	}
 	
 	public Template(int taskId, String headTaskTitle, String taskDescription, CalendarDate startD, CalendarDate endD,
-			int priority, long effort, int progress) {
+			String priority, long effort, int progress) {
 		
 		setSubtasks(new Vector<Template>());
 		setTaskId(taskId);
@@ -103,11 +103,33 @@ public class Template extends DefaultMutableTreeNode {
 	}
 	
 	public int getPriority() {
-		return priority;
+		int temppriority;
+		switch (this.priority){
+		case "Low":
+			temppriority = 1;
+			break;
+		case "Lowest":
+			temppriority = 0;
+			break;
+		case "Normal":
+			temppriority = 2;
+			break;
+		case "High": 
+			temppriority = 3;
+			break;
+		case "Highest":
+			temppriority = 4;
+			break;
+		default:
+			temppriority = 0;
+			break;
+		}
+		
+		return temppriority;
 	}
 
 	// CHANGED TO STRING: May need a switch to convert to int
-	public void setPriority(int priority) {
+	public void setPriority(String priority) {
 		this.priority = priority;
 	}
 
