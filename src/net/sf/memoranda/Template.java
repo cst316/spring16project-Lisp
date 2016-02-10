@@ -58,6 +58,14 @@ public class Template extends DefaultMutableTreeNode {
 		return taskDescription;
 	}
 
+	public void setStartDate(CalendarDate date) {
+		this.startD = date;
+	}
+	
+	public void setEndDate(CalendarDate date) {
+		this.endD = date;
+	}
+	
 	public void setTaskDescription(String taskDescription) {
 		this.taskDescription = taskDescription;
 	}
