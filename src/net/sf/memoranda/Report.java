@@ -12,8 +12,12 @@ package net.sf.memoranda;
 import net.sf.memoranda.TaskList;
 import net.sf.memoranda.Task;
 import net.sf.memoranda.Project;
+import net.sf.memoranda.date.CurrentDate;
 
-//Wrapper class for the TaskListImpl to generate and export an HTML report.
+import java.util.Collection;
+import java.util.Iterator;
+
+//Wrapper class for the TaskListImpl to generate and export an HTML report of a Project and it's Tasks
 public class Report {
 	
 	private String projectTitle;
@@ -22,7 +26,7 @@ public class Report {
 	private String projectStatus;
 	private TaskList taskList;
 	
-	public Report(TaskListImpl taskList) {
+	public Report(TaskList taskList) {
 		this.projectTitle = taskList.getProject().getTitle();
 		this.projectStartDate = taskList.getProject().getStartDate().toString();
 		if(taskList.getProject().getEndDate() == null){
@@ -35,18 +39,18 @@ public class Report {
 			this.projectStatus = "Scheduled";
 		} else if (status == 1) {
 			this.projectStatus = "Active";
-		} else is (status == 2) {
+		} else if (status == 2) {
 			this.projectStatus = "Completed";
-		} else if (status = 4) {
+		} else if (status == 4) {
 			this.projectStatus = "Frozen";
 		} else {
-			this.projectSataus = "Failed";
+			this.projectStatus = "Failed";
 		}
 		
 		this.taskList = taskList; 
 	}
 		//Returns a String that contains the report in HTML
-	public String toHTML {
+	public String toHTML() {
 		//Doctype and Head
 		String HTML = "<!DOCTYPE html><html>";
 		HTML += "<head><title>Project Report</title></head>";
@@ -59,24 +63,24 @@ public class Report {
 		HTML += "<p>Status: "+projectStatus+"</p>";
 		HTML += "<br>";
 		//Iterate through tasklist and add data about each task to the HTML String
-		Task[] taskArr = taskList.getAllSubTasks(null).toArray(taskArr);
-		for (int i=0; i<taskArr.length; ++i) {
-			HTML = getAllSubTasks(HTML, taskArr[i]);
+		for (Iterator iterator = taskList.getAllSubTasks(null).iterator(); iterator.hasNext();) {
+			HTML = taskToHTML(HTML, (Task)iterator.next());    
 		}
 		//End of body and HTML
 		HTML +="</body></html>";
+		return HTML;
 	}
 	
 	private String taskToHTML (String HTML, Task task) {
 		HTML += "<p>Task: "+task.getText()+"</p>";
-		HTML += "<p>Start Date: "+task.getStartDate().toString+"</p>";
+		HTML += "<p>Start Date: "+task.getStartDate().toString()+"</p>";
 		if(task.getEndDate() == null) {
 			HTML += "<p>End Date: None</p>";
 		} else {
-			HTML += "<p>End Date: "+task.getEndDate().toString+"</p>";
+			HTML += "<p>End Date: "+task.getEndDate().toString()+"</p>";
 		}
 		
-		int status = task.getStatus();
+		int status = task.getStatus(CurrentDate.get());
 		if(status == 0){
 			HTML += "<p>Status: Scheduled</p>";
 		} else if (status == 1) {
