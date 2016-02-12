@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<templates>
+
+<template>
+    <id>1</id>
+    <name>aname</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>myProgress</progress>
+    <effort>myEffort</effort>
+    <description>this task is hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>2</id>
+    <name>aname</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>myProgress</progress>
+    <effort>myEffort</effort>
+    <description>this task is hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>3</id>
+    <name>aname</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>myProgress</progress>
+    <effort>myEffort</effort>
+    <description>this task is hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>4</id>
+    <name>aname</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>myProgress</progress>
+    <effort>myEffort</effort>
+    <description>this task is hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>4</id>
+    <name>aname</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>myProgress</progress>
+    <effort>myEffort</effort>
+    <description>this task is hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>6</id>
+    <name>aname</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>myProgress</progress>
+    <effort>myEffort</effort>
+    <description>this task is hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>7</id>
+    <name>aname</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>myProgress</progress>
+    <effort>myEffort</effort>
+    <description>this task is hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>7</id>
+    <name>testName</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>10</progress>
+    <effort>myEffort</effort>
+    <description>akjsdfjkfsdjk</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>9</id>
+    <name>aname</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>myProgress</progress>
+    <effort>myEffort</effort>
+    <description>this task is hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>10</id>
+    <name>aname</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>myProgress</progress>
+    <effort>myEffort</effort>
+    <description>this task is hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>11</id>
+    <name>aname</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>myProgress</progress>
+    <effort>myEffort</effort>
+    <description>this task is hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>12</id>
+    <name>aname</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>myProgress</progress>
+    <effort>myEffort</effort>
+    <description>this task is hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>13</id>
+    <name>aname</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>theprogress</progress>
+    <effort>myEffort</effort>
+    <description>this task cant be too hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>14</id>
+    <name>aname</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>theprogress</progress>
+    <effort>myEffort</effort>
+    <description>this task cant be too hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>15</id>
+    <name>new task</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>theprogress</progress>
+    <effort>myEffort</effort>
+    <description>this task cant be too hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>16</id>
+    <name>another Task</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>theprogress</progress>
+    <effort>myEffortttt</effort>
+    <description>this task cant be too hard</description>
+    <parent>null</parent>
+  </template>
+</templates>
