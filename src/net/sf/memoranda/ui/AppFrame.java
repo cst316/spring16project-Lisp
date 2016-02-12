@@ -11,6 +11,8 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +31,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
@@ -43,6 +46,7 @@ import net.sf.memoranda.ProjectListener;
 import net.sf.memoranda.ResourcesList;
 import net.sf.memoranda.TaskList;
 import net.sf.memoranda.date.CurrentDate;
+import net.sf.memoranda.Report;
 import net.sf.memoranda.ui.htmleditor.HTMLEditor;
 import net.sf.memoranda.util.Configuration;
 import net.sf.memoranda.util.Context;
@@ -281,6 +285,18 @@ public class AppFrame extends JFrame {
                 doExit();
             }
         });
+        //Action Listeners for the Generate and Export Reports
+        jMenuReportsGenReport.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+                doGenReport(e);
+            }
+        });
+        jMenuReportsExpReport.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+                doExpReport(e);
+            }
+        });
+        
         jMenuHelp.setText(Local.getString("Help"));
         
         jMenuHelpGuide.setText(Local.getString("Online user's guide"));
@@ -654,7 +670,31 @@ public class AppFrame extends JFrame {
         });
 
     }
-   
+    //Generate Report Action Performed
+    protected void doGenReport(ActionEvent ev) {
+    	String s = new Report(CurrentProject.getTaskList()).toString();
+    	JOptionPane.showMessageDialog(this,
+    		    s,
+    		    "Project Report",
+    		    JOptionPane.PLAIN_MESSAGE);
+    }
+    //Export Report Action Performed
+    protected void doExpReport(ActionEvent ev) {
+    	String HTML = new Report(CurrentProject.getTaskList()).toHTML();
+    	FileWriter fWriter = null;
+    	BufferedWriter writer = null;
+    	try {
+    	    fWriter = new FileWriter(System.getProperty("user.dir")+CurrentProject.get().getTitle()+"Report.html",true);
+    	    writer = new BufferedWriter(fWriter);
+    	    writer.write(HTML);
+    	    writer.newLine(); 
+    	    writer.close(); 
+    	} catch (Exception ex) {
+    	  ex.printStackTrace();
+    	}
+    	//System.out.println("DEBUG: Report Exported to HTML File");
+    }
+    
     protected void jMenuHelpBug_actionPerformed(ActionEvent e) {
         Util.runBrowser(App.BUGS_TRACKER_URL);
     }
