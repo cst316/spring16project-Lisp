@@ -31,6 +31,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
@@ -287,12 +288,12 @@ public class AppFrame extends JFrame {
         //Action Listeners for the Generate and Export Reports
         jMenuReportsGenReport.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                doGenReport();
+                doGenReport(e);
             }
         });
         jMenuReportsExpReport.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                doExpReport();
+                doExpReport(e);
             }
         });
         
@@ -670,11 +671,15 @@ public class AppFrame extends JFrame {
 
     }
     //Generate Report Action Performed
-    protected void doGenReport() {
-    	//todo
+    protected void doGenReport(ActionEvent ev) {
+    	String s = new Report(CurrentProject.getTaskList()).toString();
+    	JOptionPane.showMessageDialog(this,
+    		    s,
+    		    "Project Report",
+    		    JOptionPane.PLAIN_MESSAGE);
     }
     //Export Report Action Performed
-    protected void doExpReport() {
+    protected void doExpReport(ActionEvent ev) {
     	String HTML = new Report(CurrentProject.getTaskList()).toHTML();
     	FileWriter fWriter = null;
     	BufferedWriter writer = null;
@@ -684,8 +689,8 @@ public class AppFrame extends JFrame {
     	    writer.write(HTML);
     	    writer.newLine(); 
     	    writer.close(); 
-    	} catch (Exception e) {
-    	  e.printStackTrace();
+    	} catch (Exception ex) {
+    	  ex.printStackTrace();
     	}
     	//System.out.println("DEBUG: Report Exported to HTML File");
     }

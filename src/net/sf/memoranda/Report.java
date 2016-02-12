@@ -49,7 +49,67 @@ public class Report {
 		
 		this.taskList = taskList; 
 	}
-		//Returns a String that contains the report in HTML
+	
+	//Converts the report to a string so it can be displayed in a dialog box
+	public String toString() {
+		String s = "";
+		//Project info
+		s += projectTitle+"\n";
+		s += "Start Date: "+projectStartDate+"\n";
+		s += "End Date: "+projectEndDate+"\n";
+		s += "Status: "+projectStatus+"\n";
+		s += "\nTasks\n";
+		//Iterate through tasklist and add data about each task to the String
+		for (Iterator iterator = taskList.getAllSubTasks(null).iterator(); iterator.hasNext();) {
+			s = taskToString(s, (Task)iterator.next()); 
+			s += "\n";
+		}
+		return s;
+	}
+	
+	public String taskToString(String s, Task task) {
+		s += "Task: "+task.getText()+"\n";
+		s += "Start Date: "+task.getStartDate().toString()+"\n";
+		if(task.getEndDate() == null) {
+			s += "End Date: None\n";
+		} else {
+			s += "End Date: "+task.getEndDate().toString()+"\n";
+		}
+		
+		int status = task.getStatus(CurrentDate.get());
+		if(status == 0){
+			s += "Status: Scheduled\n";
+		} else if (status == 1) {
+			s += "Status: Active\n";
+		} else if (status == 2) {
+			s += "Status: Completed\n";
+		} else if (status == 4) {
+			s += "Status: Frozen\n";
+		} else if (status == 5) {
+			s += "Status: Failed\n";
+		}else if (status == 6) {
+			s += "Status: Locked\n";
+		}else {
+			s += "Status: Deadline\n";
+		}
+		
+		int priority = task.getPriority();
+		if(status == 0){
+			s += "Priority: Lowest\n";
+		} else if (status == 1) {
+			s += "Priority: Low\n";
+		} else if (status == 2) {
+			s += "Priority: Normal\n";
+		} else if (status == 3) {
+			s += "Priority: High\n";
+		}else {
+			s += "Priority: Highest\n";
+		}
+		s += "Progress: "+task.getProgress()+"\n";
+		return s;
+	}
+	
+	//Returns a String that contains the report in HTML
 	public String toHTML() {
 		//Doctype and Head
 		String HTML = "<!DOCTYPE html><html>";
@@ -65,6 +125,7 @@ public class Report {
 		//Iterate through tasklist and add data about each task to the HTML String
 		for (Iterator iterator = taskList.getAllSubTasks(null).iterator(); iterator.hasNext();) {
 			HTML = taskToHTML(HTML, (Task)iterator.next());    
+			HTML += "<br>";
 		}
 		//End of body and HTML
 		HTML +="</body></html>";
