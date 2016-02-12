@@ -14,7 +14,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
-
 import org.xml.sax.SAXException;
 
 import java.io.File;
@@ -124,6 +123,24 @@ public class TemplateXML {
         transformer.transform(source, result);
 	}
 	
+	// Get any element by the id
+	public String getElement(String id, String element){
+		
+		String elem = "";
+		
+		for( int i = 0; i < size(); i++ ){
+			
+			Node nNode = nodeList.item(i);
+			Element nodeElement = (Element) nNode;
+			
+			if(nodeElement.getElementsByTagName("id").item(0).getTextContent().equals(id)){
+				elem = nodeElement.getElementsByTagName(element).item(0).getTextContent();
+			}
+		}
+		
+		return elem;
+	}
+	
 	// Edit an element in the xml file
 	public void editElement(String name, String element, String newValue) throws TransformerException{
 		
@@ -140,8 +157,11 @@ public class TemplateXML {
 	}
 	
 	// Get a specific node and add them into an array list
-	public ArrayList<String> getNodes(String elementName){
+	public ArrayList<String> getElements(String elementName){
 		
+		// Start a new list
+		elementList.clear();
+				
 		for (int i = 0; i < size(); i++) {
 			
 			Node nNode = nodeList.item(i);
