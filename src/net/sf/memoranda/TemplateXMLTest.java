@@ -14,7 +14,7 @@ import org.xml.sax.SAXException;
 
 public class TemplateXMLTest {
 	
-	TemplateXML testXML;
+	/*TemplateXML testXML;
 	TemplateXML testXML1;
 	
 	@Before
@@ -123,5 +123,5 @@ public class TemplateXMLTest {
 		testXML1.editElement("1", "progress", "newprogress");
 		assertEquals("newprogress",testXML1.getElement("1", "progress"));
 		
-	}
+	}*/
 }

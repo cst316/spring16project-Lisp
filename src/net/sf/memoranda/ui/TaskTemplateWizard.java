@@ -27,6 +27,10 @@ import net.sf.memoranda.Template;
 
 public class TaskTemplateWizard extends JDialog implements ActionListener{
 	
+	//TaskPanel Operations
+	TaskTable tasktab;
+	DailyItemsPanel dipan;
+
 	// RIGHT CLICK MENU 
 	private JMenuItem add;
 	private JMenuItem remove;
@@ -126,14 +130,11 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			        progress.setText(new Integer(selected.getProgress()).toString());
 			        priority.setSelectedItem(selected.getPriority());
 			        
-
-
-			    }
-				
-
-				
+			    }	
 			}
 		});
+		
+		
 		task_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		tree.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		task_panel.add(tree);
@@ -148,6 +149,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		
+		
 		button_panel.setLayout(null);
 		button_panel.add(btnSave);
 		
@@ -155,6 +158,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		btnOk.setBounds(225, 6, 106, 23);
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("Test");
+				ok();
 			}
 		});
 		
@@ -257,17 +262,12 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				selected.setEffort(Integer.parseInt(est_effort.getText().toString()));
 				selected.setHeadTaskTitle(task_name.getText().toString());
 				selected.setUserObject(task_name.getText().toString());
-				//selected.setPriority(priority.getSelectedItem().toString());
-				selected.setPriority(priority.getSelectedItem().toString());//this needs to be an integer.
+				selected.setPriority(priority.getSelectedItem().toString());
 				selected.setTaskDescription(description.getText().toString());
 				selected.setProgress(Integer.parseInt(progress.getText().toString()));
 				
 				tree.revalidate();
-				
-				
-				
-				
-				
+							
 				
 			}
 		});
@@ -318,21 +318,31 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		btnLoad.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DefaultTreeModel treeM = (DefaultTreeModel) tree.getModel();
-				Template root = (Template) treeM.getRoot();
-				root.loadTemplate();
+				loadIn(); //test
 			}
 		});
 		
-	
-		
-
-		
-
-	
-
 
 	}
+	
+	//TaskTable Getters and Setters.
+	public TaskTable getTaskTable() {
+		return tasktab;
+	}
+
+	public void setTaskTable(TaskTable tasktable) {
+		this.tasktab = tasktable;
+	}
+	
+	//Daily Items Panel setters and getters
+	public DailyItemsPanel getDipan() {
+		return dipan;
+	}
+
+	public void setDipan(DailyItemsPanel dipan) {
+		this.dipan = dipan;
+	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -387,12 +397,30 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		
 	}
 	
+	public void loadIn() {
+		System.out.println("load in called!!!!!!!");
+		DefaultTreeModel model = (DefaultTreeModel) this.tree.getModel();
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+		if(root == null) {
+			
+		}
+		//load the tree from the template wizard to the task panel
+		Template troot = (Template) model.getRoot();
+		System.out.println(troot.getTaskName());
+		troot.setDip(dipan);
+		troot.setTt(tasktab);
+		troot.loadTemplate();
+		this.dispose();
+	}
+	
+	
 	public void ok(){
-
 		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-		dispose();
-		
+		if(root == null) {
+			
+		}
+		dispose();	
 	}
 
 	

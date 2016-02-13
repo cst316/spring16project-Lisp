@@ -329,6 +329,8 @@ public class TaskPanel extends JPanel {
             	ttw.setLocationRelativeTo(newTaskB);
             	ttw.setSize(getPreferredSize());
             	ttw.setVisible(true);
+            	ttw.setTaskTable(taskTable);
+            	ttw.setDipan(parentPanel);
         	}
         });
         taskTemplateB.setToolTipText("Task Templates");

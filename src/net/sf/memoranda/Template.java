@@ -7,7 +7,10 @@ import java.util.Vector;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import net.sf.memoranda.date.CalendarDate;
+import net.sf.memoranda.date.CurrentDate;
+import net.sf.memoranda.ui.DailyItemsPanel;
 import net.sf.memoranda.ui.TaskPanel;
+import net.sf.memoranda.ui.TaskTable;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Util;
 import nu.xom.Document;
@@ -19,11 +22,15 @@ public class Template extends DefaultMutableTreeNode {
 	CalendarDate startD,
 				 endD;
 	
+	//taskpanel items
+		TaskTable tt;
+		DailyItemsPanel dip;
+	
 	private String taskDescription,
 				   headTaskTitle;
-	
+
 	private Vector<Template> subtasks;
-	public String priority; //priority had to be changed to an integer, because of how the system is set up.
+	public int priornum;
 	private String taskName;
 	private int taskId,
 	            parentId,
@@ -36,6 +43,8 @@ public class Template extends DefaultMutableTreeNode {
 		setHeadTaskTitle(name);
 		setSubtasks(new Vector<Template>());
 		setTaskName(name);
+		
+		startD = endD = CurrentDate.get();
 	}
 	
 	public Template(int taskId, String headTaskTitle, String taskDescription, CalendarDate startD, CalendarDate endD,
@@ -54,6 +63,38 @@ public class Template extends DefaultMutableTreeNode {
 	}
 	
 	//getters and setters
+	public CalendarDate getStartD() {
+		return startD;
+	}
+
+	public void setStartD(CalendarDate startD) {
+		this.startD = startD;
+	}
+
+	public CalendarDate getEndD() {
+		return endD;
+	}
+
+	public void setEndD(CalendarDate endD) {
+		this.endD = endD;
+	}
+
+	public TaskTable getTt() {
+		return tt;
+	}
+
+	public void setTt(TaskTable tt) {
+		this.tt = tt;
+	}
+
+	public DailyItemsPanel getDip() {
+		return dip;
+	}
+
+	public void setDip(DailyItemsPanel dip) {
+		this.dip = dip;
+	}
+	
 	public String getTaskDescription() {
 		return taskDescription;
 	}
@@ -103,34 +144,33 @@ public class Template extends DefaultMutableTreeNode {
 	}
 	
 	public int getPriority() {
-		int temppriority;
-		switch (this.priority){
-		case "Low":
-			temppriority = 1;
-			break;
-		case "Lowest":
-			temppriority = 0;
-			break;
-		case "Normal":
-			temppriority = 2;
-			break;
-		case "High": 
-			temppriority = 3;
-			break;
-		case "Highest":
-			temppriority = 4;
-			break;
-		default:
-			temppriority = 0;
-			break;
-		}
-		
-		return temppriority;
+		return this.priornum;
 	}
 
 	// CHANGED TO STRING: May need a switch to convert to int
 	public void setPriority(String priority) {
-		this.priority = priority;
+		int numberpriority;
+		switch (priority){
+		case "Low":
+			numberpriority = 1;
+			break;
+		case "Lowest":
+			numberpriority = 0;
+			break;
+		case "Normal":
+			numberpriority = 2;
+			break;
+		case "High": 
+			numberpriority = 3;
+			break;
+		case "Highest":
+			numberpriority = 4;
+			break;
+		default:
+			numberpriority = 0;
+			break;
+		}
+		this.priornum = numberpriority;
 	}
 
 	public long getEffort() {
@@ -180,11 +220,16 @@ public class Template extends DefaultMutableTreeNode {
 	
 	//this is the method that loads the nodes onto the list <-----STILL WORKING ----->
 	public void loadTemplate() {
-		Task addTask = CurrentProject.getTaskList().createTask(startD, endD, 
+		TaskList tl = CurrentProject.getTaskList();
+		Task addTask = tl.createTask(startD, endD, 
 				getTaskName(), getPriority(), getEffort(), getTaskDescription(), null);
 		Vector<Template> loadvec = getSubtasks();
+		TaskTable taskt;
+		DailyItemsPanel dailyip;
+		taskt = getTt();
+		dailyip = getDip();
 		for(int i = 0; i<loadvec.size(); i++) {
-			addTask = CurrentProject.getTaskList().createTask(
+			addTask = tl.createTask(
 					loadvec.get(i).startD, 
 					loadvec.get(i).endD, 
 					loadvec.get(i).getTaskName(), 
@@ -193,7 +238,10 @@ public class Template extends DefaultMutableTreeNode {
 					loadvec.get(i).getTaskDescription(), 
 					loadvec.get(i).getHeadTaskTitle()); 
 		}
-		CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
+		//CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
+		CurrentStorage.get().storeTaskList(tl, CurrentProject.get());
+		taskt.tableChanged();
+		dailyip.updateIndicators();
 		//need to update the task panel.
 	}
 }
