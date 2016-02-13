@@ -51,8 +51,9 @@ public class Report {
 	}
 	
 	//Converts the report to a string so it can be displayed in a dialog box
-	public String toString() {
+	public String toString(String id) {
 		String s = "";
+		Task current = null;
 		//Project info
 		s += projectTitle+"\n";
 		s += "Start Date: "+projectStartDate+"\n";
@@ -61,8 +62,13 @@ public class Report {
 		s += "\nTasks\n";
 		//Iterate through tasklist and add data about each task to the String
 		for (Iterator iterator = taskList.getAllSubTasks(null).iterator(); iterator.hasNext();) {
-			s = taskToString(s, (Task)iterator.next()); 
+			//System.out.println("DEBUG: This Task has Subtasks");
+			current = (Task)iterator.next();
+			s = taskToString(s, current); 
 			s += "\n";
+			if(current.hasSubTasks(current.getID())) {
+				s += toString(current.getID());
+			}
 		}
 		return s;
 	}
@@ -110,7 +116,8 @@ public class Report {
 	}
 	
 	//Returns a String that contains the report in HTML
-	public String toHTML() {
+	public String toHTML(String id) {
+		Task current = null;
 		//Doctype and Head
 		String HTML = "<!DOCTYPE html><html>";
 		HTML += "<head><title>Project Report</title></head>";
@@ -124,8 +131,12 @@ public class Report {
 		HTML += "<br>";
 		//Iterate through tasklist and add data about each task to the HTML String
 		for (Iterator iterator = taskList.getAllSubTasks(null).iterator(); iterator.hasNext();) {
-			HTML = taskToHTML(HTML, (Task)iterator.next());    
+			current = (Task)iterator.next();
+			HTML = taskToHTML(HTML, current);    
 			HTML += "<br>";
+			if(current.hasSubTasks(current.getID())) {
+				HTML += toString(current.getID());
+			}
 		}
 		//End of body and HTML
 		HTML +="</body></html>";
