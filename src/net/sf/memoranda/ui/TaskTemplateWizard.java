@@ -156,12 +156,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		
 		JButton btnOk = new JButton("Ok");
 		btnOk.setBounds(225, 6, 106, 23);
-		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Test");
-				ok();
-			}
-		});
 		
 		JButton btnLoad = new JButton("Load");
 		btnLoad.setBounds(107, 6, 106, 23);
@@ -283,7 +277,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				System.out.println((JButton)e.getSource() + "selected.");
+				System.out.println("Reset selected.");
 				reset();
 				
 			}
@@ -295,7 +289,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				System.out.println((JButton)e.getSource() + "selected.");
+				System.out.println("Ok selected.");
 				ok();
 
 				
@@ -308,7 +302,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				System.out.println((JButton)e.getSource() + "selected.");
+				System.out.println("Save selected.");
 
 				
 			}
@@ -387,7 +381,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	
 	public void reset(){
 		
-		Template selected = (Template)tree.getSelectionPath().getLastPathComponent();
+		// Template selected = (Template)tree.getSelectionPath().getLastPathComponent();
         task_name.setText("");
         description.setText("");
         est_effort.setText("");
@@ -415,12 +409,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	
 	
 	public void ok(){
-		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-		if(root == null) {
-			
-		}
-		dispose();	
+
+		// dispose();	
 	}
 
 	

@@ -1,6 +1,6 @@
 package net.sf.memoranda;
 
-import static org.junit.Assert.*;
+// import static org.junit.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.xml.sax.SAXException;
 
 public class TemplateXMLTest {
 	
