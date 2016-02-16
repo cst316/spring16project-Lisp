@@ -290,9 +290,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			public void mouseClicked(MouseEvent e) {
 				
 				System.out.println("Ok selected.");
-				ok();
-
-				
+				//ok();
+				loadIn(); 
 			}
 		});
 		
@@ -312,7 +311,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		btnLoad.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				loadIn(); //test
+				dispose();
 			}
 		});
 		
@@ -392,7 +391,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	}
 	
 	public void loadIn() {
-		System.out.println("load in called!!!!!!!");
+		System.out.println("\nload in called!!!!!!!");
 		DefaultTreeModel model = (DefaultTreeModel) this.tree.getModel();
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 		if(root == null) {
@@ -400,7 +399,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		}
 		//load the tree from the template wizard to the task panel
 		Template troot = (Template) model.getRoot();
-		System.out.println(troot.getTaskName());
+		System.out.println("\n" + troot.getTaskName() +"\n");
+		System.out.println("\n" + troot.getChildCount() +"\n");
 		troot.setDip(dipan);
 		troot.setTt(tasktab);
 		troot.loadTemplate();
