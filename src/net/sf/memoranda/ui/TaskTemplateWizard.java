@@ -253,6 +253,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				Template root = (Template) model.getRoot();
 				
 				// Initializes Template object
+				selected.setTaskName(task_name.getText().toString());//
 				selected.setEffort(Integer.parseInt(est_effort.getText().toString()));
 				selected.setHeadTaskTitle(task_name.getText().toString());
 				selected.setUserObject(task_name.getText().toString());
@@ -351,6 +352,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 
 			Template subtask = new Template("Sub Task");
 			model.insertNodeInto(subtask, root, root.getChildCount());
+			subtask.setHeadTaskTitle(root.getTaskName());
 			root.addSubtask(subtask);
 			tree.revalidate();
 			model.reload(root);

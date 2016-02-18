@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Vector;
 
 import net.sf.memoranda.ui.AppFrame;
+import net.sf.memoranda.ui.ProjectsTablePanel;
 import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Storage;
@@ -29,7 +30,6 @@ public class CurrentProject {
     private static NoteList _notelist = null;
     private static ResourcesList _resources = null;
     private static Vector projectListeners = new Vector();
-
         
     static {
         String prjId = (String)Context.get("LAST_OPENED_PROJECT_ID");
@@ -75,6 +75,11 @@ public class CurrentProject {
     
     public static ResourcesList getResourcesList() {
             return _resources;
+    }
+    
+    //method to update the project.
+    public static void updateProject() {
+    	notifyListenersAfter();
     }
 
     public static void set(Project project) {

@@ -9,8 +9,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.ui.DailyItemsPanel;
+import net.sf.memoranda.ui.ProjectsPanel;
 import net.sf.memoranda.ui.TaskPanel;
 import net.sf.memoranda.ui.TaskTable;
+import net.sf.memoranda.ui.WorkPanel;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Util;
 import nu.xom.Document;
@@ -40,7 +42,7 @@ public class Template extends DefaultMutableTreeNode {
 	public Template(String name){
 		
 		super(name);
-		setHeadTaskTitle(name);
+		//setHeadTaskTitle(name);
 		setSubtasks(new Vector<Template>());
 		setTaskName(name);
 		
@@ -185,11 +187,8 @@ public class Template extends DefaultMutableTreeNode {
 	
 	//addSubtask will set the parent id and then increment to 
 	public void addSubtask(Template task) {
-		// I don't know what these lines do 
-		// they give an id to the subtask and hold the id of the parent task.
-		//task.setParentId(getTaskId());
-		//task.setTaskId(getTaskId()+1);
-		subtasks.addElement(task);
+		subtasks.add(task);
+		System.out.println("<<<DEBUG>>> addsubtask called.");
 	}
 	
 	public boolean removeSubtask(Template task) {
@@ -221,29 +220,35 @@ public class Template extends DefaultMutableTreeNode {
 	//this is the method that loads the nodes onto the list <-----STILL WORKING ----->
 	public void loadTemplate() {
 		TaskList tl = CurrentProject.getTaskList();
-		Task addTask = tl.createTask(startD, endD, 
+		 tl.createTask(startD, endD, 
 				getTaskName(), getPriority(), getEffort(), getTaskDescription(), null);
+		System.out.println("<<<DEBUG>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		System.out.println("task name =" + getTaskName() + " task priority= " + getPriority() 
+		+ " task effort= " +getEffort()
+		+ "task description= " +getTaskDescription());
+		System.out.println("<<<DEBUG>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		Vector<Template> loadvec = getSubtasks();
-		System.out.println("<<<DEBUG>>> vec made");
-		TaskTable taskt = getTt();
-		System.out.println("<<<DEBUG>>> task table created");
-		DailyItemsPanel dailyip = getDip();
-		System.out.println("<<<DEBUG>>> daily items panel created");
+		//System.out.println("<<<DEBUG>>> has sub task = " + loadvec.get(0).getTaskName() + " " + loadvec.get(0).getHeadTaskTitle());
 		if(loadvec.size()!=0) {
-		for(int i = 0; i<loadvec.size(); i++) {
-			addTask = tl.createTask(
-					loadvec.get(i).startD, 
-					loadvec.get(i).endD, 
-					loadvec.get(i).getTaskName(), 
-					loadvec.get(i).getPriority(), 
-					loadvec.get(i).getEffort(), 
-					loadvec.get(i).getTaskDescription(), 
-					loadvec.get(i).getHeadTaskTitle()); 
-		}}
-		//CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
+			CurrentProject.updateProject();
+			//subtasks not working cannot locate the parent in the defualt project.
+			//Collection cl = tl.getTopLevelTasks();
+			for(int i = 0; i<loadvec.size(); i++) {
+				tl.createTask(
+				loadvec.get(i).startD, 
+				loadvec.get(i).endD, 
+				loadvec.get(i).getTaskName(), 
+				loadvec.get(i).getPriority(), 
+				loadvec.get(i).getEffort(), 
+				loadvec.get(i).getTaskDescription(), 
+				loadvec.get(i).getHeadTaskTitle()); 
+				
+			}
+		}
+		//save the task list
 		CurrentStorage.get().storeTaskList(tl, CurrentProject.get());
-		System.out.println("<<<DEBUG>>> current storage set");
-		//need to update the screen.
+		//CurrentProject.save();
+		CurrentProject.updateProject();
 	}
 }
 
