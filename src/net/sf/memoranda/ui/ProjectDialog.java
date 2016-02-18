@@ -63,8 +63,8 @@ public class ProjectDialog extends JDialog {
     JPanel bottomPanel = new JPanel();
     JButton okButton = new JButton();
     JButton cancelButton = new JButton();
-    private final JLabel lblDescription = new JLabel();
-    private final JTextArea prDescriptionField = new JTextArea();
+    public JLabel lblDescription = new JLabel();
+    public JTextArea prDescriptionField = new JTextArea();
     
     public ProjectDialog(Frame frame, String title) {
         super(frame, title, true);
@@ -354,6 +354,7 @@ public class ProjectDialog extends JDialog {
             return;
         String title = dlg.prTitleField.getText();
         String description = dlg.prDescriptionField.getText();
+        System.out.println(description);
         CalendarDate startD = new CalendarDate((Date) dlg.startDate.getModel().getValue());
         CalendarDate endD = null;
         if (dlg.endDateChB.isSelected())
