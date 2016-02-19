@@ -1,15 +1,18 @@
 package net.sf.memoranda.ui;
 
 import javax.swing.*;
+
 import java.awt.GridLayout;
 import java.awt.TextArea;
 import java.awt.List;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.border.BevelBorder;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Window.Type;
@@ -18,11 +21,23 @@ import java.awt.Toolkit;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.FlowLayout;
+
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
+
 import java.awt.ComponentOrientation;
 import java.awt.Component;
+import java.io.IOException;
+
 import javax.swing.border.MatteBorder;
+
+
+
+
+
+import org.json.simple.parser.ParseException;
+
+import net.sf.memoranda.TaskJson;
 import net.sf.memoranda.Template;
 
 public class TaskTemplateWizard extends JDialog implements ActionListener{
@@ -303,8 +318,15 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			public void mouseClicked(MouseEvent e) {
 				
 				System.out.println("Save selected.");
-
 				
+				  try {
+					TaskJson json = new TaskJson("C:/workspace316/json/src/json/template.json","tasks");
+					json.editElement("3", "progress", "lordpleasework");
+				} catch (IOException | ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				 
 			}
 		});
 		
