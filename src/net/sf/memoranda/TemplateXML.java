@@ -133,8 +133,8 @@ public class TemplateXML {
 			Node nNode = nodeList.item(i);
 			Element nodeElement = (Element) nNode;
 			
-			if(nodeElement.getElementsByTagName("id").item(0).getTextContent().equals(id)){
-				elem = nodeElement.getElementsByTagName(element).item(0).getTextContent();
+			if(nodeElement.getElementsByTagName("id").item(i).getFirstChild().getNodeValue().equals(id)){
+				elem = nodeElement.getElementsByTagName(element).item(i).getFirstChild().getNodeValue();
 			}
 		}
 		
@@ -148,8 +148,8 @@ public class TemplateXML {
 			Node nNode = nodeList.item(i);
 			Element nodeElement = (Element) nNode;
 			
-			if(nodeElement.getElementsByTagName("name").item(i).getTextContent().equals(name)){
-				nodeElement.getElementsByTagName(element).item(i).setTextContent(newValue);
+			if(nodeElement.getElementsByTagName("name").item(i).getFirstChild().getNodeValue().equals(name)){
+				nodeElement.getElementsByTagName(element).item(i).getFirstChild().setNodeValue(newValue);
 				DOMSource source = new DOMSource(doc);
 		        writeToFile(source);
 			}
@@ -167,7 +167,7 @@ public class TemplateXML {
 			Node nNode = nodeList.item(i);
 			Element nodeElements = (Element) nNode;
 			
-			elementList.add(nodeElements.getElementsByTagName(elementName).item(i).getTextContent());
+			elementList.add(nodeElements.getElementsByTagName(elementName).item(i).getFirstChild().getNodeValue());
 		}
 		return elementList;
 	}
@@ -180,7 +180,7 @@ public class TemplateXML {
 		for (int i = 0; i < size(); i++){
 			Node nNode = nodeList.item(i);
 			Element nodeElement = (Element) nNode;
-			if(nodeElement.getElementsByTagName("name").item(i).getTextContent().equals(name)){
+			if(nodeElement.getElementsByTagName("name").item(i).getFirstChild().getNodeValue().equals(name)){
 				flag = false;
 			}
 		}
