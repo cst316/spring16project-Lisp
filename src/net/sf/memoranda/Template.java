@@ -33,9 +33,9 @@ public class Template extends DefaultMutableTreeNode {
 
 	private Vector<Template> subtasks;
 	public int priornum;
-	private String taskName;
+	private String taskName,
+				   parentId;
 	private int taskId,
-	            parentId,
 	            progress;
 	private long effort;
 	
@@ -60,7 +60,7 @@ public class Template extends DefaultMutableTreeNode {
 		this.endD = endD;
 		setPriority(priority);
 		setEffort(effort);
-		setParentId(0);
+		setParentId("");
 		setTaskName(headTaskTitle);  //needs to be the name of this task not headTaskTittle.
 	}
 	
@@ -201,11 +201,11 @@ public class Template extends DefaultMutableTreeNode {
 		return true;
 	}
 
-	public int getParentId() {
+	public String getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(int parentId) {
+	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
 
@@ -231,17 +231,24 @@ public class Template extends DefaultMutableTreeNode {
 		//System.out.println("<<<DEBUG>>> has sub task = " + loadvec.get(0).getTaskName() + " " + loadvec.get(0).getHeadTaskTitle());
 		if(loadvec.size()!=0) {
 			CurrentProject.updateProject();
-			//subtasks not working cannot locate the parent in the defualt project.
-			//Collection cl = tl.getTopLevelTasks();
+			/*
+			 subtasks still not working cannot locate the parent in the defualt project.
+			  
+			 Cannot find the parent task in the project, still working on debugging it, the main classes that
+			 are in effect with this are TaskListImpl, TaskList, Task, TaskImpl*/
+			
+			Collection cl = tl.getAllSubTasks("");
+			Object[] ntl = cl.toArray();
+			Task ttl = (Task)ntl[0];
 			for(int i = 0; i<loadvec.size(); i++) {
-				tl.createTask(
+				CurrentProject.getTaskList().createTask(
 				loadvec.get(i).startD, 
-				loadvec.get(i).endD, 
+				loadvec.get(i).endD,
 				loadvec.get(i).getTaskName(), 
 				loadvec.get(i).getPriority(), 
 				loadvec.get(i).getEffort(), 
 				loadvec.get(i).getTaskDescription(), 
-				loadvec.get(i).getHeadTaskTitle()); 
+				ttl.getID());
 				
 			}
 		}

@@ -345,7 +345,7 @@ public class TaskListImpl implements TaskList {
         }
         return v;
     }
-
+    
     private Collection filterActiveTasks(Collection tasks,CalendarDate date) {
         Vector v = new Vector();
         for (Iterator iter = tasks.iterator(); iter.hasNext();) {
