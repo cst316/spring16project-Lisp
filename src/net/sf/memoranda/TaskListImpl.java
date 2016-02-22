@@ -120,7 +120,7 @@ public class TaskListImpl implements TaskList {
         el.addAttribute(new Attribute("startDate", startDate.toString()));
         el.addAttribute(new Attribute("endDate", endDate != null? endDate.toString():""));
 		String id = Util.generateId();
-		
+		setParentaskID(id);
         el.addAttribute(new Attribute("id", id));
         el.addAttribute(new Attribute("progress", "0"));
         el.addAttribute(new Attribute("effort", String.valueOf(effort)));

@@ -217,29 +217,17 @@ public class Template extends DefaultMutableTreeNode {
 		this.taskId = taskId;
 	}
 	
-	//this is the method that loads the nodes onto the list <-----STILL WORKING ----->
 	public void loadTemplate() {
 		TaskList tl = CurrentProject.getTaskList();
 		 tl.createTask(startD, endD, 
 				getTaskName(), getPriority(), getEffort(), getTaskDescription(), null);
-		System.out.println("<<<DEBUG>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		System.out.println("task name =" + getTaskName() + " task priority= " + getPriority() 
-		+ " task effort= " +getEffort()
-		+ "task description= " +getTaskDescription());
-		System.out.println("<<<DEBUG>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		Vector<Template> loadvec = getSubtasks();
-		//System.out.println("<<<DEBUG>>> has sub task = " + loadvec.get(0).getTaskName() + " " + loadvec.get(0).getHeadTaskTitle());
 		if(loadvec.size()!=0) {
 			CurrentProject.updateProject();
-			/*
-			 subtasks still not working cannot locate the parent in the defualt project.
-			  
-			 Cannot find the parent task in the project, still working on debugging it, the main classes that
-			 are in effect with this are TaskListImpl, TaskList, Task, TaskImpl*/
 			
-			Collection cl = tl.getAllSubTasks("");
-			Object[] ntl = cl.toArray();
-			Task ttl = (Task)ntl[0];
+			//This is a hack on tasklistimpl in order to get the parents id.
+			String parent = CurrentProject.getTaskList().getParentaskID();
+			
 			for(int i = 0; i<loadvec.size(); i++) {
 				CurrentProject.getTaskList().createTask(
 				loadvec.get(i).startD, 
@@ -248,8 +236,7 @@ public class Template extends DefaultMutableTreeNode {
 				loadvec.get(i).getPriority(), 
 				loadvec.get(i).getEffort(), 
 				loadvec.get(i).getTaskDescription(), 
-				ttl.getID());
-				
+				parent);	
 			}
 		}
 		//save the task list
