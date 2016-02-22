@@ -219,13 +219,13 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		panel.add(start_date);
 		
 		JLabel lblEndDate = new JLabel("End Date");
-		lblEndDate.setBounds(266, 144, 70, 16);
+		lblEndDate.setBounds(241, 144, 70, 16);
 		panel.add(lblEndDate);
 		
 		end_date = new JTextField();
 		end_date.setName("");
 		end_date.setColumns(20);
-		end_date.setBounds(337, 138, 95, 28);
+		end_date.setBounds(309, 138, 95, 28);
 		panel.add(end_date);
 		
 		JLabel lblEstEff = new JLabel("Est Effort (hrs)");
@@ -239,13 +239,13 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		panel.add(est_effort);
 		
 		JLabel lblPriority = new JLabel("Priority");
-		lblPriority.setBounds(266, 172, 90, 16);
+		lblPriority.setBounds(241, 172, 90, 16);
 		panel.add(lblPriority);
 		
 		priority = new JComboBox();
 		priority.setModel(new DefaultComboBoxModel(new String[] {"Low", "Lowest", "Normal", "High", "Highest"}));
 		priority.setName("");
-		priority.setBounds(337, 166, 95, 28);
+		priority.setBounds(309, 167, 95, 28);
 		panel.add(priority);
 		
 		progress = new JTextField();
@@ -287,6 +287,17 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		JButton btnReset = new JButton("Reset");
 		btnReset.setBounds(327, 207, 105, 29);
 		panel.add(btnReset);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
+		btnNewButton.setSelectedIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
+		btnNewButton.setBounds(171, 138, 32, 28);
+		panel.add(btnNewButton);
+		
+		JButton button = new JButton("");
+		button.setIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
+		button.setBounds(400, 138, 32, 28);
+		panel.add(button);
 		
 		// RESET (WORKING)
 		btnReset.addMouseListener(new MouseAdapter() {
