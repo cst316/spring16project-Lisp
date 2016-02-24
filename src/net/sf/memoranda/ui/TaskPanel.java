@@ -326,7 +326,7 @@ public class TaskPanel extends JPanel {
         taskTemplateB.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		TaskTemplateWizard ttw = new TaskTemplateWizard();
-            	ttw.setLocationRelativeTo(newTaskB);
+            	ttw.setLocation(new Point(300,200));
             	ttw.setSize(getPreferredSize());
             	ttw.setVisible(true);
             	ttw.setTaskTable(taskTable);

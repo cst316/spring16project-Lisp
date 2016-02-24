@@ -64,9 +64,11 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	private JTextField progress;
 	
 	public TaskTemplateWizard() {
+		setMinimumSize(new Dimension(450, 520));
+		setSize(new Dimension(450, 520));
 		
 		setRootPaneCheckingEnabled(false);
-		setLocation(new Point(300, 300));
+		setLocation(new Point(300, 200));
 		setModalityType(ModalityType.TOOLKIT_MODAL);
 		setForeground(Color.DARK_GRAY);
 		setType(Type.UTILITY);
