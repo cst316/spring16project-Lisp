@@ -56,8 +56,8 @@ public class Template extends DefaultMutableTreeNode {
 		setTaskId(taskId);
 		setHeadTaskTitle(headTaskTitle);
 		setTaskDescription(taskDescription);
-		this.startD = startD;
-		this.endD = endD;
+		setStartDate(startD);
+		setEndDate(endD);
 		setPriority(priority);
 		setEffort(effort);
 		setParentId("");
@@ -219,7 +219,7 @@ public class Template extends DefaultMutableTreeNode {
 	
 	public void loadTemplate() {
 		TaskList tl = CurrentProject.getTaskList();
-		 tl.createTask(startD, endD, 
+		 tl.createTask(getStartD(), getEndD(), 
 				getTaskName(), getPriority(), getEffort(), getTaskDescription(), null);
 		Vector<Template> loadvec = getSubtasks();
 		if(loadvec.size()!=0) {
@@ -230,12 +230,12 @@ public class Template extends DefaultMutableTreeNode {
 			
 			for(int i = 0; i<loadvec.size(); i++) {
 				CurrentProject.getTaskList().createTask(
-				loadvec.get(i).startD, 
-				loadvec.get(i).endD,
+				loadvec.get(i).getStartD(), 
+				loadvec.get(i).getEndD(),
 				loadvec.get(i).getTaskName(), 
 				loadvec.get(i).getPriority(), 
 				loadvec.get(i).getEffort(), 
-				loadvec.get(i).getTaskDescription(), 
+				loadvec.get(i).getTaskDescription(),
 				parent);	
 			}
 		}

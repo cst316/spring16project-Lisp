@@ -28,6 +28,7 @@ import javax.swing.event.TreeSelectionEvent;
 import java.awt.ComponentOrientation;
 import java.awt.Component;
 import java.io.IOException;
+import java.util.Date;
 
 import javax.swing.border.MatteBorder;
 
@@ -39,6 +40,7 @@ import org.json.simple.parser.ParseException;
 
 import net.sf.memoranda.TaskJson;
 import net.sf.memoranda.Template;
+import net.sf.memoranda.date.CalendarDate;
 
 public class TaskTemplateWizard extends JDialog implements ActionListener{
 	
@@ -147,6 +149,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			        est_effort.setText(new Integer((int)selected.getEffort()).toString());
 			        progress.setText(new Integer(selected.getProgress()).toString());
 			        priority.setSelectedItem(selected.getPriority());
+			        start_date.setText(selected.getStartD().toString());
+			        end_date.setText(selected.getEndD().toString());
 			        
 			    }	
 			}
@@ -266,6 +270,11 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
+				// Temporarily sets date to current
+				CalendarDate date = new CalendarDate();
+				date = CalendarDate.today();
+				
+				
 				Template selected = (Template)tree.getSelectionPath().getLastPathComponent();
 				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 				Template root = (Template) model.getRoot();
@@ -278,6 +287,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				selected.setPriority(priority.getSelectedItem().toString());
 				selected.setTaskDescription(description.getText().toString());
 				selected.setProgress(Integer.parseInt(progress.getText().toString()));
+				selected.setStartDate(date);
+				selected.setEndDate(date);
 				
 				tree.revalidate();
 							
@@ -424,6 +435,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
         est_effort.setText("");
         progress.setText("");
         priority.setSelectedItem("Normal");
+        start_date.setText("");
+        end_date.setText("");
 		
 		
 	}
