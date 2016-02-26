@@ -84,7 +84,8 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         //return getTaskTreeCellRenderer(t, selected, hasFocus);
         return this;
     }
-
+    
+    //EFFECTS COLORS OF INDIVIDUAL ROWS -- JASON
     public Component getTableCellRendererComponent(JTable ignore, Object value, boolean selected,
             boolean hasFocus, int row, int column) {        
         Task t = (Task) table.getValueAt(row, 1);
@@ -113,6 +114,9 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         }
         // if( column_name.equals("") ){
         if (column == 0) {
+        	if(row == 0) {
+        		label.setBackground(t.getTaskColor());
+        	}
             return getPriorityIconCellRenderer(t, selected, hasFocus);
         }
         // if( column_name.equals(Local.getString("Start date")) ||
@@ -125,6 +129,9 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         if (column == 5) {
             label.setText(value.toString());
             label.setForeground(getColorForTaskStatus(t, false));
+            if(row == 0) { //this will single out a row.
+            	label.setBackground(Color.black);
+            }
             return label;
         }
         label.setText(value.toString());
@@ -161,6 +168,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         return label;
     }
 
+    //SETS THE COLOR ON THE DATES AND BEFOR NAME LABEL ON TABLE -- JASON
     // some convenience methods
     private void applySelectionStyle(boolean selected, JComponent c) {
         if (selected)

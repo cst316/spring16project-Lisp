@@ -609,17 +609,15 @@ public class TaskPanel extends JPanel {
         //taskTable.updateUI();
     }
     
-    //color setting method - NOT WORKING CORRECTLY.
-    public void colorSetter(int n){
-    	int row = this.taskTable.getSelectedRow();
-    	int column = this.taskTable.getSelectedColumn();  	
+    //color setting method - after changed have to fix the update.
+    public void colorSetter(int n){	
+    	Task t =
+           CurrentProject.getTaskList().getTask(
+           taskTable.getModel().getValueAt(
+        		   taskTable.getSelectedRow(), TaskTable.TASK_ID).toString());
     	switch(n) {
     	case 0:
-    		Rectangle rec = taskTable.getComponentAt(row, column).getBounds();
-    		getGraphics().setColor(Color.RED);
-    		getGraphics().fillRect(rec.x, rec.y, rec.width, rec.height);
-    		//.setBackground(Color.RED);
-    		taskTable.getComponentAt(row, column).repaint();
+    		t.setTaskColor(Color.RED);
     		break;
     	case 1:
     		taskTable.setSelectionBackground(Color.BLUE);

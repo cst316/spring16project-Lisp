@@ -93,7 +93,10 @@ public class TaskTable extends JTable {
     
     protected TaskTreeTableCellRenderer renderer;
 	
-	protected ExpansionHandler expansion; 
+	protected ExpansionHandler expansion;
+	//test colors
+	public Vector<Color> tableColors = new Vector<Color>();
+	public Vector<Integer> tableRowLink = new Vector<Integer>();
     
     public TaskTable() {
         super();
@@ -138,7 +141,7 @@ public class TaskTable extends JTable {
 		// Install a tableModel representing the visible rows in the tree.
 		modelAdapter = new TreeTableModelAdapter(model, tree);
 		super.setModel(modelAdapter);
-			
+		
 		// Install the tree editor renderer and editor.
 		renderer = new TaskTreeTableCellRenderer(this);
 		
@@ -202,6 +205,8 @@ public class TaskTable extends JTable {
 		updateUI();
     }
     
+    
+    
     /**
      * Overridden to message super and forward the method to the tree. Since the
      * tree is not actually in the component hieachy it will never receive this
@@ -248,7 +253,7 @@ public class TaskTable extends JTable {
     public TreeTableCellRenderer getTree() {
         return tree;
     }
-
+    
     /**
      * A TreeCellRenderer that displays a JTree.
      */
@@ -277,7 +282,6 @@ public class TaskTable extends JTable {
             TreeCellRenderer tcr = getCellRenderer();
             if (tcr instanceof DefaultTreeCellRenderer) {
                 DefaultTreeCellRenderer dtcr = ((DefaultTreeCellRenderer) tcr);
- 
 				dtcr.setBorderSelectionColor(null);
                 dtcr.setTextSelectionColor(UIManager
                         .getColor("Table.selectionForeground"));
@@ -315,7 +319,8 @@ public class TaskTable extends JTable {
             g.translate(0, -visibleRow * getRowHeight());
             super.paint(g);
         }
-
+        
+        //THIS METHOD EDITS COLOR IN THE TABLE// -- JASON
         /**
          * TreeCellRenderer method. Overridden to update the visible row.
          */
@@ -325,6 +330,7 @@ public class TaskTable extends JTable {
             if (isSelected)
                 setBackground(table.getSelectionBackground());
             else
+            	//setBackground(tablecolor);
                 setBackground(table.getBackground());
             visibleRow = row;
             return this;
