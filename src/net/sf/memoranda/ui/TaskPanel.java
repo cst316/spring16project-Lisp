@@ -181,8 +181,10 @@ public class TaskPanel extends JPanel {
         completeTaskB.setToolTipText(Local.getString("Complete task"));
         completeTaskB.setMinimumSize(new Dimension(24, 24));
         completeTaskB.setMaximumSize(new Dimension(24, 24));
-        completeTaskB.setIcon(
-            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
+        //------------------------------------------------------------------------------------------------------- GARY        
+        //completeTaskB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
+        completeTaskB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete2.png")));
+        //------------------------------------------------------------------------------------------------------- GARY
 
 		// added by rawsushi
 //		showActiveOnly.setBorderPainted(false);
