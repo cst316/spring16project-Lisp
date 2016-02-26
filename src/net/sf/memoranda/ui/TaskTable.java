@@ -95,8 +95,6 @@ public class TaskTable extends JTable {
 	
 	protected ExpansionHandler expansion;
 	//test colors
-	public Vector<Color> tableColors = new Vector<Color>();
-	public Vector<Integer> tableRowLink = new Vector<Integer>();
     
     public TaskTable() {
         super();
@@ -204,8 +202,6 @@ public class TaskTable extends JTable {
 		expansion.expand(tree);
 		updateUI();
     }
-    
-    
     
     /**
      * Overridden to message super and forward the method to the tree. Since the

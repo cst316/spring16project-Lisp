@@ -114,9 +114,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         }
         // if( column_name.equals("") ){
         if (column == 0) {
-        	if(row == 0) {
-        		label.setBackground(t.getTaskColor());
-        	}
+        	//label.setBackground(t.getTaskColor()); //this will pull color in task
             return getPriorityIconCellRenderer(t, selected, hasFocus);
         }
         // if( column_name.equals(Local.getString("Start date")) ||
@@ -129,9 +127,6 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         if (column == 5) {
             label.setText(value.toString());
             label.setForeground(getColorForTaskStatus(t, false));
-            if(row == 0) { //this will single out a row.
-            	label.setBackground(Color.black);
-            }
             return label;
         }
         label.setText(value.toString());

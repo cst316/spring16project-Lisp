@@ -617,7 +617,10 @@ public class TaskPanel extends JPanel {
         		   taskTable.getSelectedRow(), TaskTable.TASK_ID).toString());
     	switch(n) {
     	case 0:
-    		t.setTaskColor(Color.RED);
+    		taskTable.setSelectionBackground(Color.RED);
+    		//t.setTaskColor(Color.RED);
+    		//taskTable.updateTry();
+    		//need to repaint with the new tasks
     		break;
     	case 1:
     		taskTable.setSelectionBackground(Color.BLUE);
@@ -636,6 +639,7 @@ public class TaskPanel extends JPanel {
     		break;
     	}
     	
+    	//updateTableStuff();
     }
     
     public void updateTableStuff(){
