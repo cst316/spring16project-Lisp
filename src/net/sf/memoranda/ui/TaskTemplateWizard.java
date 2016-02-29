@@ -367,6 +367,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 					case 3: prior = "High";
 					break;
 					case 4: prior = "Highest";
+					break;
 					default:
 					prior = "Invalid";
 					break;	
