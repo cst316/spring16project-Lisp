@@ -36,6 +36,7 @@ import javax.swing.border.MatteBorder;
 
 
 
+
 import org.json.simple.parser.ParseException;
 
 import net.sf.memoranda.TaskJson;
@@ -344,15 +345,47 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				
 				System.out.println("Save selected.");
 				
-				  try {
-					TaskJson json = new TaskJson("C:/workspace316/json/src/json/template.json","tasks");
-					json.editElement("3", "progress", "lordpleasework");
+				String name = task_name.getText();
+				String startDate = start_date.getText();
+				String endDate = end_date.getText();
+				String effort = est_effort.getText();
+				String prog = progress.getText();
+				String desc = description.getText();
+				
+				int index = priority.getSelectedIndex();
+				String prior = "";
+			
+				System.out.println(index);
+				
+				switch (index) {
+					case 0: prior = "Low";
+					break;
+					case 1: prior = "Lowest";
+					break;
+					case 2: prior = "Normal";
+					break;
+					case 3: prior = "High";
+					break;
+					case 4: prior = "Highest";
+					break;
+					default:
+					prior = "Invalid";
+					break;	
+				}
+				
+				System.out.println(prior);
+				//System.out.println(name);
+				
+				try {
+					TaskJson json = new TaskJson("C:/workspace316/json/src/json/template1.json","tasks");
+					//json.addNode(name, startDate, endDate, effort, prog, prior, desc, "parent", children);
 				} catch (IOException | ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
-				 
+				}		 
 			}
+				 
+			
 		});
 		
 		//WORKING -- Load the tree from the template screen to the task list.
