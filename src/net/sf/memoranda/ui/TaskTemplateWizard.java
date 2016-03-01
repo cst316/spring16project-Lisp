@@ -485,8 +485,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		Template troot = (Template) model.getRoot();
 		System.out.println("\n" + troot.getTaskName() +"\n");
 		System.out.println("\n" + troot.getChildCount() +"\n");
-		troot.setDip(dipan);
-		troot.setTt(tasktab);
 		troot.loadTemplate();
 		this.dispose();
 	}

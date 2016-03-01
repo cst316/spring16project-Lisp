@@ -42,14 +42,15 @@ public class Template extends DefaultMutableTreeNode {
 	public Template(String name){
 		
 		super(name);
-		//setHeadTaskTitle(name);
 		setSubtasks(new Vector<Template>());
 		setTaskName(name);
 		
+		//this is the temporary date set
 		startD = endD = CurrentDate.get();
 	}
 	
-	public Template(int taskId, String headTaskTitle, String taskDescription, CalendarDate startD, CalendarDate endD,
+	public Template(int taskId, String headTaskTitle, String taskDescription, 
+			CalendarDate startD, CalendarDate endD,
 			String priority, long effort, int progress) {
 		
 		setSubtasks(new Vector<Template>());
@@ -80,25 +81,13 @@ public class Template extends DefaultMutableTreeNode {
 	public void setEndD(CalendarDate endD) {
 		this.endD = endD;
 	}
-
-	public TaskTable getTt() {
-		return tt;
-	}
-
-	public void setTt(TaskTable tt) {
-		this.tt = tt;
-	}
-
-	public DailyItemsPanel getDip() {
-		return dip;
-	}
-
-	public void setDip(DailyItemsPanel dip) {
-		this.dip = dip;
-	}
 	
 	public String getTaskDescription() {
 		return taskDescription;
+	}
+	
+	public void setTaskDescription(String taskDescription) {
+		this.taskDescription = taskDescription;
 	}
 
 	public void setStartDate(CalendarDate date) {
@@ -107,10 +96,6 @@ public class Template extends DefaultMutableTreeNode {
 	
 	public void setEndDate(CalendarDate date) {
 		this.endD = date;
-	}
-	
-	public void setTaskDescription(String taskDescription) {
-		this.taskDescription = taskDescription;
 	}
 
 	public int getProgress() {
@@ -188,7 +173,6 @@ public class Template extends DefaultMutableTreeNode {
 	//addSubtask will set the parent id and then increment to 
 	public void addSubtask(Template task) {
 		subtasks.add(task);
-		System.out.println("<<<DEBUG>>> addsubtask called.");
 	}
 	
 	public boolean removeSubtask(Template task) {
@@ -225,7 +209,7 @@ public class Template extends DefaultMutableTreeNode {
 		if(loadvec.size()!=0) {
 			CurrentProject.updateProject();
 			
-			//This is a hack on tasklistimpl in order to get the parents id.
+			//This is a hack on taskListImpl in order to get the parents id.
 			String parent = CurrentProject.getTaskList().getParentaskID();
 			
 			for(int i = 0; i<loadvec.size(); i++) {
