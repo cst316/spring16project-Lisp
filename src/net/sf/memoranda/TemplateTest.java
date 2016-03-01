@@ -1,4 +1,5 @@
-package net.sf.memoranda.tests;
+package net.sf.memoranda;
+
 
 import static org.junit.Assert.*;
 
@@ -12,6 +13,7 @@ import net.sf.memoranda.Template;
 import net.sf.memoranda.date.CalendarDate;
 
 public class TemplateTest {
+
 	//create two Template objects for testing
 	Template tmp;
 	Template tmp2;
