@@ -392,6 +392,22 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		btnLoad.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				/*
+				create instance of loadWizard
+				then after selected open you will parse though to these
+				
+				these below will update the wizard boxes for root
+				task_name.setText("text");
+				description.setText("text");
+				start_date.setText();//  The two dates are special cases, they 
+				end_date.setText();//    will have to be changed to CalendarDate objects in a later date.
+				est_effort.setText("text");
+				priority.setSelectedIndex(int); //see lines 361-369 for values
+				progress.setText("text"); 				
+				btnUpdate.notifyAll(); //this is my attempt to auto update.
+				
+				need to add subtask stuff like is done in the update and add methods.
+				*/
 				dispose();
 			}
 		});
@@ -407,16 +423,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	public void setTaskTable(TaskTable tasktable) {
 		this.tasktab = tasktable;
 	}
-	
-	//Daily Items Panel setters and getters
-	public DailyItemsPanel getDipan() {
-		return dipan;
-	}
-
-	public void setDipan(DailyItemsPanel dipan) {
-		this.dipan = dipan;
-	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -475,20 +481,15 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	}
 	
 	public void loadIn() {
-		System.out.println("\nload in called!!!!!!!");
 		DefaultTreeModel model = (DefaultTreeModel) this.tree.getModel();
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-		if(root == null) {
-			
+		if(root == null) {	
 		}
 		//load the tree from the template wizard to the task panel
 		Template troot = (Template) model.getRoot();
-		System.out.println("\n" + troot.getTaskName() +"\n");
-		System.out.println("\n" + troot.getChildCount() +"\n");
 		troot.loadTemplate();
 		this.dispose();
 	}
-	
 	
 	public void ok(){
 
