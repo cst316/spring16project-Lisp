@@ -63,6 +63,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	// TREE
 	private JTree tree;
 	
+	// CALENDAR
 	private JLabel lblEndDate;
     boolean ignoreStartChanged = false;
     boolean ignoreEndChanged = false;
@@ -190,8 +191,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			        est_effort.setText(new Integer((int)selected.getEffort()).toString());
 			        progress.setText(new Integer(selected.getProgress()).toString());
 			        priority.setSelectedItem(selected.getPriority());
-			        // startDate.setText(selected.getStartD().toString());
-			        // endDate.setText(selected.getEndD().toString());
+			        startDate.getModel().setValue(selected.getStartDate());
+			        endDate.getModel().setValue(selected.getEndDate());
 			        
 			    }	
 			}
@@ -330,8 +331,10 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				selected.setPriority(priority.getSelectedItem().toString());
 				selected.setTaskDescription(description.getText().toString());
 				selected.setProgress(Integer.parseInt(progress.getText().toString()));
-				selected.setStartDate((CalendarDate)startDate.getModel().getValue());
-				selected.setEndDate((CalendarDate)endDate.getModel().getValue());
+				selected.setStartDate((Date)startDate.getModel().getValue());
+				selected.setEndDate((Date)endDate.getModel().getValue());
+				selected.setCalendarStartDate(new CalendarDate((Date)startDate.getModel().getValue()));
+				selected.setCalendarEndDate(new CalendarDate((Date)endDate.getModel().getValue()));
 				
 				tree.revalidate();
 							
@@ -381,6 +384,9 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
         endDate.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
             	// it's an ugly hack so that the spinner can increase day by day
+				Template selected = (Template)tree.getSelectionPath().getLastPathComponent();
+				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+				Template root = (Template) model.getRoot();
             	SpinnerDateModel sdm = new SpinnerDateModel((Date)endDate.getModel().getValue(),null,null,Calendar.DAY_OF_WEEK);
             	endDate.setModel(sdm);
             	

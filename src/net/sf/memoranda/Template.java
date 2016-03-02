@@ -1,6 +1,7 @@
 package net.sf.memoranda;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -21,8 +22,12 @@ import nu.xom.Elements;
 
 public class Template extends DefaultMutableTreeNode {
 	
-	CalendarDate StartDate,
-				 EndDate;
+	// For loading tasks
+	CalendarDate CalendarStartDate,
+				 CalendarEndDate;
+	
+	// For TaskTemplateWizard UI
+	Date startDate, endDate;
 	
 	//taskpanel items
 		TaskTable tt;
@@ -46,19 +51,20 @@ public class Template extends DefaultMutableTreeNode {
 		setTaskName(name);
 		
 		//this is the temporary date set
-		StartDate = EndDate = CurrentDate.get();
+		CalendarStartDate = CalendarEndDate = CurrentDate.get();
+		startDate = endDate = new Date();
 	}
 	
 	public Template(int taskId, String headTaskTitle, String taskDescription, 
-			CalendarDate StartDate, CalendarDate EndDate,
+			CalendarDate CalendarStartDate, CalendarDate CalendarEndDate,
 			String priority, long effort, int progress) {
 		
 		setSubtasks(new Vector<Template>());
 		setTaskId(taskId);
 		setHeadTaskTitle(headTaskTitle);
 		setTaskDescription(taskDescription);
-		setStartDate(StartDate);
-		setEndDate(EndDate);
+		setCalendarStartDate(CalendarStartDate);
+		setCalendarEndDate(CalendarEndDate);
 		setPriority(priority);
 		setEffort(effort);
 		setParentId("");
@@ -66,12 +72,29 @@ public class Template extends DefaultMutableTreeNode {
 	}
 	
 	//getters and setters
-	public CalendarDate getStartDate() {
-		return StartDate;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public CalendarDate getEndDate() {
-		return EndDate;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+	
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	
+	public CalendarDate getCalendarStartDate() {
+		return CalendarStartDate;
+	}
+
+	public CalendarDate getCalendarEndDate() {
+		return CalendarEndDate;
 	}
 
 	public String getTaskDescription() {
@@ -82,12 +105,12 @@ public class Template extends DefaultMutableTreeNode {
 		this.taskDescription = taskDescription;
 	}
 
-	public void setStartDate(CalendarDate date) {
-		this.StartDate = date;
+	public void setCalendarStartDate(CalendarDate date) {
+		this.CalendarStartDate = date;
 	}
 	
-	public void setEndDate(CalendarDate date) {
-		this.EndDate = date;
+	public void setCalendarEndDate(CalendarDate date) {
+		this.CalendarEndDate = date;
 	}
 
 	public int getProgress() {
@@ -195,7 +218,7 @@ public class Template extends DefaultMutableTreeNode {
 	
 	public void loadTemplate() {
 		TaskList tl = CurrentProject.getTaskList();
-		 tl.createTask(getStartDate(), getEndDate(), 
+		 tl.createTask(getCalendarStartDate(), getCalendarEndDate(), 
 				getTaskName(), getPriority(), getEffort(), getTaskDescription(), null);
 		Vector<Template> loadvec = getSubtasks();
 		if(loadvec.size()!=0) {
@@ -206,8 +229,8 @@ public class Template extends DefaultMutableTreeNode {
 			
 			for(int i = 0; i<loadvec.size(); i++) {
 				CurrentProject.getTaskList().createTask(
-				loadvec.get(i).getStartDate(), 
-				loadvec.get(i).getEndDate(),
+				loadvec.get(i).getCalendarStartDate(), 
+				loadvec.get(i).getCalendarEndDate(),
 				loadvec.get(i).getTaskName(), 
 				loadvec.get(i).getPriority(), 
 				loadvec.get(i).getEffort(), 
