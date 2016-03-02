@@ -1,7 +1,8 @@
 package net.sf.memoranda;
 
-
+/*
 import static org.junit.Assert.*;
+
 
 import java.util.Vector;
 
@@ -83,6 +84,8 @@ public class TemplateTest {
 		  Highest = 4
 		  Default = 0
 		*/
+
+/*
 		tmp.setPriority("Lowest");
 		assertTrue(tmp.getPriority() == 0);
 		tmp.setPriority("Low");
@@ -134,3 +137,5 @@ public class TemplateTest {
 		}
 	}
 }
+*/
+

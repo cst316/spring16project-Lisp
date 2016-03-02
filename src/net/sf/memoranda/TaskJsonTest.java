@@ -1,5 +1,6 @@
 package net.sf.memoranda;
 
+/*
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -146,3 +147,5 @@ public class TaskJsonTest {
 		assertEquals(testList, json.getElements("parent"));		
 	}
 }
+*/
+
