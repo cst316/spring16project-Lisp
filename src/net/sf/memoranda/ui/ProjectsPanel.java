@@ -412,6 +412,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 			(frmSize.width - dlgSize.width) / 2 + loc.x,
 			(frmSize.height - dlgSize.height) / 2 + loc.y);
 		dlg.prTitleField.setText(prj.getTitle());
+		dlg.prDescriptionField.setText(prj.getDescription());
 		dlg.startDate.getModel().setValue(
 			prj.getStartDate().getCalendar().getTime());
 		if (prj.getEndDate() != null) {
