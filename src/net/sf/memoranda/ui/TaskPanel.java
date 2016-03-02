@@ -99,8 +99,10 @@ public class TaskPanel extends JPanel {
         historyForwardB.setMaximumSize(new Dimension(24, 24));
         historyForwardB.setText("");
 
-        newTaskB.setIcon(
-            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new.png")));
+        //------------------------------------------------------------------------------------------------------- GARY
+        //newTaskB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new.png")));
+        newTaskB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new2.png")));
+        //------------------------------------------------------------------------------------------------------- GARY
         newTaskB.setEnabled(true);
         newTaskB.setMaximumSize(new Dimension(24, 24));
         newTaskB.setMinimumSize(new Dimension(24, 24));
@@ -114,9 +116,10 @@ public class TaskPanel extends JPanel {
             }
         });
         newTaskB.setBorderPainted(false);
-        
-        subTaskB.setIcon(
-            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new_sub.png")));
+        //------------------------------------------------------------------------------------------------------- GARY
+        //subTaskB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new_sub.png")));
+        subTaskB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new_sub2.png")));
+        //------------------------------------------------------------------------------------------------------- GARY
         subTaskB.setEnabled(true);
         subTaskB.setMaximumSize(new Dimension(24, 24));
         subTaskB.setMinimumSize(new Dimension(24, 24));
@@ -143,9 +146,11 @@ public class TaskPanel extends JPanel {
         editTaskB.setToolTipText(Local.getString("Edit task"));
         editTaskB.setMinimumSize(new Dimension(24, 24));
         editTaskB.setMaximumSize(new Dimension(24, 24));
-//        editTaskB.setEnabled(true);
-        editTaskB.setIcon(
-            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_edit.png")));
+        //editTaskB.setEnabled(true);
+        //------------------------------------------------------------------------------------------------------- GARY
+        //editTaskB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_edit.png")));
+        editTaskB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_edit2.png")));
+        //------------------------------------------------------------------------------------------------------- GARY
 
         removeTaskB.setBorderPainted(false);
         removeTaskB.setFocusable(false);
@@ -159,8 +164,10 @@ public class TaskPanel extends JPanel {
         removeTaskB.setToolTipText(Local.getString("Remove task"));
         removeTaskB.setMinimumSize(new Dimension(24, 24));
         removeTaskB.setMaximumSize(new Dimension(24, 24));
-        removeTaskB.setIcon(
-            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_remove.png")));
+        //------------------------------------------------------------------------------------------------------- GARY
+        //removeTaskB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_remove.png")));
+        removeTaskB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_remove2.png")));
+        //------------------------------------------------------------------------------------------------------- GARY
         
         completeTaskB.setBorderPainted(false);
         completeTaskB.setFocusable(false);
@@ -174,8 +181,10 @@ public class TaskPanel extends JPanel {
         completeTaskB.setToolTipText(Local.getString("Complete task"));
         completeTaskB.setMinimumSize(new Dimension(24, 24));
         completeTaskB.setMaximumSize(new Dimension(24, 24));
-        completeTaskB.setIcon(
-            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
+        //------------------------------------------------------------------------------------------------------- GARY        
+        //completeTaskB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
+        completeTaskB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete2.png")));
+        //------------------------------------------------------------------------------------------------------- GARY
 
 		// added by rawsushi
 //		showActiveOnly.setBorderPainted(false);
@@ -241,7 +250,10 @@ public class TaskPanel extends JPanel {
             }
         });
     ppEditTask.setEnabled(false);
-    ppEditTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_edit.png")));
+    //------------------------------------------------------------------------------------------------------- GARY
+    //ppEditTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_edit.png")));
+    ppEditTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_edit2.png")));
+    //------------------------------------------------------------------------------------------------------- GARY
     taskPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));
     ppRemoveTask.setFont(new java.awt.Font("Dialog", 1, 11));
     ppRemoveTask.setText(Local.getString("Remove task"));
@@ -250,7 +262,10 @@ public class TaskPanel extends JPanel {
                 ppRemoveTask_actionPerformed(e);
             }
         });
-    ppRemoveTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_remove.png")));
+    //------------------------------------------------------------------------------------------------------- GARY
+    //ppRemoveTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_remove.png")));
+    ppRemoveTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_remove2.png")));
+    //------------------------------------------------------------------------------------------------------- GARY
     ppRemoveTask.setEnabled(false);
     ppNewTask.setFont(new java.awt.Font("Dialog", 1, 11));
     ppNewTask.setText(Local.getString("New task")+"...");
@@ -259,7 +274,10 @@ public class TaskPanel extends JPanel {
                 ppNewTask_actionPerformed(e);
             }
         });
-    ppNewTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new.png")));
+    //------------------------------------------------------------------------------------------------------- GARY
+    //ppNewTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new.png")));
+    ppNewTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new2.png")));
+    //------------------------------------------------------------------------------------------------------- GARY
 
     ppAddSubTask.setFont(new java.awt.Font("Dialog", 1, 11));
     ppAddSubTask.setText(Local.getString("Add subtask"));
@@ -268,8 +286,11 @@ public class TaskPanel extends JPanel {
                 ppAddSubTask_actionPerformed(e);
             }
         });
-    ppAddSubTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new_sub.png")));
-
+    //------------------------------------------------------------------------------------------------------- GARY
+    //ppAddSubTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new_sub.png")));
+    ppAddSubTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new_sub2.png")));
+    //------------------------------------------------------------------------------------------------------- GARY
+    
     /*
     ppSubTasks.setFont(new java.awt.Font("Dialog", 1, 11));
     ppSubTasks.setText(Local.getString("List sub tasks"));
@@ -297,7 +318,10 @@ public class TaskPanel extends JPanel {
 				ppCompleteTask_actionPerformed(e);
 			}
 		});
-	ppCompleteTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
+    //------------------------------------------------------------------------------------------------------- GARY
+	//ppCompleteTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
+	ppCompleteTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete2.png")));
+    //------------------------------------------------------------------------------------------------------- GARY
 	ppCompleteTask.setEnabled(false);
 
 	ppCalcTask.setFont(new java.awt.Font("Dialog", 1, 11));
@@ -307,7 +331,10 @@ public class TaskPanel extends JPanel {
 				ppCalcTask_actionPerformed(e);
 			}
 		});
-	ppCalcTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
+    //------------------------------------------------------------------------------------------------------- GARY
+	//ppCalcTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
+	ppCalcTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete2.png")));
+	//------------------------------------------------------------------------------------------------------- GARY
 	ppCalcTask.setEnabled(false);
 
     scrollPane.getViewport().add(taskTable, null);

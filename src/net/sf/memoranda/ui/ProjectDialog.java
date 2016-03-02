@@ -33,6 +33,11 @@ import net.sf.memoranda.ProjectManager;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
+import java.awt.ComponentOrientation;
+import javax.swing.SwingConstants;
+import javax.swing.JTextArea;
+import javax.swing.border.LineBorder;
+import javax.swing.UIManager;
 
 /*$Id: ProjectDialog.java,v 1.26 2004/10/18 19:09:10 ivanrise Exp $*/
 public class ProjectDialog extends JDialog {
@@ -44,7 +49,8 @@ public class ProjectDialog extends JDialog {
     GridBagConstraints gbc;
     JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JLabel header = new JLabel();
-    JPanel centerPanel = new JPanel(new GridBagLayout());
+    private GridBagLayout gbl_centerPanel = new GridBagLayout();
+    JPanel centerPanel = new JPanel(gbl_centerPanel);
     JLabel titleLabel = new JLabel();
     public JTextField prTitleField = new JTextField();
     JLabel sdLabel = new JLabel();
@@ -57,9 +63,13 @@ public class ProjectDialog extends JDialog {
     JPanel bottomPanel = new JPanel();
     JButton okButton = new JButton();
     JButton cancelButton = new JButton();
+    public JLabel lblDescription = new JLabel();
+    public JTextArea prDescriptionField = new JTextArea();
     
     public ProjectDialog(Frame frame, String title) {
         super(frame, title, true);
+        setResizable(false);
+        gbl_centerPanel.columnWeights = new double[]{1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
         try {
             jbInit();
             pack();
@@ -70,7 +80,6 @@ public class ProjectDialog extends JDialog {
     }
 
     void jbInit() throws Exception {
-	this.setResizable(false);
         getContentPane().setLayout(new GridBagLayout());
         topPanel.setBorder(new EmptyBorder(new Insets(0, 5, 0, 5)));
         topPanel.setBackground(Color.WHITE);        
@@ -86,7 +95,7 @@ public class ProjectDialog extends JDialog {
         titleLabel.setText(Local.getString("Title"));
         gbc = new GridBagConstraints();
         gbc.gridx = 0; gbc.gridy = 0;
-        gbc.gridwidth = 5;
+        gbc.gridwidth = 8;
         gbc.insets = new Insets(5, 10, 5, 10);
         //gbc.anchor = GridBagConstraints.WEST;
         gbc.anchor = GridBagConstraints.NORTHWEST;
@@ -94,32 +103,50 @@ public class ProjectDialog extends JDialog {
         
         //prTitleField.setPreferredSize(new Dimension(270, 20));
         gbc = new GridBagConstraints();
-        gbc.gridwidth = 5;
+        gbc.gridwidth = 8;
         gbc.gridx = 0; gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(0, 10, 5, 0);
+        gbc.insets = new Insets(0, 10, 5, 5);
         //gbc.anchor = GridBagConstraints.EAST;
         gbc.anchor = GridBagConstraints.CENTER;
         centerPanel.add(prTitleField, gbc);
+        
+        GridBagConstraints gbc_lblDescription = new GridBagConstraints();
+        gbc_lblDescription.anchor = GridBagConstraints.WEST;
+        gbc_lblDescription.gridwidth = 8;
+        gbc_lblDescription.insets = new Insets(0, 10, 5, 5);
+        gbc_lblDescription.gridx = 0;
+        gbc_lblDescription.gridy = 2;
+        lblDescription.setText("Description");
+        centerPanel.add(lblDescription, gbc_lblDescription);
+        
+        GridBagConstraints gbc_prDescriptionField = new GridBagConstraints();
+        gbc_prDescriptionField.anchor = GridBagConstraints.NORTH;
+        gbc_prDescriptionField.gridwidth = 8;
+        gbc_prDescriptionField.insets = new Insets(0, 10, 5, 5);
+        gbc_prDescriptionField.fill = GridBagConstraints.HORIZONTAL;
+        gbc_prDescriptionField.gridx = 0;
+        gbc_prDescriptionField.gridy = 3;
+        prDescriptionField.setBorder(UIManager.getBorder("TextField.border"));
+        prDescriptionField.setPreferredSize(new Dimension(4, 80));
+        centerPanel.add(prDescriptionField, gbc_prDescriptionField);
+		SimpleDateFormat sdf = new SimpleDateFormat();
+		sdf = (SimpleDateFormat)DateFormat.getDateInstance(DateFormat.SHORT);
         
         sdLabel.setText(Local.getString("Start date"));
         sdLabel.setPreferredSize(new Dimension(70, 20));
         sdLabel.setMinimumSize(new Dimension(70, 20));
         sdLabel.setMaximumSize(new Dimension(70, 20));
         gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 2;
+        gbc.gridx = 0; 
+        gbc.gridy = 4;
         gbc.insets = new Insets(5, 10, 10, 10);
         centerPanel.add(sdLabel, gbc);
-
-        startDate.setPreferredSize(new Dimension(80, 20));
-        startDate.setLocale(Local.getCurrentLocale());
-		//Added by (jcscoobyrs) on 17-Nov-2003 at 14:24:43 PM
-		//---------------------------------------------------
-		SimpleDateFormat sdf = new SimpleDateFormat();
-		sdf = (SimpleDateFormat)DateFormat.getDateInstance(DateFormat.SHORT);
-		startDate.setEditor(new JSpinner.DateEditor(startDate, 
-			sdf.toPattern()));
-		//---------------------------------------------------
+        
+                startDate.setPreferredSize(new Dimension(80, 20));
+                startDate.setLocale(Local.getCurrentLocale());
+                startDate.setEditor(new JSpinner.DateEditor(startDate, 
+                	sdf.toPattern()));
         startDate.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 if (ignoreStartChanged) return;
@@ -137,7 +164,8 @@ public class ProjectDialog extends JDialog {
             }
         });
         gbc = new GridBagConstraints();
-        gbc.gridx = 1; gbc.gridy = 2;
+        gbc.gridx = 1; 
+        gbc.gridy = 4;
         gbc.insets = new Insets(5, 0, 10, 5);
         centerPanel.add(startDate, gbc);
         
@@ -150,7 +178,8 @@ public class ProjectDialog extends JDialog {
             }
         });
         gbc = new GridBagConstraints();
-        gbc.gridx = 2; gbc.gridy = 2;
+        gbc.gridx = 2; 
+        gbc.gridy = 4;
         gbc.insets = new Insets(5, 0, 10, 25);
         gbc.anchor = GridBagConstraints.WEST;
         centerPanel.add(sdButton, gbc);
@@ -163,55 +192,11 @@ public class ProjectDialog extends JDialog {
             }
         });
         gbc = new GridBagConstraints();
-        gbc.gridx = 3; gbc.gridy = 2;
+        gbc.gridx = 5; 
+        gbc.gridy = 4;
         gbc.insets = new Insets(5, 0, 10, 5);
         gbc.anchor = GridBagConstraints.WEST;
         centerPanel.add(endDateChB, gbc);
-        
-        endDate.setEnabled(false);
-        endDate.setPreferredSize(new Dimension(80, 20));
-        endDate.setLocale(Local.getCurrentLocale());
-		//Added by (jcscoobyrs) on 17-Nov-2003 at 14:24:43 PM
-		//---------------------------------------------------
-		endDate.setEditor(new JSpinner.DateEditor(endDate, 
-			sdf.toPattern()));
-		//---------------------------------------------------
-        endDate.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                if (ignoreEndChanged) return;
-                ignoreEndChanged = true;
-                Date sd = (Date) startDate.getModel().getValue();
-                Date ed = (Date) endDate.getModel().getValue();
-                if (sd.after(ed)) {
-                    endDate.getModel().setValue(sd);
-                    ed = sd;
-                }
-                endCalFrame.cal.set(new CalendarDate(ed));
-                ignoreEndChanged = false;
-            }
-        });
-        //((JSpinner.DateEditor) endDate.getEditor()).setLocale(Local.getCurrentLocale());
-        gbc = new GridBagConstraints();
-        gbc.gridx = 4; gbc.gridy = 2;
-        gbc.insets = new Insets(5, 0, 10, 5);
-        gbc.anchor = GridBagConstraints.WEST;
-        centerPanel.add(endDate, gbc);
-        
-        edButton.setEnabled(false);
-        edButton.setMinimumSize(new Dimension(20, 20));
-        edButton.setMaximumSize(new Dimension(20, 20));
-        edButton.setPreferredSize(new Dimension(20, 20));
-        edButton.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/calendar.png")));
-        edButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                edButton_actionPerformed(e);
-            }
-        });
-        gbc = new GridBagConstraints();
-        gbc.gridx = 5; gbc.gridy = 2;
-        gbc.insets = new Insets(5, 0, 10, 10);
-        gbc.anchor = GridBagConstraints.WEST;
-        centerPanel.add(edButton, gbc);
         
         bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         okButton.setMaximumSize(new Dimension(100, 25));
@@ -245,6 +230,50 @@ public class ProjectDialog extends JDialog {
         gbc.gridx = 0; gbc.gridy = 1;
         gbc.insets = new Insets(5, 5, 5, 5);
         getContentPane().add(centerPanel, gbc);
+        
+        endDate.setEnabled(false);
+        endDate.setPreferredSize(new Dimension(80, 20));
+        endDate.setLocale(Local.getCurrentLocale());
+        endDate.setEditor(new JSpinner.DateEditor(endDate, 
+        	sdf.toPattern()));
+        endDate.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                if (ignoreEndChanged) return;
+                ignoreEndChanged = true;
+                Date sd = (Date) startDate.getModel().getValue();
+                Date ed = (Date) endDate.getModel().getValue();
+                if (sd.after(ed)) {
+                    endDate.getModel().setValue(sd);
+                    ed = sd;
+                }
+                endCalFrame.cal.set(new CalendarDate(ed));
+                ignoreEndChanged = false;
+            }
+        });
+        //((JSpinner.DateEditor) endDate.getEditor()).setLocale(Local.getCurrentLocale());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 6; 
+        gbc.gridy = 4;
+        gbc.insets = new Insets(5, 0, 10, 5);
+        gbc.anchor = GridBagConstraints.WEST;
+        centerPanel.add(endDate, gbc);
+        
+        edButton.setEnabled(false);
+        edButton.setMinimumSize(new Dimension(20, 20));
+        edButton.setMaximumSize(new Dimension(20, 20));
+        edButton.setPreferredSize(new Dimension(20, 20));
+        edButton.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/calendar.png")));
+        edButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                edButton_actionPerformed(e);
+            }
+        });
+        gbc = new GridBagConstraints();
+        gbc.gridx = 7; 
+        gbc.gridy = 4;
+        gbc.insets = new Insets(5, 0, 10, 10);
+        gbc.anchor = GridBagConstraints.WEST;
+        centerPanel.add(edButton, gbc);
         
         gbc = new GridBagConstraints();
         gbc.gridx = 0; gbc.gridy = 2;
@@ -318,11 +347,13 @@ public class ProjectDialog extends JDialog {
         if (dlg.CANCELLED)
             return;
         String title = dlg.prTitleField.getText();
+        String description = dlg.prDescriptionField.getText();
+        System.out.println(description);
         CalendarDate startD = new CalendarDate((Date) dlg.startDate.getModel().getValue());
         CalendarDate endD = null;
         if (dlg.endDateChB.isSelected())
             endD = new CalendarDate((Date) dlg.endDate.getModel().getValue());
-        Project prj = ProjectManager.createProject(title, startD, endD);
+        Project prj = ProjectManager.createProject(title, description, startD, endD);
         /*if (dlg.freezeChB.isSelected())
             prj.freeze();*/
         CurrentStorage.get().storeProjectManager();

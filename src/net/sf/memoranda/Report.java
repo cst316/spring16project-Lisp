@@ -62,7 +62,7 @@ public class Report {
 		s += "Status: "+projectStatus+"\n";
 		s += "\nTasks\n";
 		//Iterate through tasklist and add data about each task to the String
-		for (Iterator iterator = taskList.getAllSubTasks(null).iterator(); iterator.hasNext();) {
+		for (Iterator iterator = taskList.getAllSubTasks(id).iterator(); iterator.hasNext();) {
 			//System.out.println("DEBUG: This Task has Subtasks");
 			current = (Task)iterator.next();
 			s = taskToString(s, current); 
@@ -103,11 +103,11 @@ public class Report {
 		int priority = task.getPriority();
 		if(priority == 0){
 			s += "Priority: Lowest\n";
-		} else if (status == 1) {
+		} else if (priority == 1) {
 			s += "Priority: Low\n";
-		} else if (status == 2) {
+		} else if (priority == 2) {
 			s += "Priority: Normal\n";
-		} else if (status == 3) {
+		} else if (priority == 3) {
 			s += "Priority: High\n";
 		}else {
 			s += "Priority: Highest\n";
@@ -131,7 +131,7 @@ public class Report {
 		html += "<p>Status: "+projectStatus+"</p>";
 		html += "<br>";
 		//Iterate through tasklist and add data about each task to the HTML String
-		for (Iterator iterator = taskList.getAllSubTasks(null).iterator(); iterator.hasNext();) {
+		for (Iterator iterator = taskList.getAllSubTasks(id).iterator(); iterator.hasNext();) {
 			current = (Task)iterator.next();
 			html = taskToHTML(html, current);    
 			html += "<br>";
