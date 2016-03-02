@@ -226,6 +226,11 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		button_panel.add(btnOk);
 		
 		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCancel.setBounds(332, 6, 106, 23);
 		button_panel.add(btnCancel);
 		
@@ -342,6 +347,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		
 		SimpleDateFormat sdf = new SimpleDateFormat();
 		sdf = (SimpleDateFormat)DateFormat.getDateInstance(DateFormat.SHORT);
+		startDate.setEditor(new JSpinner.DateEditor(startDate, sdf.toPattern()));
 		
 		CalendarDate startDateMin = CurrentProject.get().getStartDate();
 		CalendarDate startDateMax = CurrentProject.get().getEndDate();
@@ -350,7 +356,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		
 		btnStartDate = new JButton("");
 		btnStartDate.setIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
-		btnStartDate.setSelectedIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
+		btnSelectedIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
 		btnStartDate.setBounds(171, 138, 32, 28);
         btnStartDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -370,8 +376,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
             }
         });
         
-        endDate.setEditor(new JSpinner.DateEditor(endDate, sdf.toPattern())); //Added by (jcscoobyrs) on
-		//14-Nov-2003 at 10:45:16PM
+        endDate.setEditor(new JSpinner.DateEditor(endDate, sdf.toPattern()));
         
         endDate.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
@@ -513,6 +518,11 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 
 	}
 	
+	private void btnSelectedIcon(ImageIcon imageIcon) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	//TaskTable Getters and Setters.
 	public TaskTable getTaskTable() {
 		return tasktab;
@@ -537,6 +547,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			Template subtask = new Template("Sub Task");
 			model.insertNodeInto(subtask, root, root.getChildCount());
 			subtask.setHeadTaskTitle(root.getTaskName());
+	        startDate.getModel().setValue(new Date());
+	        endDate.getModel().setValue(new Date());
 			root.addSubtask(subtask);
 			tree.revalidate();
 			model.reload(root);
