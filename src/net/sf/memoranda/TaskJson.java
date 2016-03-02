@@ -78,23 +78,36 @@ public class TaskJson {
 	}
 	
 	
-	public void addNode(String id, String name) throws IOException{
-		
-		System.out.println(data.size());
+	public void addNode(String name, String startDate, String endDate, String effort, String progress, String description, String parent, ArrayList<String> children) throws IOException{
 		
 		JSONObject newNode = new JSONObject();
 		
-		newNode.put("id", size() + 1);
+		String id = String.valueOf(size() + 1);
+		newNode.put("id", id);
 		newNode.put("name", name);
+		newNode.put("startDate", startDate);
+		newNode.put("endDate", endDate);
+		newNode.put("effort", effort);
+		newNode.put("progress", progress);
+		newNode.put("description", description);
+		newNode.put("parent", parent);
 		
-		data.add(newNode);
+		JSONArray childNodes = new JSONArray();
+		
+		for(int i = 0; i < children.size(); i++){
+			childNodes.add(i, children.get(i));
+		}
+		
+		newNode.put("children", childNodes);
 		
 		System.out.println(data.toJSONString());
+		data.add(newNode);
+		System.out.println(data.toJSONString());
+		
 		try (FileWriter file = new FileWriter(filePath)) {
 			file.write(jsonObject.toJSONString());		
 			System.out.println("Successfully Copied JSON Object to File...");
-		}
-		
+		}	
 	}
 	
 	public void deleteNode(String id) throws IOException{
@@ -104,12 +117,33 @@ public class TaskJson {
 		index = index.valueOf(id);
 		JSONObject r = (JSONObject) data.get(index);
 		data.remove(r);
+		sortId();
 		System.out.println(data.toJSONString());
 		
 		try (FileWriter file = new FileWriter(filePath)) {
 			file.write(jsonObject.toJSONString());		
 			System.out.println("Successfully Copied JSON Object to File...");
 		}
+	}
+	
+	public int getHighestId(){
+		
+		int id = 0;
+		
+		String tmp = "";
+		
+		Iterator i = data.iterator();
+		
+		while(i.hasNext()) {
+			
+			JSONObject task = (JSONObject) i.next();
+			tmp = task.get("id").toString();
+			if (Integer.valueOf(tmp) > id){
+				id = Integer.valueOf(tmp);
+			}
+		}
+		
+		return id;
 	}
 	
 	public ArrayList<String> getElements(String type){
@@ -150,9 +184,28 @@ public class TaskJson {
 		
 		System.out.println(data.toJSONString());
 	}
+	
+	public ArrayList<String> getChildren(String id){
+		ArrayList<String> ids = new ArrayList<String>();
+		
+		Iterator iter = data.iterator();
+		
+		while(iter.hasNext()){
+			
+			JSONObject task = (JSONObject) iter.next();
+			
+			if(task.get("id").equals(id)){
+				JSONArray children = (JSONArray) task.get("children");
+	
+				for(int i = 0; i < children.size(); i++){
+					ids.add(children.get(i).toString());
+				}
+			}
+		}
+		return ids;
+	}
 
 	public int size(){
 		return data.size();
 	}
 }
-
