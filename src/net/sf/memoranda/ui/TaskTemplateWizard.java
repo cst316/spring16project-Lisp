@@ -34,6 +34,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.io.File;
 
 import javax.swing.border.MatteBorder;
 
@@ -501,23 +502,12 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		btnLoad.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				/*
-				create instance of loadWizard
-				then after selected open you will parse though to these
 				
-				these below will update the wizard boxes for root
-				task_name.setText("text");
-				description.setText("text");
-				startDate.setText();//  The two dates are special cases, they 
-				endDate.setText();//    will have to be changed to CalendarDate objects in a later date.
-				est_effort.setText("text");
-				priority.setSelectedIndex(int); //see lines 361-369 for values
-				progress.setText("text"); 				
-				btnUpdate.notifyAll(); //this is my attempt to auto update.
-				
-				need to add subtask stuff like is done in the update and add methods.
-				*/
-				dispose();
+				final JFileChooser fc = new JFileChooser();
+				fc.showOpenDialog(btnLoad);
+				File file = fc.getSelectedFile();
+				System.out.println("Loading in: " + file.getName());
+
 			}
 		});
 		
