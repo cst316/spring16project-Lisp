@@ -23,11 +23,16 @@ import java.awt.Point;
 import java.awt.FlowLayout;
 
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeSelectionEvent;
 
 import java.awt.ComponentOrientation;
 import java.awt.Component;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.border.MatteBorder;
@@ -39,6 +44,7 @@ import javax.swing.border.MatteBorder;
 
 import org.json.simple.parser.ParseException;
 
+import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.TaskJson;
 import net.sf.memoranda.Template;
 import net.sf.memoranda.date.CalendarDate;
@@ -57,11 +63,18 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	// TREE
 	private JTree tree;
 	
+    boolean ignoreStartChanged = false;
+    boolean ignoreEndChanged = false;
+	private JButton btnStartDate;
+	private JButton btnEndDate;
+	private CalendarFrame startCalFrame;
+	private CalendarFrame endCalFrame;
+	
 	// INPUT BOXES
 	private JTextField task_name;
 	private JTextField description;
-	private JTextField start_date;
-	private JTextField end_date;
+	private JSpinner startDate;
+	private JSpinner endDate;
 	private JTextField est_effort;
 	private JComboBox priority;
 	private JTextField progress;
@@ -116,6 +129,31 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		
 		//******************************//
 		
+		
+		
+		// CALENDAR
+	    startCalFrame = new CalendarFrame();
+	    endCalFrame = new CalendarFrame();
+	    
+        startCalFrame.cal.addSelectionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (ignoreStartChanged)
+                    return;
+                startDate.getModel().setValue(startCalFrame.cal.get().getCalendar().getTime());
+            }
+        });
+        
+        
+        endCalFrame.cal.addSelectionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (ignoreEndChanged)
+                    return;
+                endDate.getModel().setValue(endCalFrame.cal.get().getCalendar().getTime());
+            }
+        });
+    
+		
+	    
 	
 		tree.setPreferredSize(new Dimension(430, 210));
 		tree.addMouseListener(new MouseAdapter() {
@@ -150,8 +188,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			        est_effort.setText(new Integer((int)selected.getEffort()).toString());
 			        progress.setText(new Integer(selected.getProgress()).toString());
 			        priority.setSelectedItem(selected.getPriority());
-			        start_date.setText(selected.getStartD().toString());
-			        end_date.setText(selected.getEndD().toString());
+			        // startDate.setText(selected.getStartD().toString());
+			        // endDate.setText(selected.getEndD().toString());
 			        
 			    }	
 			}
@@ -220,21 +258,21 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		lblStartDate.setBounds(6, 144, 70, 16);
 		panel.add(lblStartDate);
 		
-		start_date = new JTextField();
-		start_date.setName("");
-		start_date.setColumns(20);
-		start_date.setBounds(77, 138, 95, 28);
-		panel.add(start_date);
+		startDate = new JSpinner(new SpinnerDateModel(new Date(),null,null,Calendar.DAY_OF_WEEK));
+		startDate.setName("");
+		//startDate.setColumns(20);
+		startDate.setBounds(77, 138, 95, 28);
+		panel.add(startDate);
 		
 		JLabel lblEndDate = new JLabel("End Date");
 		lblEndDate.setBounds(241, 144, 70, 16);
 		panel.add(lblEndDate);
 		
-		end_date = new JTextField();
-		end_date.setName("");
-		end_date.setColumns(20);
-		end_date.setBounds(309, 138, 95, 28);
-		panel.add(end_date);
+		endDate = new JSpinner(new SpinnerDateModel(new Date(),null,null,Calendar.DAY_OF_WEEK));
+		endDate.setName("");
+		//endDate.setColumns(20);
+		endDate.setBounds(309, 138, 95, 28);
+		panel.add(endDate);
 		
 		JLabel lblEstEff = new JLabel("Est Effort (hrs)");
 		lblEstEff.setBounds(6, 178, 90, 16);
@@ -303,16 +341,68 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		btnReset.setBounds(327, 207, 105, 29);
 		panel.add(btnReset);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
-		btnNewButton.setSelectedIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
-		btnNewButton.setBounds(171, 138, 32, 28);
-		panel.add(btnNewButton);
+		SimpleDateFormat sdf = new SimpleDateFormat();
+		sdf = (SimpleDateFormat)DateFormat.getDateInstance(DateFormat.SHORT);
 		
-		JButton button = new JButton("");
-		button.setIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
-		button.setBounds(400, 138, 32, 28);
-		panel.add(button);
+		CalendarDate startDateMin = CurrentProject.get().getStartDate();
+		CalendarDate startDateMax = CurrentProject.get().getEndDate();
+		CalendarDate endDateMin = startDateMin;
+		CalendarDate endDateMax = startDateMax;
+		
+		btnStartDate = new JButton("");
+		btnStartDate.setIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
+		btnStartDate.setSelectedIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
+		btnStartDate.setBounds(171, 138, 32, 28);
+        btnStartDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                btnStartDate_actionPerformed(e);
+            }
+        });
+		panel.add(btnStartDate);
+		
+		btnEndDate = new JButton("");
+
+
+
+		btnEndDate.setIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
+		btnEndDate.setBounds(400, 138, 32, 28);
+        btnEndDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                btnEndDate_actionPerformed(e);
+            }
+        });
+        
+        endDate.setEditor(new JSpinner.DateEditor(endDate, sdf.toPattern())); //Added by (jcscoobyrs) on
+		//14-Nov-2003 at 10:45:16PM
+        
+        endDate.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+            	// it's an ugly hack so that the spinner can increase day by day
+            	SpinnerDateModel sdm = new SpinnerDateModel((Date)endDate.getModel().getValue(),null,null,Calendar.DAY_OF_WEEK);
+            	endDate.setModel(sdm);
+            	
+                if (ignoreEndChanged)
+                    return;
+                ignoreEndChanged = true;
+                Date sd = (Date) startDate.getModel().getValue();
+                Date ed = (Date) endDate.getModel().getValue();				
+				if (ed.before(sd)) {
+                    endDate.getModel().setValue(ed);
+                    ed = sd;
+                }
+				if ((endDateMax != null) && ed.after(endDateMax.getDate())) {
+					endDate.getModel().setValue(endDateMax.getDate());
+                    ed = endDateMax.getDate();
+				}
+                if ((endDateMin != null) && ed.before(endDateMin.getDate())) {
+                    endDate.getModel().setValue(endDateMin.getDate());
+                    ed = endDateMin.getDate();
+                }
+				endCalFrame.cal.set(new CalendarDate(ed));
+                ignoreEndChanged = false;
+            }
+        });
+		panel.add(btnEndDate);
 		
 		// RESET (WORKING)
 		btnReset.addMouseListener(new MouseAdapter() {
@@ -346,8 +436,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				System.out.println("Save selected.");
 				
 				String name = task_name.getText();
-				String startDate = start_date.getText();
-				String endDate = end_date.getText();
+				// String startDate = startDate.getText();
+				// String endDate = endDate.getText();
 				String effort = est_effort.getText();
 				String prog = progress.getText();
 				String desc = description.getText();
@@ -399,8 +489,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				these below will update the wizard boxes for root
 				task_name.setText("text");
 				description.setText("text");
-				start_date.setText();//  The two dates are special cases, they 
-				end_date.setText();//    will have to be changed to CalendarDate objects in a later date.
+				startDate.setText();//  The two dates are special cases, they 
+				endDate.setText();//    will have to be changed to CalendarDate objects in a later date.
 				est_effort.setText("text");
 				priority.setSelectedIndex(int); //see lines 361-369 for values
 				progress.setText("text"); 				
@@ -474,8 +564,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
         est_effort.setText("");
         progress.setText("");
         priority.setSelectedItem("Normal");
-        start_date.setText("");
-        end_date.setText("");
+    //    startDate.setText("");
+    //    endDate.setText("");
 		
 		
 	}
@@ -508,4 +598,20 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		Template template = root;
 		
 	}
+	
+	
+    void btnStartDate_actionPerformed(ActionEvent e) {
+        startCalFrame.setLocation(btnStartDate.getLocation());
+        startCalFrame.setSize(200, 200);
+        this.getLayeredPane().add(startCalFrame);
+        startCalFrame.show();
+
+    }
+
+    void btnEndDate_actionPerformed(ActionEvent e) {
+        endCalFrame.setLocation(btnEndDate.getLocation());
+        endCalFrame.setSize(200, 200);
+        this.getLayeredPane().add(endCalFrame);
+        endCalFrame.show();
+    }
 }

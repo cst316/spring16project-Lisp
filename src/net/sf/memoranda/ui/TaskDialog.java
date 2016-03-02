@@ -446,6 +446,7 @@ public class TaskDialog extends JDialog {
 	}
 
     void setStartDateB_actionPerformed(ActionEvent e) {
+    	System.out.println("Start Date Clicked");
         startCalFrame.setLocation(setStartDateB.getLocation());
         startCalFrame.setSize(200, 200);
         this.getLayeredPane().add(startCalFrame);
