@@ -1,6 +1,5 @@
-package net.sf.memoranda;
+package net.sf.memoranda.tests;
 
-/*
 import static org.junit.Assert.*;
 
 
@@ -41,10 +40,10 @@ public class TemplateTest {
 	public void calendarStartandEndDatesTest() {
 		CalendarDate cdt = CalendarDate.today();
 		CalendarDate cdn = CalendarDate.tomorrow();
-		tmp.setStartD(cdt);
-		tmp.setEndD(cdn);
-		assertTrue(tmp.getStartD() == cdt);
-		assertTrue(tmp.getEndD() == cdn);
+		tmp.setCalendarStartDate(cdt);
+		tmp.setCalendarEndDate(cdn);
+		assertTrue(tmp.getCalendarStartDate() == cdt);
+		assertTrue(tmp.getCalendarEndDate() == cdn);
 	}
 	
 	@Test   //task Description getters and setters
@@ -85,7 +84,7 @@ public class TemplateTest {
 		  Default = 0
 		*/
 
-/*
+
 		tmp.setPriority("Lowest");
 		assertTrue(tmp.getPriority() == 0);
 		tmp.setPriority("Low");
@@ -137,5 +136,5 @@ public class TemplateTest {
 		}
 	}
 }
-*/
+
 
