@@ -635,7 +635,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
     }
 
     void btnEndDate_actionPerformed(ActionEvent e) {
-        endCalFrame.setLocation(btnEndDate.getLocation());
+    	// Defaulted to btnStartDate's location for now
+        endCalFrame.setLocation(btnStartDate.getLocation());
         endCalFrame.setSize(200, 200);
         this.getLayeredPane().add(endCalFrame);
         endCalFrame.show();
