@@ -63,12 +63,14 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	// TREE
 	private JTree tree;
 	
+	private JLabel lblEndDate;
     boolean ignoreStartChanged = false;
     boolean ignoreEndChanged = false;
 	private JButton btnStartDate;
 	private JButton btnEndDate;
 	private CalendarFrame startCalFrame;
 	private CalendarFrame endCalFrame;
+	private JCheckBox chkEndDate;
 	
 	// INPUT BOXES
 	private JTextField task_name;
@@ -264,11 +266,13 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		startDate.setBounds(77, 138, 95, 28);
 		panel.add(startDate);
 		
-		JLabel lblEndDate = new JLabel("End Date");
+		lblEndDate = new JLabel("End Date");
+		lblEndDate.setEnabled(false);
 		lblEndDate.setBounds(241, 144, 70, 16);
 		panel.add(lblEndDate);
 		
 		endDate = new JSpinner(new SpinnerDateModel(new Date(),null,null,Calendar.DAY_OF_WEEK));
+		endDate.setEnabled(false);
 		endDate.setName("");
 		//endDate.setColumns(20);
 		endDate.setBounds(309, 138, 95, 28);
@@ -307,12 +311,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				// Temporarily sets date to current
-				CalendarDate date = new CalendarDate();
-				date = CalendarDate.today();
-				
+			public void mouseClicked(MouseEvent e) {				
 				
 				Template selected = (Template)tree.getSelectionPath().getLastPathComponent();
 				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
@@ -326,8 +325,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				selected.setPriority(priority.getSelectedItem().toString());
 				selected.setTaskDescription(description.getText().toString());
 				selected.setProgress(Integer.parseInt(progress.getText().toString()));
-				selected.setStartDate(date);
-				selected.setEndDate(date);
+				selected.setStartDate((CalendarDate)startDate.getModel().getValue());
+				selected.setEndDate((CalendarDate)endDate.getModel().getValue());
 				
 				tree.revalidate();
 							
@@ -361,8 +360,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		panel.add(btnStartDate);
 		
 		btnEndDate = new JButton("");
-
-
+		btnEndDate.setEnabled(false);
 
 		btnEndDate.setIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
 		btnEndDate.setBounds(400, 138, 32, 28);
@@ -404,6 +402,16 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
         });
 		panel.add(btnEndDate);
 		
+		chkEndDate = new JCheckBox("");
+		chkEndDate.setBounds(215, 138, 28, 29);
+		panel.add(chkEndDate);
+		
+		chkEndDate.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				chkEndDate_actionPerformed(e);
+			}
+		});
+		
 		// RESET (WORKING)
 		btnReset.addMouseListener(new MouseAdapter() {
 			@Override
@@ -436,8 +444,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				System.out.println("Save selected.");
 				
 				String name = task_name.getText();
-				// String startDate = startDate.getText();
-				// String endDate = endDate.getText();
+				Date startD = (Date)startDate.getModel().getValue();
+				Date endD = (Date)endDate.getModel().getValue();
 				String effort = est_effort.getText();
 				String prog = progress.getText();
 				String desc = description.getText();
@@ -564,8 +572,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
         est_effort.setText("");
         progress.setText("");
         priority.setSelectedItem("Normal");
-    //    startDate.setText("");
-    //    endDate.setText("");
+        startDate.getModel().setValue(new Date());
+        endDate.getModel().setValue(new Date());
 		
 		
 	}
@@ -614,4 +622,17 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
         this.getLayeredPane().add(endCalFrame);
         endCalFrame.show();
     }
+    
+	void chkEndDate_actionPerformed(ActionEvent e) {
+		endDate.setEnabled(chkEndDate.isSelected());
+		btnEndDate.setEnabled(chkEndDate.isSelected());
+		lblEndDate.setEnabled(chkEndDate.isSelected());
+		if(chkEndDate.isSelected()) {
+			Date currentEndDate = (Date) endDate.getModel().getValue();
+			Date currentStartDate = (Date) startDate.getModel().getValue();
+			if(currentEndDate.getTime() < currentStartDate.getTime()) {
+				endDate.getModel().setValue(currentStartDate);
+			}
+		}
+	}
 }
