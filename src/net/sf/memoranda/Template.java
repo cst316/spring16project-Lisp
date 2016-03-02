@@ -21,8 +21,8 @@ import nu.xom.Elements;
 
 public class Template extends DefaultMutableTreeNode {
 	
-	CalendarDate startD,
-				 endD;
+	CalendarDate StartDate,
+				 EndDate;
 	
 	//taskpanel items
 		TaskTable tt;
@@ -46,19 +46,19 @@ public class Template extends DefaultMutableTreeNode {
 		setTaskName(name);
 		
 		//this is the temporary date set
-		startD = endD = CurrentDate.get();
+		StartDate = EndDate = CurrentDate.get();
 	}
 	
 	public Template(int taskId, String headTaskTitle, String taskDescription, 
-			CalendarDate startD, CalendarDate endD,
+			CalendarDate StartDate, CalendarDate EndDate,
 			String priority, long effort, int progress) {
 		
 		setSubtasks(new Vector<Template>());
 		setTaskId(taskId);
 		setHeadTaskTitle(headTaskTitle);
 		setTaskDescription(taskDescription);
-		setStartDate(startD);
-		setEndDate(endD);
+		setStartDate(StartDate);
+		setEndDate(EndDate);
 		setPriority(priority);
 		setEffort(effort);
 		setParentId("");
@@ -66,22 +66,14 @@ public class Template extends DefaultMutableTreeNode {
 	}
 	
 	//getters and setters
-	public CalendarDate getStartD() {
-		return startD;
+	public CalendarDate getStartDate() {
+		return StartDate;
 	}
 
-	public void setStartD(CalendarDate startD) {
-		this.startD = startD;
+	public CalendarDate getEndDate() {
+		return EndDate;
 	}
 
-	public CalendarDate getEndD() {
-		return endD;
-	}
-
-	public void setEndD(CalendarDate endD) {
-		this.endD = endD;
-	}
-	
 	public String getTaskDescription() {
 		return taskDescription;
 	}
@@ -91,11 +83,11 @@ public class Template extends DefaultMutableTreeNode {
 	}
 
 	public void setStartDate(CalendarDate date) {
-		this.startD = date;
+		this.StartDate = date;
 	}
 	
 	public void setEndDate(CalendarDate date) {
-		this.endD = date;
+		this.EndDate = date;
 	}
 
 	public int getProgress() {
@@ -203,7 +195,7 @@ public class Template extends DefaultMutableTreeNode {
 	
 	public void loadTemplate() {
 		TaskList tl = CurrentProject.getTaskList();
-		 tl.createTask(getStartD(), getEndD(), 
+		 tl.createTask(getStartDate(), getEndDate(), 
 				getTaskName(), getPriority(), getEffort(), getTaskDescription(), null);
 		Vector<Template> loadvec = getSubtasks();
 		if(loadvec.size()!=0) {
@@ -214,8 +206,8 @@ public class Template extends DefaultMutableTreeNode {
 			
 			for(int i = 0; i<loadvec.size(); i++) {
 				CurrentProject.getTaskList().createTask(
-				loadvec.get(i).getStartD(), 
-				loadvec.get(i).getEndD(),
+				loadvec.get(i).getStartDate(), 
+				loadvec.get(i).getEndDate(),
 				loadvec.get(i).getTaskName(), 
 				loadvec.get(i).getPriority(), 
 				loadvec.get(i).getEffort(), 
