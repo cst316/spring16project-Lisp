@@ -32,11 +32,13 @@ import java.awt.Component;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.io.File;
 
 import javax.swing.border.MatteBorder;
+
 
 
 
@@ -485,10 +487,10 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				
 				System.out.println(prior);
 				//System.out.println(name);
-				
+				ArrayList<String> children = new ArrayList<String>();
 				try {
-					TaskJson json = new TaskJson("C:/workspace316/json/src/json/template1.json","tasks");
-					//json.addNode(name, startDate, endDate, effort, prog, prior, desc, "parent", children);
+					TaskJson json = new TaskJson("template1.json","tasks");
+					json.addNode(name, "", "", effort, prog, prior, desc, "parent", children);
 				} catch (IOException | ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

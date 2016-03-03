@@ -1,5 +1,6 @@
 package net.sf.memoranda;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -27,9 +28,11 @@ public class TaskJson {
 	public TaskJson(String filePath, String type) throws FileNotFoundException, IOException, ParseException{
 		
 		this.filePath = filePath;
+		String file = new File(filePath).getCanonicalPath();
+	      // creates the file
 		parser = new JSONParser();
 		obj = parser.parse(new FileReader(
-				"C:/workspace316/json/src/json/template1.json"));
+				file));
 		jsonObject = (JSONObject) obj;
 		data = (JSONArray) jsonObject.get("tasks");
 
@@ -78,7 +81,7 @@ public class TaskJson {
 	}
 	
 	
-	public void addNode(String name, String startDate, String endDate, String effort, String progress, String description, String parent, ArrayList<String> children) throws IOException{
+	public void addNode(String name, String startDate, String endDate, String effort, String progress, String prior, String description, String parent, ArrayList<String> children) throws IOException{
 		
 		JSONObject newNode = new JSONObject();
 		
@@ -88,6 +91,7 @@ public class TaskJson {
 		newNode.put("startDate", startDate);
 		newNode.put("endDate", endDate);
 		newNode.put("effort", effort);
+		newNode.put("priority", prior);
 		newNode.put("progress", progress);
 		newNode.put("description", description);
 		newNode.put("parent", parent);
