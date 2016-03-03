@@ -130,6 +130,7 @@ public class ProjectDialog extends JDialog {
         prDescriptionField.setBorder(UIManager.getBorder("TextField.border"));
         prDescriptionField.setPreferredSize(new Dimension(4, 80));
         centerPanel.add(prDescriptionField, gbc_prDescriptionField);
+
 		SimpleDateFormat sdf = new SimpleDateFormat();
 		sdf = (SimpleDateFormat)DateFormat.getDateInstance(DateFormat.SHORT);
         
@@ -147,6 +148,7 @@ public class ProjectDialog extends JDialog {
                 startDate.setLocale(Local.getCurrentLocale());
                 startDate.setEditor(new JSpinner.DateEditor(startDate, 
                 	sdf.toPattern()));
+
         startDate.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 if (ignoreStartChanged) return;
