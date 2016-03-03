@@ -44,7 +44,6 @@ import javax.swing.border.MatteBorder;
 
 
 
-
 import org.json.simple.parser.ParseException;
 
 import net.sf.memoranda.CurrentProject;
@@ -487,10 +486,30 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				
 				System.out.println(prior);
 				//System.out.println(name);
-				ArrayList<String> children = new ArrayList<String>();
+				
+				
+				
+				/*
+				 * 
+				System.out.println(prior);
+  				//System.out.println(name);
+ -				
+ +				ArrayList<String> children = new ArrayList<String>();
+  				try {
+ -					TaskJson json = new TaskJson("C:/workspace316/json/src/json/template1.json","tasks");
+ -					//json.addNode(name, startDate, endDate, effort, prog, prior, desc, "parent", children);
+ +					TaskJson json = new TaskJson("template1.json","tasks");
+ +					json.addNode(name, "", "", effort, prog, prior, desc, "parent", children);
+  				} catch (IOException | ParseException e1) {
+  					// TODO Auto-generated catch block
+  					e1.printStackTrace();
+				 * 
+				 * 
+				 */
+				
 				try {
-					TaskJson json = new TaskJson("template1.json","tasks");
-					json.addNode(name, "", "", effort, prog, prior, desc, "parent", children);
+					TaskJson json = new TaskJson("C:/workspace316/json/src/json/template1.json","tasks");
+					//json.addNode(name, startDate, endDate, effort, prog, prior, desc, "parent", children);
 				} catch (IOException | ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -505,10 +524,10 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				final JFileChooser fc = new JFileChooser();
-				fc.showOpenDialog(btnLoad);
-				File file = fc.getSelectedFile();
-				System.out.println("Loading in: " + file.getName());
+				JDialog loader = getLoader();
+				loader.setVisible(true);
+
+
 
 			}
 		});
@@ -646,4 +665,81 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			}
 		}
 	}
+	
+	public JDialog getLoader() {
+		
+		ArrayList<String> names = getLoaderNames();
+		JDialog loader = new JDialog(this, true);
+		loader.setTitle("Load Template");
+		loader.getContentPane().setLayout(null);
+		
+		try{
+		TaskJson tj = new TaskJson("template.json","tasks");
+		}
+		catch(Exception e){
+			System.out.println("Unable to load tasks.");
+		}
+		
+		
+		loader.setSize(new Dimension(300,200));
+		
+		JComboBox comboBox = new JComboBox();
+		
+		for (String name: names){
+			comboBox.addItem(name);
+		}
+
+
+		
+		//comboBox.addItem("hi");
+		comboBox.setBounds(34, 69, 226, 27);
+		loader.getContentPane().add(comboBox);
+		
+		JLabel lblTemplates = new JLabel("My Templates");
+		lblTemplates.setBounds(46, 50, 174, 16);
+		loader.getContentPane().add(lblTemplates);
+		
+		JButton btnOk = new JButton("Ok");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+			}
+		});
+		btnOk.setBounds(33, 93, 117, 29);
+		loader.getContentPane().add(btnOk);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loader.dispose();
+			}
+		});
+		btnCancel.setBounds(143, 93, 117, 29);
+		loader.getContentPane().add(btnCancel);
+		loader.setAlwaysOnTop(true);
+		loader.setLocationRelativeTo(this);
+		
+		return loader;
+	}
+	
+	public ArrayList<String> getLoaderNames(){
+		
+		TaskJson tj;
+		ArrayList<String> names = new ArrayList<String>();
+		try{
+		tj = new TaskJson("template1.json","tasks");
+		names = tj.getElements("name");
+		}
+		catch(Exception e){
+			System.out.println("ERROR LOADING JSON");
+		}
+
+		return names;
+
+	}
+
+	
+	
 }
