@@ -326,7 +326,22 @@ public class TaskJson {
 		}
 		return ids;
 	}
-
+	
+	public ArrayList<String> getRootIds(){
+		ArrayList<String> rootNames = new ArrayList<String>();
+		
+		Iterator i = data.iterator();
+		
+		while(i.hasNext()){
+			JSONObject task = (JSONObject) i.next();
+			
+			if(task.get("parent").equals("null")){
+				rootNames.add(task.get("id").toString());
+			}
+		}
+		
+		return rootNames;
+	}
 	public int size(){
 		return data.size();
 	}

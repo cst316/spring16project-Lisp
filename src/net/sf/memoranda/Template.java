@@ -1,5 +1,8 @@
 package net.sf.memoranda;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Hashtable;
@@ -19,9 +22,11 @@ import net.sf.memoranda.util.Util;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class Template extends DefaultMutableTreeNode {
 	
@@ -96,7 +101,7 @@ public class Template extends DefaultMutableTreeNode {
 		return startDate;
 	}
 
-	
+
 	public CalendarDate getCalendarStartDate() {
 		return CalendarStartDate;
 	}
@@ -224,6 +229,54 @@ public class Template extends DefaultMutableTreeNode {
 		this.taskId = taskId;
 	}
 	
+	public void save() throws FileNotFoundException, IOException, ParseException{
+		
+		TaskList tl = CurrentProject.getTaskList();
+		 //tl.createTask(getCalendarStartDate(), getCalendarEndDate(), 
+			//	getTaskName(), getPriority(), getEffort(), getTaskDescription(), null);
+		Vector<Template> loadvec = getSubtasks();
+		if(loadvec.size()!=0) {
+			//CurrentProject.updateProject();
+			
+			TaskJson json = new TaskJson("template1.json", "tasks");
+			
+			JSONArray template = new JSONArray();
+			
+			JSONObject root = new JSONObject();
+			
+			
+			
+			ArrayList<String> children = new ArrayList<String>();
+			for(int i = json.size(); i <= loadvec.size() + json.size(); i++){
+				children.add(String.valueOf(i));
+			}
+			
+			json.addNode(getTaskName(), "2/3/4", "2/2/3", String.valueOf(getEffort()), String.valueOf(getProgress()), String.valueOf(getPriority()), getTaskDescription(), "null", children);
+			
+			String currentSize = String.valueOf(json.size());
+			
+			System.out.println(getPriority());
+			System.out.println(getTaskName());
+			//This is a hack on taskListImpl in order to get the parents id.
+			String parent = CurrentProject.getTaskList().getParentaskID();
+			
+			ArrayList<String> childNode = new ArrayList<String>();
+			for(int i = 0; i<loadvec.size(); i++) {
+				json.addNode(loadvec.get(i).getTaskName(), "2/2/3", "3/4/3", String.valueOf(loadvec.get(i).getEffort()), 
+						"null", String.valueOf(loadvec.get(i).getPriority()), loadvec.get(i).getTaskDescription(), currentSize, childNode);
+				System.out.println(loadvec.get(i).getTaskName());
+				CurrentProject.getTaskList().createTask(
+				loadvec.get(i).getCalendarStartDate(), 
+				loadvec.get(i).getCalendarEndDate(),
+				loadvec.get(i).getTaskName(), 
+				loadvec.get(i).getPriority(), 
+				loadvec.get(i).getEffort(), 
+				loadvec.get(i).getTaskDescription(),
+				parent);	
+			}
+		}
+		
+	}
 	public void loadTemplate() {
 		TaskList tl = CurrentProject.getTaskList();
 		 tl.createTask(getCalendarStartDate(), getCalendarEndDate(), 

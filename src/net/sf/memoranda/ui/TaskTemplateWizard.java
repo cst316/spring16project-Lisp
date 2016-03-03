@@ -29,6 +29,7 @@ import javax.swing.event.TreeSelectionEvent;
 
 import java.awt.ComponentOrientation;
 import java.awt.Component;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -38,6 +39,7 @@ import java.util.Date;
 import java.io.File;
 
 import javax.swing.border.MatteBorder;
+
 
 
 
@@ -483,37 +485,14 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 					prior = "Invalid";
 					break;	
 				}
-				
-				System.out.println(prior);
-				//System.out.println(name);
-				
-				
-				
-				/*
-				 * 
-				System.out.println(prior);
-  				//System.out.println(name);
- -				
- +				ArrayList<String> children = new ArrayList<String>();
-  				try {
- -					TaskJson json = new TaskJson("C:/workspace316/json/src/json/template1.json","tasks");
- -					//json.addNode(name, startDate, endDate, effort, prog, prior, desc, "parent", children);
- +					TaskJson json = new TaskJson("template1.json","tasks");
- +					json.addNode(name, "", "", effort, prog, prior, desc, "parent", children);
-  				} catch (IOException | ParseException e1) {
-  					// TODO Auto-generated catch block
-  					e1.printStackTrace();
-				 * 
-				 * 
-				 */
-				
+		
 				try {
-					TaskJson json = new TaskJson("C:/workspace316/json/src/json/template1.json","tasks");
-					//json.addNode(name, startDate, endDate, effort, prog, prior, desc, "parent", children);
+					saving();
 				} catch (IOException | ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}		 
+				}
+				
 			}
 				 
 			
@@ -618,6 +597,15 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		this.dispose();
 	}
 	
+	public void saving() throws FileNotFoundException, IOException, ParseException{
+		
+		DefaultTreeModel model = (DefaultTreeModel) this.tree.getModel();
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+		Template troot= (Template) model.getRoot();
+		troot.save();
+		this.dispose();
+	}
+	
 	public void ok(){
 
 		// dispose();	
@@ -668,13 +656,17 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	
 	public JDialog getLoader() {
 		
-		ArrayList<String> names = getLoaderNames();
+		ArrayList<String> ids = getLoaderNames();
 		JDialog loader = new JDialog(this, true);
 		loader.setTitle("Load Template");
 		loader.getContentPane().setLayout(null);
 		
+		ArrayList<String> names = new ArrayList<String>();
 		try{
-		TaskJson tj = new TaskJson("template.json","tasks");
+			TaskJson tj = new TaskJson("template1.json","tasks");
+			for(int i = 0; i < ids.size(); i++){
+				names.add(tj.getElement(ids.get(i), "name"));
+			}
 		}
 		catch(Exception e){
 			System.out.println("Unable to load tasks.");
@@ -685,8 +677,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		
 		JComboBox comboBox = new JComboBox();
 		
-		for (String name: names){
-			comboBox.addItem(name);
+		for(int i = 0; i < names.size(); i++){
+		    comboBox.addItem(names.get(i));
 		}
 
 
@@ -705,7 +697,14 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				
 				// Gets current selected name in ComboBox
 				String current = comboBox.getSelectedItem().toString();
-				populateTreeFromLoad(current);
+				String id = String.valueOf(ids.get(comboBox.getSelectedIndex()));
+				try {
+					populateTreeFromLoad(id);
+				} catch (IOException | ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				loader.dispose();
 				
 				
@@ -735,7 +734,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		ArrayList<String> names = new ArrayList<String>();
 		try{
 		tj = new TaskJson("template1.json","tasks");
-		names = tj.getElements("name");
+		names = tj.getRootIds();
 		}
 		catch(Exception e){
 			System.out.println("ERROR LOADING JSON");
@@ -746,9 +745,11 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	}
 	
 	// This is going to take in a JSONArray or an array of something, not a name
-	public void populateTreeFromLoad(String name){
+	public void populateTreeFromLoad(String id) throws FileNotFoundException, IOException, ParseException{
 	
+		TaskJson json = new TaskJson("template1.json", "tasks");
 		
+		String name = json.getElement(id, "name");
 		// Sets root template with the name
 		tree.setModel(new DefaultTreeModel(
 				new Template(name) {
