@@ -54,6 +54,124 @@ public class TaskJson {
 		return element;
 	}
 	
+	public JSONArray getTemplates(){
+		
+		JSONArray templates = new JSONArray();
+		
+		Iterator i = data.iterator();
+		int count = 1;
+		while(i.hasNext()) {
+			
+			JSONObject task = (JSONObject) i.next();
+			
+			if(task.get("parent").equals("null")){
+				templates.add(getTemplate(String.valueOf(count)));
+			}
+			
+			count++;
+		}
+		
+		System.out.println();
+		return templates;
+	}
+	
+	public JSONArray getTemplate(String id){
+		
+		JSONArray template = new JSONArray();
+		
+		if(getChildren(id).isEmpty()) {
+			
+			Iterator i = data.iterator();
+			
+			while(i.hasNext()) {
+				
+				JSONObject task = (JSONObject) i.next();
+				
+				if(task.get("id").equals(id)){
+					JSONObject root = new JSONObject();
+					root.put("id", task.get("id"));
+					root.put("name", task.get("name"));
+					root.put("startDate", task.get("startDate"));
+					root.put("endDate", task.get("endDate"));
+					root.put("description", task.get("description"));
+					root.put("effort", task.get("effort"));
+					root.put("progress", task.get("progress"));
+					root.put("priority", task.get("priority"));
+					
+					JSONArray children = (JSONArray) task.get("children");
+					root.put(children, "children");
+					
+					template.add(root);
+				}
+			}
+			
+		} else {
+			
+			Iterator i = data.iterator();
+			
+			while(i.hasNext()) {
+				
+				JSONObject task = (JSONObject) i.next();
+				
+				if(task.get("id").equals(id)){
+					JSONObject root = new JSONObject();
+					
+					root.put("id", task.get("id"));
+					root.put("name", task.get("name"));
+					root.put("startDate", task.get("startDate"));
+					root.put("endDate", task.get("endDate"));
+					root.put("description", task.get("description"));
+					root.put("effort", task.get("effort"));
+					root.put("progress", task.get("progress"));
+					root.put("priority", task.get("priority"));
+					
+					template.add(root);
+				}
+			}
+			
+			ArrayList<String> children = new ArrayList<String>();
+			
+			children = getChildren(id);
+			
+				
+			
+			for(int count = 0; count < children.size(); count++) {
+			
+				Iterator i1 = data.iterator();
+				
+				while(i1.hasNext())	{
+				
+					JSONObject task = (JSONObject) i1.next();
+					
+					if(task.get("id").equals(children.get(count))){
+						JSONObject child = new JSONObject();
+						child.put("id", task.get("id"));
+						child.put("name", task.get("name"));
+						child.put("startDate", task.get("startDate"));
+						child.put("endDate", task.get("endDate"));
+						child.put("description", task.get("description"));
+						child.put("effort", task.get("effort"));
+						child.put("progress", task.get("progress"));
+						child.put("priority", task.get("priority"));
+						
+						template.add(child);
+					}
+				}
+			}
+		}
+		
+		return template;
+	}
+	
+	public int numberOfChildren(String id){
+		
+		ArrayList<String> children = new ArrayList<String>();
+		
+		children = getChildren("id");
+	
+		return children.size();
+	}
+	
 	public void editElement(String id, String type, String newValue) throws IOException{
 		
 		Iterator i = data.iterator();
@@ -189,7 +307,6 @@ public class TaskJson {
 		System.out.println(data.toJSONString());
 	}
 	
-	
 	public ArrayList<String> getChildren(String id){
 		ArrayList<String> ids = new ArrayList<String>();
 		
@@ -201,7 +318,7 @@ public class TaskJson {
 			
 			if(task.get("id").equals(id)){
 				JSONArray children = (JSONArray) task.get("children");
-	
+				
 				for(int i = 0; i < children.size(); i++){
 					ids.add(children.get(i).toString());
 				}
