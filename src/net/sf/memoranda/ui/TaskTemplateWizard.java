@@ -703,6 +703,11 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				// Gets current selected name in ComboBox
+				String current = comboBox.getSelectedItem().toString();
+				populateTreeFromLoad(current);
+				loader.dispose();
+				
 				
 				
 			}
@@ -738,6 +743,36 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 
 		return names;
 
+	}
+	
+	// This is going to take in a JSONArray or an array of something, not a name
+	public void populateTreeFromLoad(String name){
+	
+		
+		// Sets root template with the name
+		tree.setModel(new DefaultTreeModel(
+				new Template(name) {
+					{
+					
+
+					}
+				}
+			));
+		
+		
+		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+		Template root = (Template) model.getRoot();
+		
+		// Would have a for loop that repeat lines 765 and 766 
+		// This would just be one of the subtasks
+		Template subtask = new Template("Sub Task");
+		model.insertNodeInto(subtask, root, root.getChildCount());
+		subtask.setHeadTaskTitle(root.getTaskName());
+		root.addSubtask(subtask);
+		tree.revalidate();
+		model.reload(root);
+		
+		
 	}
 
 	
