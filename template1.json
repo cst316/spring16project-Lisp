@@ -1,1 +1,185 @@
-{"tasks":[{"parent":"null","endDate":"34\/23\/3","children":["2","3","4"],"name":"aName","description":"this ia a sdif","progress":"test423ing","effort":"234","id":"1","priority":"test","startDate":"23.23.3"},{"parent":"1","endDate":"34\/23\/3","children":[],"name":"aName","description":"this ia a sdif","progress":"testinsdg","effort":"234","id":"2","priority":"test","startDate":"23.23.3"},{"parent":"1","endDate":"34\/23\/3","children":[],"name":"aName","description":"this ia a sdif","progress":"testing4","effort":"234","id":"3","priority":"test","startDate":"23.23.3"},{"parent":"1","endDate":"the end","children":[],"name":"The name","progress":"a progress","description":"this is a description","effort":"efforts","id":"4","priority":"Lowest","startDate":"the start"},{"parent":"2","endDate":"enddatat","children":[],"name":"task name","progress":"123","description":"description dog","effort":"12","id":"5","priority":"Lowest","startDate":"startd dtate"},{"parent":"null","endDate":"enddatat","children":[],"name":"task name","progress":"123","description":"description dog","effort":"12","id":"6","priority":"Lowest","startDate":"startd dtate"},{"parent":"null","endDate":"enddatat","children":[],"name":"task name","progress":"123","description":"description dog","effort":"12","id":"7","priority":"Lowest","startDate":"startd dtate"},{"parent":"null","endDate":"2\/2\/3","children":["7","8","9"],"name":"Parent tree","progress":"0","description":"","effort":"0","id":"8","priority":"1","startDate":"2\/3\/4"},{"parent":"6","endDate":"3\/4\/3","children":[],"name":"Sub Task","progress":"null","description":null,"effort":"0","id":"9","priority":"0","startDate":"2\/2\/3"},{"parent":"6","endDate":"3\/4\/3","children":[],"name":"Sub Task","progress":"null","description":null,"effort":"0","id":"10","priority":"0","startDate":"2\/2\/3"},{"parent":"null","endDate":"2\/2\/3","children":["10","11","12"],"name":"Boss","progress":"0","description":null,"effort":"0","id":"11","priority":"0","startDate":"2\/3\/4"},{"parent":"11","endDate":"3\/4\/3","children":[],"name":"Sub Task","progress":"null","description":null,"effort":"0","id":"12","priority":"0","startDate":"2\/2\/3"},{"parent":"11","endDate":"3\/4\/3","children":[],"name":"Sub Task","progress":"null","description":null,"effort":"0","id":"13","priority":"0","startDate":"2\/2\/3"}]}
+{
+  
+  "tasks": [
+    {
+      "parent": "null",
+      "endDate": "34\/23\/3",
+      "children": [ "2", "3", "4" ],
+      "name": "aName",
+      "description": "this ia a sdif",
+      "progress": "0",
+      "effort": "0",
+      "id": "1",
+      "priority": "2",
+      "startDate": "23.23.3"
+    },
+    {
+      "parent": "1",
+      "endDate": "34\/23\/3",
+      "children": [ ],
+      "name": "aName",
+      "description": "this ia a sdif",
+      "progress": "0",
+      "effort": "0",
+      "id": "2",
+      "priority": "1",
+      "startDate": "23.23.3"
+    },
+    {
+      "parent": "1",
+      "endDate": "34\/23\/3",
+      "children": [ ],
+      "name": "aName",
+      "description": "this ia a sdif",
+      "progress": "0",
+      "effort": "0",
+      "id": "3",
+      "priority": "1",
+      "startDate": "23.23.3"
+    },
+    {
+      "parent": "1",
+      "endDate": "the end",
+      "children": [ ],
+      "name": "The name",
+      "progress": "0",
+      "description": "this is a description",
+      "effort": "0",
+      "id": "4",
+      "priority": "0",
+      "startDate": "the start"
+    },
+    {
+      "parent": "2",
+      "endDate": "enddatat",
+      "children": [ ],
+      "name": "task name",
+      "progress": "0",
+      "description": "description dog",
+      "effort": "0",
+      "id": "5",
+      "priority": "0",
+      "startDate": "startd dtate"
+    },
+    {
+      "parent": "null",
+      "endDate": "enddatat",
+      "children": [ ],
+      "name": "task name",
+      "progress": "0",
+      "description": "description dog",
+      "effort": "0",
+      "id": "6",
+      "priority": "0",
+      "startDate": "startd dtate"
+    },
+    {
+      "parent": "null",
+      "endDate": "enddatat",
+      "children": [ ],
+      "name": "task name",
+      "progress": "0",
+      "description": "description dog",
+      "effort": "0",
+      "id": "7",
+      "priority": "0",
+      "startDate": "startd dtate"
+    },
+    {
+      "parent": "null",
+      "endDate": "2\/2\/3",
+      "children": [ "7", "8", "9" ],
+      "name": "Parent tree",
+      "progress": "0",
+      "description": "asdf",
+      "effort": "0",
+      "id": "8",
+      "priority": "1",
+      "startDate": "2\/3\/4"
+    },
+    {
+      "parent": "6",
+      "endDate": "3\/4\/3",
+      "children": [ ],
+      "name": "Sub Task",
+      "progress": "null",
+      "description": null,
+      "effort": "0",
+      "id": "9",
+      "priority": "0",
+      "startDate": "2\/2\/3"
+    },
+    {
+      "parent": "6",
+      "endDate": "3\/4\/3",
+      "children": [ ],
+      "name": "Sub Task",
+      "progress": "null",
+      "description": null,
+      "effort": "0",
+      "id": "10",
+      "priority": "0",
+      "startDate": "2\/2\/3"
+    },
+    {
+      "parent": "null",
+      "endDate": "2\/2\/3",
+      "children": [ "10", "11", "12" ],
+      "name": "Boss",
+      "progress": "0",
+      "description": null,
+      "effort": "0",
+      "id": "11",
+      "priority": "0",
+      "startDate": "2\/3\/4"
+    },
+    {
+      "parent": "11",
+      "endDate": "3\/4\/3",
+      "children": [ ],
+      "name": "Sub Task",
+      "progress": "null",
+      "description": null,
+      "effort": "0",
+      "id": "12",
+      "priority": "0",
+      "startDate": "2\/2\/3"
+    },
+    {
+      "parent": "11",
+      "endDate": "3\/4\/3",
+      "children": [ ],
+      "name": "Sub Task",
+      "progress": "null",
+      "description": null,
+      "effort": "0",
+      "id": "13",
+      "priority": "0",
+      "startDate": "2\/2\/3"
+    },
+    {
+      "parent": "null",
+      "endDate": "2\/2\/3",
+      "children": [ "13", "14" ],
+      "name": "JTree",
+      "progress": "0",
+      "description": "",
+      "effort": "0",
+      "id": "14",
+      "priority": "3",
+      "startDate": "2\/3\/4"
+    },
+    {
+      "parent": "14",
+      "endDate": "3\/4\/3",
+      "children": [ ],
+      "name": "Sub Task",
+      "progress": "null",
+      "description": "",
+      "effort": "0",
+      "id": "15",
+      "priority": "2",
+      "startDate": "2\/2\/3"
+    }
+  ]
+}
