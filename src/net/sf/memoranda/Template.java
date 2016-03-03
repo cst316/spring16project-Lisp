@@ -253,14 +253,27 @@ public class Template extends DefaultMutableTreeNode {
 	}
 	
 	//method in order to get a json value and 
-	public Template getJsonTemplate(JSONObject job) {
-		Template t = new Template(job.get("name").toString());
-		t.setPriority(job.get("priority").toString());
-		t.setProgress(Integer.parseInt(job.get("progress").toString()));
-		t.setEffort((long)job.get("effort"));
-		t.setTaskDescription(job.get("description").toString());
-		t.setHeadTaskTitle(job.get("parent").toString());
-		return t;
+	public Template getJsonTemplate(JSONArray ja) {
+		JSONObject job = (JSONObject) ja.get(0);
+		Template root = new Template(job.get("name").toString());
+		root.setPriority(job.get("priority").toString());
+		root.setProgress(Integer.parseInt(job.get("progress").toString()));
+		root.setEffort((long)job.get("effort"));
+		root.setTaskDescription(job.get("description").toString());
+		root.setHeadTaskTitle(job.get("parent").toString());
+		Template subtask = new Template();
+		
+		for(int i = 1; i<ja.size(); i++) {
+			job = (JSONObject) ja.get(i);
+			subtask.setTaskName(job.get("name").toString());
+			subtask.setPriority(job.get("priority").toString());
+			subtask.setProgress(Integer.parseInt(job.get("progress").toString()));
+			subtask.setEffort((long)job.get("effort"));
+			subtask.setTaskDescription(job.get("description").toString());
+			subtask.setHeadTaskTitle(job.get("parent").toString());
+			root.addSubtask(subtask);
+		}
+		return root;
 	}
 }
 
