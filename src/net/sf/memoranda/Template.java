@@ -19,6 +19,9 @@ import net.sf.memoranda.util.Util;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public class Template extends DefaultMutableTreeNode {
 	
@@ -69,6 +72,11 @@ public class Template extends DefaultMutableTreeNode {
 		setEffort(effort);
 		setParentId("");
 		setTaskName(headTaskTitle);  //needs to be the name of this task not headTaskTittle.
+	}
+	
+	//empty constructor
+	public Template() {
+		super("");
 	}
 	
 	//getters and setters
@@ -242,6 +250,17 @@ public class Template extends DefaultMutableTreeNode {
 		CurrentStorage.get().storeTaskList(tl, CurrentProject.get());
 		//CurrentProject.save();
 		CurrentProject.updateProject();
+	}
+	
+	//method in order to get a json value and 
+	public Template getJsonTemplate(JSONObject job) {
+		Template t = new Template(job.get("name").toString());
+		t.setPriority(job.get("priority").toString());
+		t.setProgress(Integer.parseInt(job.get("progress").toString()));
+		t.setEffort((long)job.get("effort"));
+		t.setTaskDescription(job.get("description").toString());
+		t.setHeadTaskTitle(job.get("parent").toString());
+		return t;
 	}
 }
 
