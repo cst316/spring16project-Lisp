@@ -36,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.io.File;
 
 import javax.swing.border.MatteBorder;
@@ -46,6 +47,10 @@ import javax.swing.border.MatteBorder;
 
 
 
+
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import net.sf.memoranda.CurrentProject;
@@ -754,26 +759,40 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		tree.setModel(new DefaultTreeModel(
 				new Template(name) {
 					{
-					
+						task_name.setText(name);
+				        description.setText(json.getElement(id, "description"));
+				        est_effort.setText(json.getElement(id, "effort"));
+				        progress.setText(json.getElement(id, "progress"));
+				        priority.setSelectedItem("Normal");
+				        startDate.getModel().setValue(new Date());
+				        endDate.getModel().setValue(new Date());
 
 					}
 				}
 			));
 		
-		
-		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-		Template root = (Template) model.getRoot();
-		
-		// Would have a for loop that repeat lines 765 and 766 
-		// This would just be one of the subtasks
-		Template subtask = new Template("Sub Task");
-		model.insertNodeInto(subtask, root, root.getChildCount());
-		subtask.setHeadTaskTitle(root.getTaskName());
-		root.addSubtask(subtask);
-		tree.revalidate();
-		model.reload(root);
-		
-		
+			JSONArray subtasks = json.getTemplate(id);
+			
+			// Starts at one because the 0 index is the root 
+				
+				for(int i = 1; i < subtasks.size(); i++){
+				JSONObject currentSubtask = (JSONObject) subtasks.get(i);
+				// setText to currentSubtask.get("name")
+				// setText to currentSubtask.get("description")
+				// and so on.. 
+				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+				Template root = (Template) model.getRoot();
+				
+				// Would have a for loop that repeat lines 765 and 766 
+				// This would just be one of the subtasks
+				Template subtask = new Template("Sub Task");
+				model.insertNodeInto(subtask, root, root.getChildCount());
+				subtask.setHeadTaskTitle(root.getTaskName());
+				root.addSubtask(subtask);
+				tree.revalidate();
+				model.reload(root);
+				}
+		}
 	}
 
 	
