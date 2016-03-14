@@ -73,6 +73,7 @@ public class CurrentProject {
             return _notelist;
     }
     
+    
     public static ResourcesList getResourcesList() {
             return _resources;
     }

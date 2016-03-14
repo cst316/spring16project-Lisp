@@ -10,6 +10,9 @@ package net.sf.memoranda;
 
 import java.util.Collection;
 import java.util.Vector;
+
+import com.sun.prism.paint.Color;
+
 import java.util.Calendar;
 
 import net.sf.memoranda.date.CalendarDate;
@@ -27,6 +30,7 @@ public class TaskImpl implements Task, Comparable {
 
     private Element _element = null;
     private TaskList _tl = null;
+    private java.awt.Color taskColor;
 
     /**
      * Constructor for DefaultTask.
@@ -34,6 +38,7 @@ public class TaskImpl implements Task, Comparable {
     public TaskImpl(Element taskElement, TaskList tl) {
         _element = taskElement;
         _tl = tl;
+        taskColor = java.awt.Color.white;
     }
 
     public Element getContent() {
@@ -99,6 +104,15 @@ public class TaskImpl implements Task, Comparable {
     	}
     	return null;
 	}
+	
+	//set and get colors
+	public void setTaskColor(java.awt.Color col) {
+		taskColor = col;
+	}
+	public java.awt.Color getTaskColor() {
+		return taskColor;
+	}
+	
 	
 	public String getParentId() {
 		Task parent = this.getParentTask();

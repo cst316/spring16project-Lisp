@@ -8,6 +8,7 @@
  */
 package net.sf.memoranda;
 
+import java.awt.Color;
 import java.util.Collection;
 
 import net.sf.memoranda.date.CalendarDate;
@@ -74,6 +75,10 @@ public interface Task {
     
     void setEffort(long effort);
     long getEffort();
+    
+    //get and set colors for saving and labels.
+    Color getTaskColor();
+    void setTaskColor(java.awt.Color col);
     
     void setDescription(String description);
     String getDescription();
