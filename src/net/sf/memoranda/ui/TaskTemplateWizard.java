@@ -114,7 +114,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		tree.setModel(new DefaultTreeModel(
 			new Template("JTree") {
 				{
-
 				}
 			}
 		));
@@ -659,8 +658,19 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		}
 	}
 	
+	
+	/*
+	 * Author: Jason
+	 * Description: sets the current selection to the root node.
+	 * Purpose: to allow for the loader to load in templates from the
+	 *    Json file at that specific location.
+	 */
+	public void setSelectedToRootNode() {
+		this.tree.setSelectionRow(0);
+	}
+	
 	public JDialog getLoader() {
-		
+		setSelectedToRootNode();
 		ArrayList<String> ids = getLoaderNames();
 		JDialog loader = new JDialog(this, true);
 		loader.setTitle("Load Template");
@@ -686,7 +696,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		    comboBox.addItem(names.get(i));
 		}
 
-
+	
 		
 		//comboBox.addItem("hi");
 		comboBox.setBounds(34, 69, 226, 27);
@@ -792,9 +802,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				tree.revalidate();
 				model.reload(root);
 				}
-		}
+		
 	}
-
-	
-	
 }
