@@ -38,6 +38,9 @@ public class WorkPanel extends JPanel {
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
 	public JButton filesB = new JButton();
+	//-------------------------------------------------------------------------------- GARY
+	public JButton tlogB = new JButton();
+	//-------------------------------------------------------------------------------- GARY
 	JButton currentB = null;
 	Border border1;
 
@@ -68,6 +71,31 @@ public class WorkPanel extends JPanel {
 		toolBar.setFloatable(false);
 		panel.setLayout(cardLayout1);
 
+		//-------------------------------------------------------------------------------- GARY
+		tlogB.setBackground(Color.white);
+		tlogB.setMaximumSize(new Dimension(60, 80));
+		tlogB.setMinimumSize(new Dimension(30, 30));
+		tlogB.setFont(new java.awt.Font("Dialog", 1, 10));
+		tlogB.setPreferredSize(new Dimension(50, 50));
+		tlogB.setBorderPainted(false);
+		tlogB.setContentAreaFilled(false);
+		tlogB.setFocusPainted(false);
+		tlogB.setHorizontalTextPosition(SwingConstants.CENTER);
+		tlogB.setText(Local.getString("Time Log"));
+		tlogB.setVerticalAlignment(SwingConstants.TOP);
+		tlogB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		tlogB.addActionListener(new java.awt.event.ActionListener() {
+		        public void actionPerformed(ActionEvent e) {
+		            tlogB_actionPerformed(e);
+		        }
+		});
+		tlogB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource(
+				"resources/icons/tlog.png")));
+		tlogB.setOpaque(false);
+		tlogB.setMargin(new Insets(0, 0, 0, 0));
+		tlogB.setSelected(true);
+		//-------------------------------------------------------------------------------- GARY
+		
 		agendaB.setBackground(Color.white);
 		agendaB.setMaximumSize(new Dimension(60, 80));
 		agendaB.setMinimumSize(new Dimension(30, 30));
@@ -205,6 +233,9 @@ public class WorkPanel extends JPanel {
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
+		//-------------------------------------------------------------------------------- GARY
+		toolBar.add(tlogB, null);
+		//-------------------------------------------------------------------------------- GARY
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
@@ -227,6 +258,10 @@ public class WorkPanel extends JPanel {
 				eventsB_actionPerformed(null);
 			else if (pan.equals("FILES"))
 				filesB_actionPerformed(null);
+			//-------------------------------------------------------------------------------- GARY
+			else if (pan.equals("TIME LOG"))
+				tlogB_actionPerformed(null);
+			//-------------------------------------------------------------------------------- GARY
 		}
 	}
 
@@ -243,6 +278,15 @@ public class WorkPanel extends JPanel {
 		setCurrentButton(notesB);
 		Context.put("CURRENT_PANEL", "NOTES");
 	}
+	
+	//-------------------------------------------------------------------------------- GARY
+	public void tlogB_actionPerformed(ActionEvent e) {
+		cardLayout1.show(panel, "TBD");
+		dailyItemsPanel.selectPanel("TIME LOG");
+		setCurrentButton(tlogB);
+		Context.put("CURRENT_PANEL", "TIME LOG");
+	}
+	//-------------------------------------------------------------------------------- GARY
 
 	public void tasksB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
