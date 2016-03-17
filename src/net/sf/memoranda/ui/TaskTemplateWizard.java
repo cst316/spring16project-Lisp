@@ -785,8 +785,12 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			
 			// Starts at one because the 0 index is the root 
 				
+			//ERROR HERE - IT IS PULLING IN THE WRONG SUBTASK AND NOT UPDATING THE TREE CORRECTLY
+			
+			
 				for(int i = 1; i < subtasks.size(); i++){
 				JSONObject currentSubtask = (JSONObject) subtasks.get(i);
+				System.out.println("<<<<<<<<<<<<<<<<" + currentSubtask.toString() + ">>>>>>>>>>>>>>>>>>>>>>>");
 				// setText to currentSubtask.get("name")
 				// setText to currentSubtask.get("description")
 				// and so on.. 
@@ -796,8 +800,21 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				// Would have a for loop that repeat lines 765 and 766 
 				// This would just be one of the subtasks
 				Template subtask = new Template("Sub Task");
-				model.insertNodeInto(subtask, root, root.getChildCount());
+				
+				/*
+				subtask.setTaskName(currentSubtask.get("name").toString());
 				subtask.setHeadTaskTitle(root.getTaskName());
+				subtask.setCalendarStartDate(CalendarDate.today());
+				subtask.setPriority(currentSubtask.get("priority").toString());
+				subtask.setTaskDescription(currentSubtask.get("description").toString());
+				subtask.setEffort((long)currentSubtask.get("effort"));
+				subtask.setProgress((int)currentSubtask.get("progress"));
+				subtask.setHeadTaskTitle(root.getTaskName());
+				*/
+				
+				model.insertNodeInto(subtask, root, root.getChildCount());
+				
+				
 				root.addSubtask(subtask);
 				tree.revalidate();
 				model.reload(root);
