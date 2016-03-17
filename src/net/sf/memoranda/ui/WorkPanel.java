@@ -34,13 +34,16 @@ public class WorkPanel extends JPanel {
 	public JButton notesB = new JButton();
 	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
 	public ResourcesPanel filesPanel = new ResourcesPanel();
+	//==================================================================== GARY
+	public TimeLogPanel timePanel = new TimeLogPanel();
+	//-------------------------------------------------------------------- GARY
 	public JButton agendaB = new JButton();
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
 	public JButton filesB = new JButton();
-	//-------------------------------------------------------------------------------- GARY
+	//==================================================================== GARY
 	public JButton tlogB = new JButton();
-	//-------------------------------------------------------------------------------- GARY
+	//-------------------------------------------------------------------- GARY
 	JButton currentB = null;
 	Border border1;
 
@@ -71,7 +74,7 @@ public class WorkPanel extends JPanel {
 		toolBar.setFloatable(false);
 		panel.setLayout(cardLayout1);
 
-		//-------------------------------------------------------------------------------- GARY
+		//================================================================ GARY
 		tlogB.setBackground(Color.white);
 		tlogB.setMaximumSize(new Dimension(60, 80));
 		tlogB.setMinimumSize(new Dimension(30, 30));
@@ -94,7 +97,7 @@ public class WorkPanel extends JPanel {
 		tlogB.setOpaque(false);
 		tlogB.setMargin(new Insets(0, 0, 0, 0));
 		tlogB.setSelected(true);
-		//-------------------------------------------------------------------------------- GARY
+		//---------------------------------------------------------------- GARY
 		
 		agendaB.setBackground(Color.white);
 		agendaB.setMaximumSize(new Dimension(60, 80));
@@ -228,14 +231,17 @@ public class WorkPanel extends JPanel {
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
 		panel.add(filesPanel, "FILES");
+		//================================================================ GARY
+		panel.add(timePanel, "TIME");
+		//---------------------------------------------------------------- GARY
 		toolBar.add(agendaB, null);
 		toolBar.add(eventsB, null);
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
-		//-------------------------------------------------------------------------------- GARY
+		//================================================================ GARY
 		toolBar.add(tlogB, null);
-		//-------------------------------------------------------------------------------- GARY
+		//---------------------------------------------------------------- GARY
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
@@ -245,6 +251,9 @@ public class WorkPanel extends JPanel {
 		panel.setBorder(null);
 		dailyItemsPanel.setBorder(null);
 		filesPanel.setBorder(null);
+		//================================================================ GARY
+		timePanel.setBorder(null);
+		//---------------------------------------------------------------- GARY
 
 	}
 
@@ -258,10 +267,10 @@ public class WorkPanel extends JPanel {
 				eventsB_actionPerformed(null);
 			else if (pan.equals("FILES"))
 				filesB_actionPerformed(null);
-			//-------------------------------------------------------------------------------- GARY
-			else if (pan.equals("TIME LOG"))
+			//============================================================ GARY
+			else if (pan.equals("TIME"))
 				tlogB_actionPerformed(null);
-			//-------------------------------------------------------------------------------- GARY
+			//------------------------------------------------------------ GARY
 		}
 	}
 
@@ -279,14 +288,13 @@ public class WorkPanel extends JPanel {
 		Context.put("CURRENT_PANEL", "NOTES");
 	}
 	
-	//-------------------------------------------------------------------------------- GARY
+	//==================================================================== GARY
 	public void tlogB_actionPerformed(ActionEvent e) {
-		cardLayout1.show(panel, "TBD");
-		dailyItemsPanel.selectPanel("TIME LOG");
+		cardLayout1.show(panel, "TIME");
 		setCurrentButton(tlogB);
-		Context.put("CURRENT_PANEL", "TIME LOG");
+		Context.put("CURRENT_PANEL", "TIME");
 	}
-	//-------------------------------------------------------------------------------- GARY
+	//-------------------------------------------------------------------- GARY
 
 	public void tasksB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");

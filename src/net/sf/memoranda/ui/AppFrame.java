@@ -241,12 +241,11 @@ public class AppFrame extends JFrame {
 
     JMenu jMenuInsertSpecial = new JMenu();
     
-    //---------------------------------------- Gary
+    //==================================================================== GARY
     JMenu jMenuReports = new JMenu();
-    
     JMenuItem jMenuReportsGenReport = new JMenuItem();  
     JMenuItem jMenuReportsExpReport = new JMenuItem();
-    //---------------------------------------- Gary
+    //-------------------------------------------------------------------- GARY
     
     JMenu jMenuHelp = new JMenu();
     
@@ -461,13 +460,11 @@ public class AppFrame extends JFrame {
         jMenuGoDayFwd.setText(Local.getString("One day forward"));
         jMenuGoToday.setText(Local.getString("To today"));
         
-        //---------------------------------------------------------------- Gary
+        //================================================================ GARY
         jMenuReports.setText(Local.getString("Reports"));
-        
         jMenuReportsGenReport.setText(Local.getString("Generate Report"));
         jMenuReportsExpReport.setText(Local.getString("Export Report"));
-        
-        //---------------------------------------------------------------- Gary
+        //---------------------------------------------------------------- GARY
 
         jMenuInsertSpecial.setText(Local.getString("Special"));
         jMenuInsertBR.setText(Local.getString("Line break"));
@@ -504,9 +501,9 @@ public class AppFrame extends JFrame {
         menuBar.add(jMenuInsert);
         menuBar.add(jMenuFormat);
         menuBar.add(jMenuGo);
-        //---------------------------------------------------------- Gary
+        //================================================================ GARY
         menuBar.add(jMenuReports);
-        //---------------------------------------------------------- Gary
+        //---------------------------------------------------------------- GARY
         menuBar.add(jMenuHelp);
         this.setJMenuBar(menuBar);
         //contentPane.add(toolBar, BorderLayout.NORTH);
@@ -588,10 +585,10 @@ public class AppFrame extends JFrame {
         jMenuGo.add(jMenuGoDayFwd);
         jMenuGo.add(jMenuGoToday);
         
-        //----------------------------------------------------- Gary
+        //================================================================ GARY
         jMenuReports.add(jMenuReportsGenReport);
         jMenuReports.add(jMenuReportsExpReport);
-        //----------------------------------------------------- Gary
+        //---------------------------------------------------------------- GARY
 
         splitPane.setBorder(null);
         workPanel.setBorder(null);

@@ -107,24 +107,24 @@ public class Util {
       return "<![CDATA[" + s + "]]>";
    }
 
-//------------------------------------------------------------------------- GARY
-//    public static void runBrowser(String url) {
-//        
-//        if (!checkBrowser())
-//            return;
-//        String commandLine = MimeTypesList.getAppList().getBrowserExec()+" "+url;
-//        System.out.println("Run: " + commandLine);
-//        try {
-//            /*DEBUG*/
-//            Runtime.getRuntime().exec(commandLine);
-//        }
-//        catch (Exception ex) {
-//            new ExceptionDialog(ex, "Failed to run an external web-browser application with commandline<br><code>"
-//                    +commandLine+"</code>", "Check the application path and command line parameters " +
-//                    		"(File-&gt;Preferences-&gt;Resource types).");
-//        }
-//    }
-
+//======================================================================== GARY
+/*    public static void runBrowser(String url) {
+        
+        if (!checkBrowser())
+            return;
+        String commandLine = MimeTypesList.getAppList().getBrowserExec()+" "+url;
+        System.out.println("Run: " + commandLine);
+        try {
+            DEBUG
+            Runtime.getRuntime().exec(commandLine);
+        }
+        catch (Exception ex) {
+            new ExceptionDialog(ex, "Failed to run an external web-browser application with commandline<br><code>"
+                    +commandLine+"</code>", "Check the application path and command line parameters " +
+                    		"(File-&gt;Preferences-&gt;Resource types).");
+        }
+    }
+*/
    public static void runBrowser(String url) {
       if (Desktop.isDesktopSupported()) {
          try {
@@ -136,7 +136,7 @@ public class Util {
          JOptionPane.showMessageDialog(null, "Your browser is not supported", "Browser Error", JOptionPane.ERROR_MESSAGE);
       }
    }
-//------------------------------------------------------------------------- GARY
+//------------------------------------------------------------------------ GARY
 
 
    public static boolean checkBrowser() {
