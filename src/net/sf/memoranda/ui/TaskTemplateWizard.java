@@ -114,6 +114,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		tree.setModel(new DefaultTreeModel(
 			new Template("JTree") {
 				{
+
 				}
 			}
 		));
@@ -658,19 +659,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		}
 	}
 	
-	
-	/*
-	 * Author: Jason
-	 * Description: sets the current selection to the root node.
-	 * Purpose: to allow for the loader to load in templates from the
-	 *    Json file at that specific location.
-	 */
-	public void setSelectedToRootNode() {
-		this.tree.setSelectionRow(0);
-	}
-	
 	public JDialog getLoader() {
-		setSelectedToRootNode();
+		
 		ArrayList<String> ids = getLoaderNames();
 		JDialog loader = new JDialog(this, true);
 		loader.setTitle("Load Template");
@@ -688,7 +678,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		}
 		
 		
-		loader.setSize(new Dimension(300,200));
+		loader.setSize(new Dimension(340,200));
 		
 		JComboBox comboBox = new JComboBox();
 		
@@ -696,7 +686,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		    comboBox.addItem(names.get(i));
 		}
 
-	
+
 		
 		//comboBox.addItem("hi");
 		comboBox.setBounds(34, 69, 226, 27);
@@ -736,6 +726,18 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			}
 		});
 		btnCancel.setBounds(143, 93, 117, 29);
+		
+		JButton btnDeleteTemplate = new JButton("");
+		btnDeleteTemplate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnDeleteTemplate.setToolTipText("Delete Selected Template");
+		btnDeleteTemplate.setIcon(new ImageIcon(TaskTemplateLoader.class.getResource("/com/sun/java/swing/plaf/motif/icons/Error.gif")));
+		btnDeleteTemplate.setBounds(263, 69, 31, 27);
+		loader.add(btnDeleteTemplate);
+
+		
 		loader.getContentPane().add(btnCancel);
 		loader.setAlwaysOnTop(true);
 		loader.setLocationRelativeTo(this);
@@ -785,12 +787,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			
 			// Starts at one because the 0 index is the root 
 				
-			//ERROR HERE - IT IS PULLING IN THE WRONG SUBTASK AND NOT UPDATING THE TREE CORRECTLY
-			
-			
 				for(int i = 1; i < subtasks.size(); i++){
 				JSONObject currentSubtask = (JSONObject) subtasks.get(i);
-				System.out.println("<<<<<<<<<<<<<<<<" + currentSubtask.toString() + ">>>>>>>>>>>>>>>>>>>>>>>");
 				// setText to currentSubtask.get("name")
 				// setText to currentSubtask.get("description")
 				// and so on.. 
@@ -800,25 +798,15 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				// Would have a for loop that repeat lines 765 and 766 
 				// This would just be one of the subtasks
 				Template subtask = new Template("Sub Task");
-				
-				/*
-				subtask.setTaskName(currentSubtask.get("name").toString());
-				subtask.setHeadTaskTitle(root.getTaskName());
-				subtask.setCalendarStartDate(CalendarDate.today());
-				subtask.setPriority(currentSubtask.get("priority").toString());
-				subtask.setTaskDescription(currentSubtask.get("description").toString());
-				subtask.setEffort((long)currentSubtask.get("effort"));
-				subtask.setProgress((int)currentSubtask.get("progress"));
-				subtask.setHeadTaskTitle(root.getTaskName());
-				*/
-				
 				model.insertNodeInto(subtask, root, root.getChildCount());
-				
-				
+				subtask.setHeadTaskTitle(root.getTaskName());
 				root.addSubtask(subtask);
 				tree.revalidate();
 				model.reload(root);
 				}
-		
+		}
 	}
-}
+
+	
+	
+

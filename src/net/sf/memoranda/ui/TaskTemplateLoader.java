@@ -15,7 +15,7 @@ public class TaskTemplateLoader extends JDialog implements ActionListener {
 		setTitle("Load Template");
 		getContentPane().setLayout(null);
 		
-		this.setSize(new Dimension(300,200));
+		this.setSize(new Dimension(340, 188));
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(34, 69, 226, 27);
@@ -37,6 +37,16 @@ public class TaskTemplateLoader extends JDialog implements ActionListener {
 		});
 		btnCancel.setBounds(143, 93, 117, 29);
 		getContentPane().add(btnCancel);
+		
+		JButton btnDeleteTemplate = new JButton("");
+		btnDeleteTemplate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnDeleteTemplate.setToolTipText("Delete Selected Template");
+		btnDeleteTemplate.setIcon(new ImageIcon(TaskTemplateLoader.class.getResource("/com/sun/java/swing/plaf/motif/icons/Error.gif")));
+		btnDeleteTemplate.setBounds(263, 69, 31, 27);
+		getContentPane().add(btnDeleteTemplate);
 		this.setAlwaysOnTop(true);
 		this.setVisible(true);
 	}
