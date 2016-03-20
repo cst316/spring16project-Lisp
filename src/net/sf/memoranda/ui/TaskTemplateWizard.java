@@ -770,9 +770,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	public void populateTreeFromLoad(String id) throws FileNotFoundException, IOException, ParseException{
 	
 		TaskJson json = new TaskJson("template1.json", "tasks");
-		
-		System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<< one >>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		
 		String name = json.getElement(id, "name");
 		// Sets root template with the name
 		//Template root = new Template(name); //might need to set all the sub tasks to subtasks of root this way.
@@ -790,22 +787,14 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 					}
 				}
 			));
-		System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<< two >>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			JSONArray subtasks = json.getTemplate(id);
 			
-			// Starts at one because the 0 index is the root 
-				
+			// Starts at one because the 0 index is the root 	
 				for(int i = 1; i < subtasks.size(); i++){
 				JSONObject currentSubtask = (JSONObject) subtasks.get(i);
-				
-				// setText to currentSubtask.get("name")
-				// setText to currentSubtask.get("description")
-				// and so on.. 
 				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 				Template root = (Template) model.getRoot();
 				
-				// Would have a for loop that repeat lines 765 and 766 
-				// This would just be one of the subtasks
 				Template subtask = new Template(currentSubtask.get("name").toString());
 				subtask.setHeadTaskTitle(root.getTaskName());
 				subtask.setTaskDescription(currentSubtask.get("description").toString());
@@ -816,7 +805,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				);
 				
 				model.insertNodeInto(subtask, root, root.getChildCount());
-				
 				root.addSubtask(subtask);
 				tree.revalidate();
 				model.reload(root);
