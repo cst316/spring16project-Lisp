@@ -309,7 +309,6 @@ public class TaskJson {
 	
 	public ArrayList<String> getChildren(String id){
 		ArrayList<String> ids = new ArrayList<String>();
-		
 		Iterator iter = data.iterator();
 		
 		while(iter.hasNext()){

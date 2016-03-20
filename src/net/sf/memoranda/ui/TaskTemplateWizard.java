@@ -455,7 +455,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			}
 		});
 		
-		// SAVE (NOT WORKING)
 		// TO-DO: Need to somehow populate a Template class by iterating over tree
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
@@ -475,21 +474,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			
 				System.out.println(index);
 				
-				switch (index) {
-					case 0: prior = "Low";
-					break;
-					case 1: prior = "Lowest";
-					break;
-					case 2: prior = "Normal";
-					break;
-					case 3: prior = "High";
-					break;
-					case 4: prior = "Highest";
-					break;
-					default:
-					prior = "Invalid";
-					break;	
-				}
+				prior = getStringPriority(index);
 		
 				try {
 					saving();
@@ -659,8 +644,27 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		}
 	}
 	
+	public String getStringPriority(int p) {
+		String tmp;
+		switch(p) {
+		case 0: tmp = "Lowest";
+		break;
+		case 1: tmp = "Low";
+		break;
+		case 2: tmp = "Normal";
+		break;
+		case 3: tmp = "High";
+		break;
+		case 4: tmp = "Highest";
+		break;
+		default: tmp = "Lowest";
+		break;
+		}
+		return tmp;
+	}
+	
 	public JDialog getLoader() {
-		
+		this.tree.setSelectionRow(0); //sets the root node as the selected node for loading
 		ArrayList<String> ids = getLoaderNames();
 		JDialog loader = new JDialog(this, true);
 		loader.setTitle("Load Template");
@@ -701,6 +705,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				
 				// Gets current selected name in ComboBox
+				
 				String current = comboBox.getSelectedItem().toString();
 				String id = String.valueOf(ids.get(comboBox.getSelectedIndex()));
 				try {
@@ -766,8 +771,11 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	
 		TaskJson json = new TaskJson("template1.json", "tasks");
 		
+		System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<< one >>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		
 		String name = json.getElement(id, "name");
 		// Sets root template with the name
+		//Template root = new Template(name); //might need to set all the sub tasks to subtasks of root this way.
 		tree.setModel(new DefaultTreeModel(
 				new Template(name) {
 					{
@@ -782,13 +790,14 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 					}
 				}
 			));
-		
+		System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<< two >>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			JSONArray subtasks = json.getTemplate(id);
 			
 			// Starts at one because the 0 index is the root 
 				
 				for(int i = 1; i < subtasks.size(); i++){
 				JSONObject currentSubtask = (JSONObject) subtasks.get(i);
+				
 				// setText to currentSubtask.get("name")
 				// setText to currentSubtask.get("description")
 				// and so on.. 
@@ -797,9 +806,17 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				
 				// Would have a for loop that repeat lines 765 and 766 
 				// This would just be one of the subtasks
-				Template subtask = new Template("Sub Task");
-				model.insertNodeInto(subtask, root, root.getChildCount());
+				Template subtask = new Template(currentSubtask.get("name").toString());
 				subtask.setHeadTaskTitle(root.getTaskName());
+				subtask.setTaskDescription(currentSubtask.get("description").toString());
+				//subtask.setParent(newParent);
+				subtask.setEffort(Long.parseLong(currentSubtask.get("effort").toString()));
+				subtask.setPriority(getStringPriority(
+						Integer.parseInt(currentSubtask.get("priority").toString()))
+				);
+				
+				model.insertNodeInto(subtask, root, root.getChildCount());
+				
 				root.addSubtask(subtask);
 				tree.revalidate();
 				model.reload(root);

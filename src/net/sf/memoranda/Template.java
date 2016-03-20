@@ -245,9 +245,9 @@ public class Template extends DefaultMutableTreeNode {
 			JSONObject root = new JSONObject();
 			
 			
-			
+			//added the +2 +1 to shift past the root.
 			ArrayList<String> children = new ArrayList<String>();
-			for(int i = json.size(); i <= loadvec.size() + json.size(); i++){
+			for(int i = json.size() + 2; i <= loadvec.size() + json.size() + 1; i++){
 				children.add(String.valueOf(i));
 			}
 			
@@ -277,6 +277,7 @@ public class Template extends DefaultMutableTreeNode {
 		}
 		
 	}
+	
 	public void loadTemplate() {
 		TaskList tl = CurrentProject.getTaskList();
 		 tl.createTask(getCalendarStartDate(), getCalendarEndDate(), 
