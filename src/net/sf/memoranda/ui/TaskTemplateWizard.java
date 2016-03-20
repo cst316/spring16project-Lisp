@@ -14,6 +14,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.border.BevelBorder;
 
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.awt.event.ActionEvent;
 import java.awt.Window.Type;
 import java.awt.Dialog.ModalityType;
@@ -21,6 +22,7 @@ import java.awt.Toolkit;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.ChangeEvent;
@@ -28,6 +30,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeSelectionEvent;
 
 import java.awt.ComponentOrientation;
+import java.awt.Dialog;
 import java.awt.Component;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -735,14 +738,17 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		JButton btnDeleteTemplate = new JButton("");
 		btnDeleteTemplate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String tmp = "Are you sure you want to delete ";
+				String cur = comboBox.getSelectedItem().toString();
+				tmp = tmp + cur + "?";
+				DecisionBox db = new DecisionBox(loader, "Warning",
+						tmp, String.valueOf(ids.get(comboBox.getSelectedIndex())));
 			}
 		});
 		btnDeleteTemplate.setToolTipText("Delete Selected Template");
 		btnDeleteTemplate.setIcon(new ImageIcon(TaskTemplateLoader.class.getResource("/com/sun/java/swing/plaf/motif/icons/Error.gif")));
 		btnDeleteTemplate.setBounds(263, 69, 31, 27);
 		loader.add(btnDeleteTemplate);
-
-		
 		loader.getContentPane().add(btnCancel);
 		loader.setAlwaysOnTop(true);
 		loader.setLocationRelativeTo(this);
@@ -809,7 +815,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				tree.revalidate();
 				model.reload(root);
 				}
-		}
+		}	
 	}
 
 	
