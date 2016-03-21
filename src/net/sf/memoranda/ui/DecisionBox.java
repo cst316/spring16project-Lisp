@@ -79,7 +79,7 @@ public class DecisionBox {
 			public void actionPerformed(ActionEvent e) {
 				TaskJson tj = null;
 				try {
-					tj = new TaskJson("template1.json","tasks");
+					tj = new TaskJson("template.json","tasks");
 				} catch (IOException | ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

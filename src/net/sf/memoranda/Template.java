@@ -238,7 +238,7 @@ public class Template extends DefaultMutableTreeNode {
 		if(loadvec.size()!=0) {
 			//CurrentProject.updateProject();
 			
-			TaskJson json = new TaskJson("template1.json", "tasks");
+			TaskJson json = new TaskJson("template.json", "tasks");
 			
 			JSONArray template = new JSONArray();
 			

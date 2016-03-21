@@ -1,16 +1,1 @@
-{
-  "tasks": [
-    {
-      "parent": "null",
-      "endDate": "34\/23\/3",
-      "children": [ ],
-      "name": "aName",
-      "description": "this ia a sdif",
-      "progress": "0",
-      "effort": "0",
-      "id": "1",
-      "priority": "1",
-      "startDate": "23.23.3"
-    }
-  ]
-}
+{"tasks":[{"parent":"null","endDate":"34\/23\/3","children":[],"name":"aName","description":"this ia a sdif","progress":"0","effort":"0","id":"1","priority":"1","startDate":"23.23.3"},{"parent":"null","endDate":"2\/2\/3","children":["3"],"name":"TEST","progress":"0","description":"","effort":"0","id":"2","priority":"1","startDate":"2\/3\/4"},{"parent":"2","endDate":"3\/4\/3","children":[],"name":"SubTest","progress":"null","description":"","effort":"0","id":"3","priority":"1","startDate":"2\/2\/3"}]}
