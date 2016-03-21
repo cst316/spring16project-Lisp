@@ -239,12 +239,52 @@ public class TaskJson {
 		index = index.valueOf(id);
 		JSONObject r = (JSONObject) data.get(index);
 		data.remove(r);
+		removeSubTasks(id);
 		sortId();
 		System.out.println(data.toJSONString());
 		
 		try (FileWriter file = new FileWriter(filePath)) {
 			file.write(jsonObject.toJSONString());		
 			System.out.println("Successfully Copied JSON Object to File...");
+		}
+	}
+	
+	// Get all the id's of the subTasks of a specific task
+	public ArrayList<String> getSubTasks(String id){
+		
+		ArrayList<String> list = new ArrayList<>();
+		
+		String tmp = "";
+		
+		Iterator i = data.iterator();
+		
+		while(i.hasNext()) {
+			
+			JSONObject task = (JSONObject) i.next();
+			tmp = task.get("parent").toString();
+			
+			if (tmp.equals(id)){
+				tmp = task.get("id").toString();
+				list.add(tmp);
+			}
+		}
+		
+		return list;
+	}
+	// Remove all of the subtasks that have the same id for parent
+	public void removeSubTasks(String id){
+		
+		String tmp = "";
+		
+		Iterator i = data.iterator();
+		
+		while(i.hasNext()) {
+			
+			JSONObject task = (JSONObject) i.next();
+			tmp = task.get("parent").toString();
+			if (tmp.equals(id)){
+				data.remove(task);
+			}
 		}
 	}
 	
