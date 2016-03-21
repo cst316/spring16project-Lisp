@@ -234,21 +234,53 @@ public class TaskJson {
 	
 	public void deleteNode(String id) throws IOException{
 		
-		System.out.println(data.toJSONString());
 		Integer index = null;
-		index = index.valueOf(id);
-		JSONObject r = (JSONObject) data.get(index);
-		data.remove(r);
-		removeSubTasks(id);
-		sortId();
-		System.out.println(data.toJSONString());
+		index = Integer.valueOf(id);
 		
+		String taskId = getIdFromIndex(index);
+		
+		JSONObject task = (JSONObject) data.get(index);
+		data.remove(index);
+		
+		//reomveHeadTask(taskId);
+		//removeSubTasks(taskId);
+		
+	}
+	
+	public String getIdFromIndex(Integer index) {
+		
+		String id = "";
+		
+		JSONObject task = (JSONObject) data.get(index);
+		id = task.get("id").toString();
+		
+		return id;
+	}
+
+	public void reomveHeadTask(String id) throws IOException {
+		
+		String tmp = "";
+		
+		Iterator i = data.iterator();
+		
+		System.out.println(id);
+		
+		while(i.hasNext()) {
+			
+			JSONObject task = (JSONObject) i.next();
+			tmp = task.get("id").toString();
+			if (tmp.equals(id)){
+				System.out.println(task.get("name"));
+				data.remove(task);
+				
+			}	
+		}
 		try (FileWriter file = new FileWriter(filePath)) {
 			file.write(jsonObject.toJSONString());		
 			System.out.println("Successfully Copied JSON Object to File...");
 		}
 	}
-	
+
 	// Get all the id's of the subTasks of a specific task
 	public ArrayList<String> getSubTasks(String id){
 		
@@ -272,19 +304,29 @@ public class TaskJson {
 		return list;
 	}
 	// Remove all of the subtasks that have the same id for parent
-	public void removeSubTasks(String id){
+	public void removeSubTasks(String id) throws IOException{
 		
 		String tmp = "";
 		
 		Iterator i = data.iterator();
+		System.out.println(id);
 		
 		while(i.hasNext()) {
 			
+			
 			JSONObject task = (JSONObject) i.next();
 			tmp = task.get("parent").toString();
+			
 			if (tmp.equals(id)){
+				System.out.println(tmp + " parent");
 				data.remove(task);
-			}
+				
+			}	
+		}
+		
+		try (FileWriter file = new FileWriter(filePath)) {
+			file.write(jsonObject.toJSONString());		
+			System.out.println("Successfully Copied JSON Object to File...");
 		}
 	}
 	

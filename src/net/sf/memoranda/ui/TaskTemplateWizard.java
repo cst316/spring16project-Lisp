@@ -675,8 +675,9 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		
 		ArrayList<String> names = new ArrayList<String>();
 		try{
-			TaskJson tj = new TaskJson("template1.json","tasks");
+			TaskJson tj = new TaskJson("template.json","tasks");
 			for(int i = 0; i < ids.size(); i++){
+				System.out.println(ids.get(i));
 				names.add(tj.getElement(ids.get(i), "name"));
 			}
 		}
@@ -761,7 +762,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		TaskJson tj;
 		ArrayList<String> names = new ArrayList<String>();
 		try{
-		tj = new TaskJson("template1.json","tasks");
+		tj = new TaskJson("template.json","tasks");
 		names = tj.getRootIds();
 		}
 		catch(Exception e){
@@ -775,7 +776,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	// This is going to take in a JSONArray or an array of something, not a name
 	public void populateTreeFromLoad(String id) throws FileNotFoundException, IOException, ParseException{
 	
-		TaskJson json = new TaskJson("template1.json", "tasks");
+		TaskJson json = new TaskJson("template.json", "tasks");
 		String name = json.getElement(id, "name");
 		// Sets root template with the name
 		//Template root = new Template(name); //might need to set all the sub tasks to subtasks of root this way.
