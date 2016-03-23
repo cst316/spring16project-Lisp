@@ -116,7 +116,14 @@ public class StickerDialog extends JDialog {
 		} catch (Exception ex) {
 			new ExceptionDialog(ex);
 		}
-		stickerText.setText(text);
+		//================================================================================================= GARY
+		if(ImportSticker.name !=null) {
+			stickerText.setText(ImportSticker.fileContents.toString());
+		} else {
+			stickerText.setText(text);
+		}
+		//stickerText.setText(text);
+		//------------------------------------------------------------------------------------------------- GARY
 		Color back = Color.decode(backcolor);
 		Color front = Color.decode(forecolor);
 		int i = findColorIndex(back);
@@ -322,7 +329,14 @@ public class StickerDialog extends JDialog {
 	}
 
 	public String getStickerText() {
+		//================================================================================================= GARY
+		if (ImportSticker.name != null) {
+			stickerText.setText(((CalendarDate.today().getLongDateString() + " " + 
+					DateFormat.getTimeInstance().format(new java.util.Date()) + "\n")) + 
+					ImportSticker.fileContents.toString()); 
+		}
 		return stickerText.getText();
+		//------------------------------------------------------------------------------------------------- GARY
 	}
 	public String getStickerTextSize() {
 		return ""+stickerText.getFont().getSize();
