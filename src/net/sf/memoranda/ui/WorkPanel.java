@@ -35,7 +35,7 @@ public class WorkPanel extends JPanel {
 	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
 	public ResourcesPanel filesPanel = new ResourcesPanel();
 	//==================================================================== GARY
-	public TimeLogPanel timePanel = new TimeLogPanel();
+	public TimeLog timePanel = new TimeLog();
 	//-------------------------------------------------------------------- GARY
 	public JButton agendaB = new JButton();
 	public JButton tasksB = new JButton();
