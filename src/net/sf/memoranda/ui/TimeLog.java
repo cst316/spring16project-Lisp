@@ -3,12 +3,15 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TimeLog extends JPanel {
-	BorderLayout borderLayout1 = new BorderLayout();
+
 	TimeLogTable timeLogTable = new TimeLogTable();
 	JButton btnAdd = new JButton();
 	JTextField name = new JTextField();
@@ -16,18 +19,27 @@ public class TimeLog extends JPanel {
 	JTextField LOC = new JTextField();
 	JTextField startTime = new JTextField();
 	JTextField endTime = new JTextField();
+	JScrollPane scrollPane = new JScrollPane();
 	
 	public TimeLog() {
 	
-		JScrollPane scrollPane = new JScrollPane();
+		this.setLayout(new BorderLayout());
+		scrollPane.getViewport().setBackground(Color.white);
+		scrollPane.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				DefaultTableModel model = (DefaultTableModel)timeLogTable.getModel();
+				timeLogTable.clearSelection();					
+				
+			}
+		});
 		scrollPane.setBounds(0, 33, 450, 274);
-		add(scrollPane);
-
-		setLayout(borderLayout1);
 		
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
 		toolBar.setBounds(0, 11, 450, 26);
+
 		
 		
 		
@@ -51,9 +63,7 @@ public class TimeLog extends JPanel {
 		btnAdd.setIcon(new ImageIcon(TimeLog.class.getResource("/net/sf/memoranda/ui/resources/icons/event_new.png")));
 		toolBar.add(btnAdd);
 		
-        this.add(scrollPane, BorderLayout.CENTER);
-        scrollPane.setViewportView(timeLogTable);
-        this.add(toolBar, BorderLayout.NORTH);
+
         
         JButton btnRemove = new JButton("Remove");
         btnRemove.addActionListener(new ActionListener() {
@@ -66,9 +76,11 @@ public class TimeLog extends JPanel {
         	}
         });
         btnRemove.setIcon(new ImageIcon(TimeLog.class.getResource("/net/sf/memoranda/ui/resources/icons/event_remove.png")));
-        toolBar.add(btnRemove);		
-		
-		//model.addRow(row);
+        toolBar.add(btnRemove);
+        this.add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setViewportView(timeLogTable);
+        this.add(toolBar, BorderLayout.NORTH);
+
 
 		
 		
