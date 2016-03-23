@@ -56,6 +56,15 @@ public class TimeLog extends JPanel {
         this.add(toolBar, BorderLayout.NORTH);
         
         JButton btnRemove = new JButton("Remove");
+        btnRemove.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		DefaultTableModel model = (DefaultTableModel)timeLogTable.getModel();
+        		model.removeRow(timeLogTable.getSelectedRow());
+        		
+        		
+        	}
+        });
         btnRemove.setIcon(new ImageIcon(TimeLog.class.getResource("/net/sf/memoranda/ui/resources/icons/event_remove.png")));
         toolBar.add(btnRemove);		
 		
