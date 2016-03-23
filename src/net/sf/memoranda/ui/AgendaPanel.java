@@ -204,7 +204,32 @@ public class AgendaPanel extends JPanel {
 					}else if (d.startsWith("memoranda:importstickers")) {
 						final JFrame parent = new JFrame();
 						String name = JOptionPane.showInputDialog(parent,Local.getString("Enter name of file to import"),null);
-						new ImportSticker(name).import_file();
+						//================================================================================== GARY
+						//new ImportSticker(name).import_file();
+						try {
+							new ImportSticker(name).import_file();
+							StickerDialog dlg = new StickerDialog(App.getFrame());
+							if(ImportSticker.name == null) {
+								dlg.CANCELLED = true;
+							} else {
+								Dimension frmSize = App.getFrame().getSize();
+								dlg.setSize(new Dimension(300, 380));
+								Point loc = App.getFrame().getLocation();
+								dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x, (frmSize.height - dlg.getSize().height) / 2 + loc.y);
+								dlg.setVisible(true);
+								String txt = "date file created: " + ImportSticker.dateCreated + "\n" + "date sticker created: " + dlg.getStickerText();
+								int sP = dlg.getPriority();
+								txt = txt.replaceAll("\\n", "<br>");
+								txt = "<div style=\"background-color:"+dlg.getStickerColor()+";font-size:"+dlg.getStickerTextSize()+";color:"+dlg.getStickerTextColor()+"; \">"+txt+"</div>";
+								EventsManager.createSticker(txt, sP);
+								CurrentStorage.get().storeEventsManager();
+							}
+							refresh(CurrentDate.get());
+							ImportSticker.fileContents = null;
+						} catch (IOException ex) {
+							Logger.getLogger(AgendaPanel.class.getName()).log(Level.SEVERE, null, ex);
+						}
+						//---------------------------------------------------------------------------------- GARY
 					}
 				}
 			}
