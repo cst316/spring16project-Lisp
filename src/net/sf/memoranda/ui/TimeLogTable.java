@@ -9,7 +9,6 @@ public class TimeLogTable extends JTable {
 		
 		
 		Object[] columns = {"Name", "Task", "LOC", "Start Time", "End Time"};
-		Object[] row = new Object[5];
 		
 		this.setRowHeight(30);
 		DefaultTableModel model = new DefaultTableModel();
