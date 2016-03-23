@@ -265,14 +265,14 @@ public class Template extends DefaultMutableTreeNode {
 				json.addNode(loadvec.get(i).getTaskName(), "2/2/3", "3/4/3", String.valueOf(loadvec.get(i).getEffort()), 
 						"null", String.valueOf(loadvec.get(i).getPriority()), loadvec.get(i).getTaskDescription(), currentSize, childNode);
 				System.out.println(loadvec.get(i).getTaskName());
-				CurrentProject.getTaskList().createTask(
+				/*CurrentProject.getTaskList().createTask(
 				loadvec.get(i).getCalendarStartDate(), 
 				loadvec.get(i).getCalendarEndDate(),
 				loadvec.get(i).getTaskName(), 
 				loadvec.get(i).getPriority(), 
 				loadvec.get(i).getEffort(), 
 				loadvec.get(i).getTaskDescription(),
-				parent);	
+				parent);*/	
 			}
 		}
 		
