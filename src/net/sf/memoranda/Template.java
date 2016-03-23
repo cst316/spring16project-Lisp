@@ -1,5 +1,9 @@
 package net.sf.memoranda;
-
+/*
+ * Author: Jason Rice
+ * Description: the template class is a template version of a task object
+ * that will store information pertaining to task templates.
+ */
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,27 +35,33 @@ import org.json.simple.parser.ParseException;
 public class Template extends DefaultMutableTreeNode {
 	
 	// For loading tasks
-	CalendarDate CalendarStartDate,
-				 CalendarEndDate;
+	CalendarDate CalendarStartDate;
+	CalendarDate CalendarEndDate;
 	
 	// For TaskTemplateWizard UI
-	Date startDate, endDate;
+	Date startDate;
+	Date endDate;
 	
-	//taskpanel items
-		TaskTable tt;
-		DailyItemsPanel dip;
+	TaskTable tt;
+	DailyItemsPanel dip;
 	
-	private String taskDescription,
-				   headTaskTitle;
+	private String taskDescription;
+	private String headTaskTitle;
 
 	private Vector<Template> subtasks;
 	public int priornum;
-	private String taskName,
-				   parentId;
-	private int taskId,
-	            progress;
+	private String taskName;
+	private String parentId;
+	private int taskId;
+	private int progress;
 	private long effort;
 	
+	/*
+	 * Name: Template constructor
+	 * Author:
+	 * Description: creates a template object only consisting of a name
+	 * needs to be manually updated.
+	 */
 	public Template(String name){
 		
 		super(name);
@@ -63,6 +73,11 @@ public class Template extends DefaultMutableTreeNode {
 		startDate = endDate = new Date();
 	}
 	
+	/*
+	 * Name: Template constructor
+	 * Author: Jason Rice
+	 * Description: creates a full template object.
+	 */
 	public Template(int taskId, String headTaskTitle, String taskDescription, 
 			CalendarDate CalendarStartDate, CalendarDate CalendarEndDate,
 			String priority, long effort, int progress) {
@@ -162,7 +177,12 @@ public class Template extends DefaultMutableTreeNode {
 		return this.priornum;
 	}
 
-	// CHANGED TO STRING: May need a switch to convert to int
+	/*
+	 * Name: setPriority
+	 * Author: Jason Rice
+	 * Description: converts the priority from a string into an integer
+	 * and sets it to the corresponding priority.
+	 */
 	public void setPriority(String priority) {
 		int numberpriority;
 		switch (priority){
@@ -202,7 +222,11 @@ public class Template extends DefaultMutableTreeNode {
 	public void addSubtask(Template task) {
 		subtasks.add(task);
 	}
-	
+	/*
+	 * Name: removeSubtask
+	 * Author: Jason Rice
+	 * Description: removes a subtask from the task object.
+	 */
 	public boolean removeSubtask(Template task) {
 		try {
 			subtasks.remove(subtasks.indexOf(task));
@@ -229,6 +253,12 @@ public class Template extends DefaultMutableTreeNode {
 		this.taskId = taskId;
 	}
 	
+	/*
+ 	* Name: save
+ 	* Author: 
+ 	* Description: Save functionality which saves the template object and
+ 	* sub template objects to a .Json file.
+ 	*/
 	public void save() throws FileNotFoundException, IOException, ParseException{
 		
 		TaskList tl = CurrentProject.getTaskList();
@@ -236,23 +266,20 @@ public class Template extends DefaultMutableTreeNode {
 			//	getTaskName(), getPriority(), getEffort(), getTaskDescription(), null);
 		Vector<Template> loadvec = getSubtasks();
 		if(loadvec.size()!=0) {
-			//CurrentProject.updateProject();
-			
-			TaskJson json = new TaskJson("template.json", "tasks");
-			
-			JSONArray template = new JSONArray();
-			
+			TaskJson json = new TaskJson("template.json", "tasks");		
+			JSONArray template = new JSONArray();			
 			JSONObject root = new JSONObject();
-			
-			
+						
 			//added the +2 +1 to shift past the root.
 			ArrayList<String> children = new ArrayList<String>();
 			for(int i = json.size() + 2; i <= loadvec.size() + json.size() + 1; i++){
 				children.add(String.valueOf(i));
 			}
 			
-			json.addNode(getTaskName(), "2/3/4", "2/2/3", String.valueOf(getEffort()), String.valueOf(getProgress()), String.valueOf(getPriority()), getTaskDescription(), "null", children);
-			
+			json.addNode(getTaskName(), "2/3/4", "2/2/3", String.valueOf(getEffort()), 
+					String.valueOf(getProgress()), String.valueOf(getPriority()), 
+					getTaskDescription(), "null", children);
+	
 			String currentSize = String.valueOf(json.size());
 			
 			System.out.println(getPriority());
@@ -262,22 +289,22 @@ public class Template extends DefaultMutableTreeNode {
 			
 			ArrayList<String> childNode = new ArrayList<String>();
 			for(int i = 0; i<loadvec.size(); i++) {
-				json.addNode(loadvec.get(i).getTaskName(), "2/2/3", "3/4/3", String.valueOf(loadvec.get(i).getEffort()), 
-						"null", String.valueOf(loadvec.get(i).getPriority()), loadvec.get(i).getTaskDescription(), currentSize, childNode);
+				json.addNode(loadvec.get(i).getTaskName(), "2/2/3", "3/4/3", 
+						String.valueOf(loadvec.get(i).getEffort()), 
+						"null", String.valueOf(loadvec.get(i).getPriority()), 
+						loadvec.get(i).getTaskDescription(), currentSize, childNode);
 				System.out.println(loadvec.get(i).getTaskName());
-				/*CurrentProject.getTaskList().createTask(
-				loadvec.get(i).getCalendarStartDate(), 
-				loadvec.get(i).getCalendarEndDate(),
-				loadvec.get(i).getTaskName(), 
-				loadvec.get(i).getPriority(), 
-				loadvec.get(i).getEffort(), 
-				loadvec.get(i).getTaskDescription(),
-				parent);*/	
 			}
 		}
 		
 	}
 	
+	/*
+ 	* Name: loadTemplate
+ 	* Author: Jason Rice
+ 	* Description: loads in the template and the sub templates and converts them 
+ 	* to task objects and updates the task panel to display the tasks.
+ 	*/
 	public void loadTemplate() {
 		TaskList tl = CurrentProject.getTaskList();
 		 tl.createTask(getCalendarStartDate(), getCalendarEndDate(), 
@@ -306,7 +333,11 @@ public class Template extends DefaultMutableTreeNode {
 		CurrentProject.updateProject();
 	}
 	
-	//method in order to get a json value and 
+	/*
+ 	* Name: getJsonTemplate
+ 	* Author: Jason Rice
+ 	* Description: creates a template from a json object.
+ 	*/ 
 	public Template getJsonTemplate(JSONArray ja) {
 		JSONObject job = (JSONObject) ja.get(0);
 		Template root = new Template(job.get("name").toString());

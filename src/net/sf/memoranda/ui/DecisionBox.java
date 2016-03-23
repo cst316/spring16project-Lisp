@@ -46,11 +46,9 @@ public class DecisionBox {
 		panel.setTitle(title);
 		panel.setModal(true);
 		panel.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		
 		panel.getContentPane().setVisible(true);
 		panel.setSize(new Dimension(390, 150));
 		panel.setResizable(false);
-		
 		panel.toFront(); 
 		
 		JPanel textPanel = new JPanel();
