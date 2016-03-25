@@ -236,9 +236,7 @@ public class TaskJson {
 		
 		Integer index = null;
 		index = Integer.valueOf(id);
-		
 		String taskId = getIdFromIndex(index);
-		
 		JSONObject task = (JSONObject) data.get(index);
 		data.remove(index);
 		
@@ -250,10 +248,9 @@ public class TaskJson {
 	public String getIdFromIndex(Integer index) {
 		
 		String id = "";
-		
 		JSONObject task = (JSONObject) data.get(index);
 		id = task.get("id").toString();
-		
+		System.out.println("\nThe id returned from getIdFromIndex: "+id);
 		return id;
 	}
 
