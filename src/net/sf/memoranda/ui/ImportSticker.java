@@ -7,8 +7,8 @@ package net.sf.memoranda.ui;
 //
 //public class ImportSticker {
 //
-//String name;        
-//        
+//String name;
+//
 //        public ImportSticker(String x) {
 //                name = x;
 //        }
@@ -16,17 +16,16 @@ package net.sf.memoranda.ui;
 //        public boolean import_file(){
 //                /*
 //                 We are working on this =)
-//                  
-//                  
+//
+//
 //                  */
-//                
+//
 //                JOptionPane.showMessageDialog(null,Local.getString("Still we cannot import your document"));
 //                return true;
 //        }
-//        
-//        
+//
+//
 //}
-
 import java.awt.Dimension;
 import java.awt.Point;
 import java.io.BufferedReader;
@@ -49,61 +48,53 @@ import net.sf.memoranda.util.Local;
 import nu.xom.Element;
 
 public class ImportSticker {
-    
-    static String name;
-    static String fileContents;
-    static String line;
-    static String dateCreated;
-    File f1;
-    
-    public ImportSticker(String x) {
-        name = x;
-    }
-    
-    public boolean import_file() throws IOException{
-     
-        File[] files = File.listRoots();
-        for(File f : files){
-            f.getPath();
-            f1 = new File(name);
-        }
-		
-		
-        try{
-            FileReader fr = new FileReader(name);
-            BufferedReader br = new BufferedReader(fr);   
-            while ((line = br.readLine()) != null){
-                if(line != null){
-                    if (fileContents == null){
-                        fileContents = line;
-                    }
-                    else{
-                        fileContents = fileContents + "\n" + line;
-                    }
-                }
+
+   static String name;
+   static String fileContents;
+   static String line;
+   static String dateCreated;
+   File f1;
+
+   public ImportSticker(String x) {
+      name = x;
+   }
+
+   public boolean import_file() throws IOException {
+
+      File[] files = File.listRoots();
+      for (File f : files) {
+         f.getPath();
+         f1 = new File(name);
+      }
+
+   try {
+      FileReader fr = new FileReader(name);
+      BufferedReader br = new BufferedReader(fr);
+      while ((line = br.readLine()) != null) {
+         if (line != null) {
+            if (fileContents == null) {
+               fileContents = line;
+            } else {
+               fileContents = fileContents + "\n" + line;
             }
-            
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-            dateCreated = sdf.format(f1.lastModified());
-            if (fileContents == null){
-                System.out.println("didn't find it");
-                JOptionPane.showMessageDialog(null,Local.getString("We cannot find your document"));
-            }
-            br.close();
-            
-        }
-//        catch(IOException ex){
-//            JOptionPane.showMessageDialog(null,Local.getString("there was a problem finding your file"));
-//            name = null;
-//            return false;
-//        }
-        // }
-        
-        JOptionPane.showMessageDialog(null,Local.getString("We imported your file, just click ok (twice)"));
-        return true;
-        
-    }
-    
-    
+         }
+      }
+
+      SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+      dateCreated = sdf.format(f1.lastModified());
+      if (fileContents == null) {
+         JOptionPane.showMessageDialog(null, Local.getString("We cannot find your document"));
+      }
+      br.close();
+
+   } catch (IOException ex) {
+      JOptionPane.showMessageDialog(null, Local.getString("there was a problem finding your file"));
+      name = null;
+      return false;
+   }
+   JOptionPane.showMessageDialog (
+   null,Local.getString("We imported your file, just click ok (twice)"));
+   return true;
+}
 }
 //----------------------------------------------------------------------- GARY
