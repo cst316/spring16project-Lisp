@@ -1,5 +1,6 @@
 package net.sf.memoranda;
-
+/////////"Code Smell - using private variables and no get methods example data" - informal code review///////
+//"Code Smell - searching for id each time instead of having a get id by name method" - informal code review/
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,7 +15,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////
 public class TaskJson {
 	
 	String filePath;
@@ -24,9 +25,8 @@ public class TaskJson {
 	private JSONArray data;
 	
 	private Object obj;
-	
 	public TaskJson(String filePath, String type) throws FileNotFoundException, IOException, ParseException{
-		
+///////////////^^^^^^///////////"line length too long" - informal code review////////////////^^^^^^///////////////
 		this.filePath = filePath;
 		String file = new File(filePath).getCanonicalPath();
 	      // creates the file
@@ -37,7 +37,7 @@ public class TaskJson {
 		data = (JSONArray) jsonObject.get("tasks");
 
  	}
-	
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////
 	public String getElement(String id, String type){
 		
 		Iterator i = data.iterator();
@@ -53,7 +53,7 @@ public class TaskJson {
         }
 		return element;
 	}
-	
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////	
 	public JSONArray getTemplates(){
 		
 		JSONArray templates = new JSONArray();
@@ -74,7 +74,7 @@ public class TaskJson {
 		System.out.println();
 		return templates;
 	}
-	
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////	
 	public JSONArray getTemplate(String id){
 		
 		JSONArray template = new JSONArray();
@@ -162,7 +162,7 @@ public class TaskJson {
 		
 		return template;
 	}
-	
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////	
 	public int numberOfChildren(String id){
 		
 		ArrayList<String> children = new ArrayList<String>();
@@ -171,7 +171,7 @@ public class TaskJson {
 	
 		return children.size();
 	}
-	
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////	
 	public void editElement(String id, String type, String newValue) throws IOException{
 		
 		Iterator i = data.iterator();
@@ -198,9 +198,9 @@ public class TaskJson {
 		}
 	}
 	
-	
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////	
 	public void addNode(String name, String startDate, String endDate, String effort, String progress, String prior, String description, String parent, ArrayList<String> children) throws IOException{
-		
+///////////////^^^^^^///////////"line length too long" - informal code review////////////////^^^^^^///////////////		
 		JSONObject newNode = new JSONObject();
 		
 		String id = String.valueOf(size() + 1);
@@ -231,7 +231,7 @@ public class TaskJson {
 			System.out.println("Successfully Copied JSON Object to File...");
 		}	
 	}
-	
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////	
 	public void deleteNode(String id) throws IOException{
 		
 		Integer index = null;
@@ -244,7 +244,7 @@ public class TaskJson {
 		//removeSubTasks(taskId);
 		
 	}
-	
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////	
 	public String getIdFromIndex(Integer index) {
 		
 		String id = "";
@@ -253,7 +253,9 @@ public class TaskJson {
 		System.out.println("\nThe id returned from getIdFromIndex: "+id);
 		return id;
 	}
-
+////////////////"spacing inconsistent with other methods" "if statement" - informal code review//////////////
+///////////////////////////////"Method reomveHeadTask naming" - informal code review/////////////////////////
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////
 	public void reomveHeadTask(String id) throws IOException {
 		
 		String tmp = "";
@@ -277,7 +279,7 @@ public class TaskJson {
 			System.out.println("Successfully Copied JSON Object to File...");
 		}
 	}
-
+///////////////////////////////"Needs a correct banner" - informal code review///////////////////////////////////////
 	// Get all the id's of the subTasks of a specific task
 	public ArrayList<String> getSubTasks(String id){
 		
@@ -300,6 +302,7 @@ public class TaskJson {
 		
 		return list;
 	}
+///////////////////////////////"Needs a correct banner" - informal code review///////////////////////////////////////
 	// Remove all of the subtasks that have the same id for parent
 	public void removeSubTasks(String id) throws IOException{
 		
@@ -326,7 +329,8 @@ public class TaskJson {
 			System.out.println("Successfully Copied JSON Object to File...");
 		}
 	}
-	
+////////////////"spacing inconsistent with other methods" "if statement" - informal code review//////////////
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////	
 	public int getHighestId(){
 		
 		int id = 0;
@@ -346,7 +350,7 @@ public class TaskJson {
 		
 		return id;
 	}
-	
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////	
 	public ArrayList<String> getElements(String type){
 		
 		ArrayList<String> list = new ArrayList<String>();
@@ -361,7 +365,7 @@ public class TaskJson {
 		}	
 		return list;
 	}
-	
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////	
 	public void sortId() throws IOException{
 		
 		Iterator i = data.iterator();
@@ -385,7 +389,7 @@ public class TaskJson {
 		
 		System.out.println(data.toJSONString());
 	}
-	
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////	
 	public ArrayList<String> getChildren(String id){
 		ArrayList<String> ids = new ArrayList<String>();
 		Iterator iter = data.iterator();
@@ -404,7 +408,7 @@ public class TaskJson {
 		}
 		return ids;
 	}
-	
+///////////////////////////////"Needs a banner" - informal code review///////////////////////////////////////	
 	public ArrayList<String> getRootIds(){
 		ArrayList<String> rootNames = new ArrayList<String>();
 		
