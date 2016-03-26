@@ -47,9 +47,8 @@ public class Template extends DefaultMutableTreeNode {
 	
 	private String taskDescription;
 	private String headTaskTitle;
-
 	private Vector<Template> subtasks;
-	public int priornum;
+	private int priornum;
 	private String taskName;
 	private String parentId;
 	private int taskId;
@@ -310,27 +309,37 @@ public class Template extends DefaultMutableTreeNode {
 		 tl.createTask(getCalendarStartDate(), getCalendarEndDate(), 
 				getTaskName(), getPriority(), getEffort(), getTaskDescription(), null);
 		Vector<Template> loadvec = getSubtasks();
-		if(loadvec.size()!=0) {
+		
+		int vecsize = loadvec.size();
+		if(vecsize != 0) {
 			CurrentProject.updateProject();
 			
 			//This is a hack on taskListImpl in order to get the parents id.
-			String parent = CurrentProject.getTaskList().getParentaskID();
+			String par = CurrentProject.getTaskList().getParentaskID();
 			
-			for(int i = 0; i<loadvec.size(); i++) {
-				CurrentProject.getTaskList().createTask(
-				loadvec.get(i).getCalendarStartDate(), 
-				loadvec.get(i).getCalendarEndDate(),
-				loadvec.get(i).getTaskName(), 
-				loadvec.get(i).getPriority(), 
-				loadvec.get(i).getEffort(), 
-				loadvec.get(i).getTaskDescription(),
-				parent);	
-			}
+			loadTemplateChildren(loadvec, par);
 		}
 		//save the task list
 		CurrentStorage.get().storeTaskList(tl, CurrentProject.get());
 		//CurrentProject.save();
 		CurrentProject.updateProject();
+	}
+	
+	/*
+	 * Author: Jason Rice
+	 * Description: creates new subtasks of the children.
+	 */
+	public void loadTemplateChildren(Vector<Template> children, String parent) {
+		for(int i = 0; i<children.size(); i++) {
+			CurrentProject.getTaskList().createTask(
+			children.get(i).getCalendarStartDate(), 
+			children.get(i).getCalendarEndDate(),
+			children.get(i).getTaskName(), 
+			children.get(i).getPriority(), 
+			children.get(i).getEffort(), 
+			children.get(i).getTaskDescription(),
+			parent);	
+		}
 	}
 	
 	/*
@@ -348,14 +357,23 @@ public class Template extends DefaultMutableTreeNode {
 		root.setHeadTaskTitle(job.get("parent").toString());
 		Template subtask = new Template();
 		
-		for(int i = 1; i<ja.size(); i++) {
+		int jaSize = ja.size();
+		for(int i = 1; i < jaSize; i++) {
+			
+			String jobName = job.get("name").toString();
+			String jobPriority = job.get("priority").toString();
+			int jobProgress = Integer.parseInt(job.get("progress").toString());
+			long jobEffort = Long.parseLong(job.get("effort").toString());
+			String jobDescription = job.get("description").toString();
+			String jobHeadTask = job.get("parent").toString();
+			
 			job = (JSONObject) ja.get(i);
-			subtask.setTaskName(job.get("name").toString());
-			subtask.setPriority(job.get("priority").toString());
-			subtask.setProgress(Integer.parseInt(job.get("progress").toString()));
-			subtask.setEffort((long)job.get("effort"));
-			subtask.setTaskDescription(job.get("description").toString());
-			subtask.setHeadTaskTitle(job.get("parent").toString());
+			subtask.setTaskName(jobName);
+			subtask.setPriority(jobPriority);
+			subtask.setProgress(jobProgress);
+			subtask.setEffort(jobEffort);
+			subtask.setTaskDescription(jobDescription);
+			subtask.setHeadTaskTitle(jobHeadTask);
 			root.addSubtask(subtask);
 		}
 		return root;
