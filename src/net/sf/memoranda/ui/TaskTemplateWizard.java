@@ -475,16 +475,24 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				int index = priority.getSelectedIndex();
 				String prior = "";
 			
-				System.out.println(index);
+				//System.out.println(index);
 				
 				prior = getStringPriority(index);
-		
+				
 				try {
 					saving();
-				} catch (IOException | ParseException e1) {
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+		
+				
 				
 			}
 				 
@@ -591,7 +599,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	}
 	
 	public void saving() throws FileNotFoundException, IOException, ParseException{
-		
 		DefaultTreeModel model = (DefaultTreeModel) this.tree.getModel();
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 		Template troot= (Template) model.getRoot();
@@ -675,9 +682,10 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		
 		ArrayList<String> names = new ArrayList<String>();
 		try{
+			System.out.println("the size: " + ids.size());
 			TaskJson tj = new TaskJson("template.json","tasks");
 			for(int i = 0; i < ids.size(); i++){
-				System.out.println(ids.get(i));
+				//System.out.println(ids.get(i));
 				names.add(tj.getElement(ids.get(i), "name"));
 			}
 		}
@@ -712,6 +720,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				
 				String current = comboBox.getSelectedItem().toString();
 				String id = String.valueOf(ids.get(comboBox.getSelectedIndex()));
+				System.out.println("the id selected is: " + id);
 				try {
 					populateTreeFromLoad(id);
 				} catch (IOException | ParseException e1) {
