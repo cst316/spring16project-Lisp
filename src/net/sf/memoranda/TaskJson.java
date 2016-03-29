@@ -205,6 +205,10 @@ public class TaskJson {
 			description = "No description added";
 		}
 		
+		if(name == null || name.isEmpty()){
+			name = "No name added";
+		}
+		
 		JSONObject newNode = new JSONObject();
 		
 		String id = String.valueOf(getHighestId() + 1);
