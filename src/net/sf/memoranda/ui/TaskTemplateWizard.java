@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.border.BevelBorder;
 
@@ -259,6 +260,12 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		panel.add(lblTaskName);
 		
 		task_name = new JTextField();
+		task_name.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				task_name.setBackground(Color.white);
+			}
+		});
 		task_name.setBounds(36, 21, 375, 28);
 		task_name.setName("");
 		panel.add(task_name);
@@ -464,20 +471,21 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			public void mouseClicked(MouseEvent e) {
 				
 				System.out.println("Save selected.");
-				
+				//SelectRootNode();
 				String name = task_name.getText();
-				Date startD = (Date)startDate.getModel().getValue();
-				Date endD = (Date)endDate.getModel().getValue();
-				String effort = est_effort.getText();
-				String prog = progress.getText();
-				String desc = description.getText();
+				if(!name.isEmpty()) {
+					Date startD = (Date)startDate.getModel().getValue();
+					Date endD = (Date)endDate.getModel().getValue();
+					String effort = est_effort.getText();
+					String prog = progress.getText();
+					String desc = description.getText();
 				
-				int index = priority.getSelectedIndex();
-				String prior = "";
+					int index = priority.getSelectedIndex();
+					String prior = "";
 			
-				//System.out.println(index);
+					//System.out.println(index);
 				
-				prior = getStringPriority(index);
+					prior = getStringPriority(index);
 				
 				try {
 					saving();
@@ -492,12 +500,17 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 					e1.printStackTrace();
 				}
 		
-				
+				}
+				else {
+					task_name.setBackground(Color.red);
+				}
 				
 			}
 				 
 			
 		});
+		
+		
 		
 		//WORKING -- Load the tree from the template screen to the task list.
 		btnLoad.addMouseListener(new MouseAdapter() {
@@ -520,6 +533,11 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		
 	}
 
+	//this selects the root node in the tree
+	public void SelectRootNode() {
+		this.tree.setSelectionRow(0);
+	}
+	
 	//TaskTable Getters and Setters.
 	public TaskTable getTaskTable() {
 		return tasktab;
@@ -674,7 +692,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	}
 	
 	public JDialog getLoader() {
-		this.tree.setSelectionRow(0); //sets the root node as the selected node for loading
+		SelectRootNode(); //sets the root node as the selected node for loading
 		ArrayList<String> ids = getLoaderNames();
 		JDialog loader = new JDialog(this, true);
 		loader.setTitle("Load Template");
@@ -758,7 +776,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		btnDeleteTemplate.setToolTipText("Delete Selected Template");
 		btnDeleteTemplate.setIcon(new ImageIcon(TaskTemplateLoader.class.getResource("/com/sun/java/swing/plaf/motif/icons/Error.gif")));
 		btnDeleteTemplate.setBounds(263, 69, 31, 27);
-		loader.add(btnDeleteTemplate);
+		loader.getContentPane().add(btnDeleteTemplate);
 		loader.getContentPane().add(btnCancel);
 		loader.setAlwaysOnTop(true);
 		loader.setLocationRelativeTo(this);

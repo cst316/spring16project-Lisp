@@ -258,31 +258,30 @@ public class Template extends DefaultMutableTreeNode {
  	* Description: Save functionality which saves the template object and
  	* sub template objects to a .Json file.
  	*/
-	public void save() throws FileNotFoundException, IOException, ParseException{
+public void save() throws FileNotFoundException, IOException, ParseException{
 		
 		TaskList tl = CurrentProject.getTaskList();
 		 //tl.createTask(getCalendarStartDate(), getCalendarEndDate(), 
 			//	getTaskName(), getPriority(), getEffort(), getTaskDescription(), null);
 		Vector<Template> loadvec = getSubtasks();
+		
+		TaskJson json = new TaskJson("template.json", "tasks");		
+		JSONArray template = new JSONArray();			
+		JSONObject root = new JSONObject();
+		
+		//had to shift further
+		ArrayList<String> children = new ArrayList<String>();
+		for(int i = json.size()+3; i <= loadvec.size() + json.size()+2; i++){
+			children.add(String.valueOf(i));
+		}
+		
+		json.addNode(getTaskName(), "2/3/4", "2/2/3", String.valueOf(getEffort()), 
+				String.valueOf(getProgress()), String.valueOf(getPriority()), 
+				getTaskDescription(), "null", children);
+		
 		if(loadvec.size()!=0) {
-			TaskJson json = new TaskJson("template.json", "tasks");		
-			JSONArray template = new JSONArray();			
-			JSONObject root = new JSONObject();
-						
-			//added the +2 +1 to shift past the root.
-			ArrayList<String> children = new ArrayList<String>();
-			for(int i = json.size() + 2; i <= loadvec.size() + json.size() + 1; i++){
-				children.add(String.valueOf(i));
-			}
+			String currentSize = String.valueOf(json.size()+1);
 			
-			json.addNode(getTaskName(), "2/3/4", "2/2/3", String.valueOf(getEffort()), 
-					String.valueOf(getProgress()), String.valueOf(getPriority()), 
-					getTaskDescription(), "null", children);
-	
-			String currentSize = String.valueOf(json.size());
-			
-			System.out.println(getPriority());
-			System.out.println(getTaskName());
 			//This is a hack on taskListImpl in order to get the parents id.
 			String parent = CurrentProject.getTaskList().getParentaskID();
 			
@@ -294,8 +293,7 @@ public class Template extends DefaultMutableTreeNode {
 						loadvec.get(i).getTaskDescription(), currentSize, childNode);
 				System.out.println(loadvec.get(i).getTaskName());
 			}
-		}
-		
+		}		
 	}
 	
 	/*
