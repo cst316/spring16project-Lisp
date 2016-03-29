@@ -201,6 +201,10 @@ public class TaskJson {
 	public void addNode(String name, String startDate, String endDate, String effort, String progress, String prior, String description, String parent, ArrayList<String> children) throws IOException{
 		System.out.println("adding a node");
 		
+		if(description == null || description.isEmpty()){
+			description = "No description added";
+		}
+		
 		JSONObject newNode = new JSONObject();
 		
 		String id = String.valueOf(getHighestId() + 1);
@@ -246,9 +250,6 @@ public class TaskJson {
 			System.out.println("Successfully Copied JSON Object to File...");
 		}
 		removeSubTasks(subIdList);
-		
-			
-		
 	}
 	
 	public int getIndexFromId(String id){
