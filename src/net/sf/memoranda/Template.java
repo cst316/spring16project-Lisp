@@ -280,7 +280,7 @@ public void save() throws FileNotFoundException, IOException, ParseException{
 				getTaskDescription(), "null", children);
 		
 		if(loadvec.size()!=0) {
-			String currentSize = String.valueOf(json.size()+1);
+			String currentSize = String.valueOf(json.getHighestId());
 			
 			//This is a hack on taskListImpl in order to get the parents id.
 			String parent = CurrentProject.getTaskList().getParentaskID();

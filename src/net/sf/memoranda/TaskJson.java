@@ -234,19 +234,42 @@ public class TaskJson {
 	
 	public void deleteNode(String id) throws IOException{
 		
-		System.out.println("the index: " + id);
-		Integer index = null;
-		index = Integer.valueOf(id);
+		int index = getIndexFromId(id);
+		System.out.println("the index of the head is " + index);
 		JSONObject obj = (JSONObject) data.get(index);
+		ArrayList<Integer> subIdList = new ArrayList<>();
 		String taskId = getIdFromIndex(index);
+		subIdList = getSubTasks(taskId);
 		data.remove(obj);
-		removeSubTasks(taskId);
-		System.out.println("index at: " + id);
 		try (FileWriter file = new FileWriter(filePath)) {
 			file.write(jsonObject.toJSONString());		
 			System.out.println("Successfully Copied JSON Object to File...");
-		}	
+		}
+		removeSubTasks(subIdList);
 		
+			
+		
+	}
+	
+	public int getIndexFromId(String id){
+		int count = 0;
+		String tmp;
+		
+		Iterator i = data.iterator();
+		
+		System.out.println(id);
+		
+		while(i.hasNext()) {
+			
+			JSONObject task = (JSONObject) i.next();
+			tmp = task.get("id").toString();
+			if (tmp.equals(id)){
+				return count;
+			}
+			count++;
+		}
+		
+		return count;
 	}
 	
 	public String getIdFromIndex(Integer index) {
@@ -274,6 +297,10 @@ public class TaskJson {
 			if (tmp.equals(id)){
 				System.out.println(task.get("name"));
 				data.remove(task);
+				try (FileWriter file = new FileWriter(filePath)) {
+					file.write(jsonObject.toJSONString());		
+					System.out.println("Successfully Copied JSON Object to File...");
+				}	
 				
 			}	
 		}
@@ -283,12 +310,14 @@ public class TaskJson {
 		}
 	}
 
-	// Get all the id's of the subTasks of a specific task
-	public ArrayList<String> getSubTasks(String id){
+	// Get all the index of the subTasks of a specific task
+	public ArrayList<Integer> getSubTasks(String id){
 		
-		ArrayList<String> list = new ArrayList<>();
+		ArrayList<Integer> list = new ArrayList<>();
 		
 		String tmp = "";
+		
+		int count = 0;
 		
 		Iterator i = data.iterator();
 		
@@ -297,32 +326,25 @@ public class TaskJson {
 			JSONObject task = (JSONObject) i.next();
 			tmp = task.get("parent").toString();
 			
-			if (tmp.equals(id)){
-				tmp = task.get("id").toString();
-				list.add(tmp);
-			}
+			if (tmp.equals(id)){		
+				list.add(count);
+			}	
+			count++;
 		}
 		
 		return list;
 	}
+	
 	// Remove all of the subtasks that have the same id for parent
-	public void removeSubTasks(String id) throws IOException{
+	public void removeSubTasks(ArrayList<Integer> list) throws IOException{
 		
-		String tmp = "";
-		
-		Iterator i = data.iterator();
-		System.out.println(id);
-		
-		while(i.hasNext()) {
-			
-			JSONObject task = (JSONObject) i.next();
-			tmp = task.get("parent").toString();
-			
-			if (tmp.equals(id)){
-				System.out.println(tmp + " parent");
-				data.remove(task);
-				
-			}	
+		for(int i = 0; i < list.size(); i++){
+			JSONObject obj = (JSONObject) data.get(list.get(i) - 1);
+			data.remove(obj);
+			try (FileWriter file = new FileWriter(filePath)) {
+				file.write(jsonObject.toJSONString());		
+				System.out.println("Successfully Copied JSON Object to File...");
+			}
 		}
 	}
 	

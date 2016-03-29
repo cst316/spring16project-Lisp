@@ -83,7 +83,7 @@ public class DecisionBox {
 					e1.printStackTrace();
 				}
 				try {
-					int tmpid = Integer.parseInt(id)-1;
+					int tmpid = Integer.parseInt(id);
 					String id = "" + tmpid;
 					tj.deleteNode(id);
 				} catch (IOException e1) {
