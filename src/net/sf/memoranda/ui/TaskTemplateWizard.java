@@ -116,7 +116,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		
 		tree = new JTree();
 		tree.setModel(new DefaultTreeModel(
-			new Template("JTree") {
+			new Template("Task") {
 				{
 
 				}
