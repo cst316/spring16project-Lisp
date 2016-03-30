@@ -795,7 +795,9 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				        description.setText(json.getElement(id, "description"));
 				        est_effort.setText(json.getElement(id, "effort"));
 				        progress.setText(json.getElement(id, "progress"));
-				        priority.setSelectedItem("Normal");
+				        priority.setSelectedItem(getStringPriority(
+				        		Integer.parseInt(json.getElement(id, "priority"))
+				        ));
 				        startDate.getModel().setValue(new Date());
 				        endDate.getModel().setValue(new Date());
 
@@ -803,6 +805,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 					}
 				}
 			);
+			
 			JSONArray subtasks = json.getTemplate(id);
 
 			DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
@@ -810,7 +813,9 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			root.setTaskDescription(json.getElement(id, "description"));
 			root.setEffort(Integer.parseInt(json.getElement(id, "effort")));
 			root.setProgress(Integer.parseInt(json.getElement(id, "progress")));
-			root.setPriority(getStringPriority(Integer.parseInt(json.getElement(id, "priority"))));
+			root.setPriority(getStringPriority(
+					Integer.parseInt(json.getElement(id, "priority"))
+			));
 			root.setStartDate(new Date());
 			root.setEndDate(new Date());
 			
