@@ -72,7 +72,8 @@ public class TimeLog {
     }
 	
 	private Collection convertToTimeLogEntryObjects(Elements entries) {
-        Vector v = new Vector();
+        //check for null entries
+		Vector v = new Vector();
         for (int i = 0; i < entries.size(); i++) {
         	TimeLogEntry t = new TimeLogEntry(entries.get(i), this);
             v.add(t);
