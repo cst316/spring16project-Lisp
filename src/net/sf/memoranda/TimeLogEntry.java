@@ -10,19 +10,23 @@ import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Node;
 import nu.xom.Nodes;
-
+/**
+ * @author Eric
+ * This class uses the document to store data about a
+ * time log entry. It is implemented similarly to tasks. 
+ */
 public class TimeLogEntry {
 	
 	private Element _element = null;
 	private TimeLog _tl =null;
-	
+	//Constructor
 	public TimeLogEntry(Element timeLogElement) {
 		_element = timeLogElement;
 		TimeLog _tl = null;
 	}
-	
+	//Getters
 	public String getPerson() {
-		return _element.getAttribute("person");
+		return _element.getAttribute("name");
 	}
 	
 	public String getStartTime() {
@@ -33,16 +37,20 @@ public class TimeLogEntry {
 		return _element.getAttribute("endTime");
 	}
 	
-	public String getComments() {
-		return _element.getAttribute("comments");
+	public String getTask() {
+		return _element.getAttribute("task");
 	}
 	
-	public String getComments() {
+	public String getLOC() {
+		return _element.getAttribute("loc");
+	}
+	
+	public String getId() {
 		return _element.getAttribute("id");
 	}
-	
-	public void setPerson(String person) {
-		setAttr("person", person);
+	//Setters
+	public void setPerson(String name) {
+		setAttr("name", name);
 	}
 	
 	public void setStartTime(String startTime) {
@@ -53,10 +61,14 @@ public class TimeLogEntry {
 		setAttr("endTime", endTime);
 	}
 	
-	public void setComments(String comments) {
-		setAttr("comments", comments);
+	public void setTask(String task) {
+		setAttr("task", task);
 	}
 	
+	public void setLOC(String loc) {
+		setAttr("loc", loc);
+	}
+	//Add an attribute to this entry
 	private void setAttr(String a, String value) {
         Attribute attr = _element.getAttribute(a);
         if (attr == null)
@@ -64,7 +76,10 @@ public class TimeLogEntry {
         else
             attr.setValue(value);
     }
-	
+	/**
+	 * 
+	 * @return Returns the entire entry as an element
+	 */
 	public Element getContent() {
         return _element;
     }
