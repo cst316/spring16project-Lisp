@@ -1,84 +1,128 @@
 package net.sf.memoranda;
 
-import java.util.Collection;
-import java.util.Vector;
-import java.util.Calendar;
-
+/*
+ * Author: Eric
+ * Description: handles the back end of Time Log Entries
+ */
 import nu.xom.Attribute;
-import nu.xom.Document;
 import nu.xom.Element;
+<<<<<<< HEAD
 import nu.xom.Elements;
 import nu.xom.Node;
 import nu.xom.Nodes;
-/**
- * @author Eric
- * This class uses the document to store data about a
- * time log entry. It is implemented similarly to tasks. 
- */
+
 public class TimeLogEntry {
 	
 	private Element _element = null;
 	private TimeLog _tl =null;
-	//Constructor
+	
+//Description: class to handle each time log entry.
+public class TimeLogEntry {
+	
+	private Element _element = null;
+	
+    //Class constructor
 	public TimeLogEntry(Element timeLogElement) {
 		_element = timeLogElement;
-		TimeLog _tl = null;
 	}
 	//Getters
-	public String getPerson() {
-		return _element.getAttribute("name");
+	/*
+	 * MethodTitle: getName
+	 * Returns: (String) name of the person
+	 */
+	public String getName() {
+		return _element.getAttribute("name").toString();
 	}
-	
+	/*
+	 * MethodTitle: getStartTime
+	 * Returns: (String) starting time of this log entry
+	 */
 	public String getStartTime() {
-		return _element.getAttribute("startTime");
+		return _element.getAttribute("startTime").toString();
 	}
-	
+	/*
+	 * MethodTitle: getEndTime
+	 * Returns: (String) ending time of this log entry
+	 */
 	public String getEndTime() {
-		return _element.getAttribute("endTime");
+		return _element.getAttribute("endTime").toString();
 	}
-	
+	/*
+	 * MethodTitle: getTask
+	 * Returns: (String) task of this log entry
+	 */
 	public String getTask() {
 		return _element.getAttribute("task");
 	}
-	
+	/*
+	 * MethodTitle: getLOC
+	 * Returns: (String) lines of code of this log entry
+	 */
 	public String getLOC() {
 		return _element.getAttribute("loc");
 	}
-	
+	/*
+	 * MethodTitle: getId
+	 * Returns: (String) the id of this log entry
+	 */
 	public String getId() {
-		return _element.getAttribute("id");
+		return _element.getAttribute("id").toString();
 	}
+	
 	//Setters
-	public void setPerson(String name) {
+	/*
+	 * MethodTitle: setName
+	 * Description: sets the name of this log entry
+	 */
+	public void setName(String name) {
 		setAttr("name", name);
 	}
 	
+	/*
+	 * MethodTitle: setStartTime
+	 * Description: sets the start time of this log entry
+	 */
 	public void setStartTime(String startTime) {
 		setAttr("startTime", startTime);
 	}
 	
+	/*
+	 * MethodTitle: setEndTime
+	 * Description: sets the end time of this log entry
+	 */
 	public void setEndTime(String endTime) {
 		setAttr("endTime", endTime);
 	}
-	
+	/*
+	 * MethodTitle: setTasl
+	 * Description: sets the task of this log entry
+	 */
 	public void setTask(String task) {
 		setAttr("task", task);
 	}
-	
+	/*
+	 * MethodTitle: setLOC
+	 * Description: sets the linesof code of this log entry
+	 */
 	public void setLOC(String loc) {
 		setAttr("loc", loc);
 	}
-	//Add an attribute to this entry
-	private void setAttr(String a, String value) {
+	/*
+	 * MethodTitle: setAttr
+	 * Description: gets an attribute and sets the new value to it
+	 */
+	public void setAttr(String a, String value) {
         Attribute attr = _element.getAttribute(a);
-        if (attr == null)
+        if (attr == null) {
            _element.addAttribute(new Attribute(a, value));
-        else
+        }
+        else {
             attr.setValue(value);
+        }
     }
-	/**
-	 * 
-	 * @return Returns the entire entry as an element
+	/*
+	 * MethodTitle: getContent
+	 * Returs: The entry as an element
 	 */
 	public Element getContent() {
         return _element;
