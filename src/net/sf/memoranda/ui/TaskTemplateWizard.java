@@ -808,7 +808,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		// Sets root template with the name
 		//Template root = new Template(name); //might need to set all the sub tasks to subtasks of root this way.
 		tree.setModel(new DefaultTreeModel(
-				new Template(name) {
+				new Template(name)) {
 					{
 						task_name.setText(name);
 				        description.setText(json.getElement(id, "description"));
@@ -818,20 +818,29 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				        startDate.getModel().setValue(new Date());
 				        endDate.getModel().setValue(new Date());
 
+
 					}
 				}
-			));
+			);
 			JSONArray subtasks = json.getTemplate(id);
+
+			DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+			Template root = (Template) model.getRoot();
+			root.setTaskDescription(json.getElement(id, "description"));
+			root.setEffort(Integer.parseInt(json.getElement(id, "effort")));
+			root.setProgress(Integer.parseInt(json.getElement(id, "progress")));
+			root.setPriority(getStringPriority(Integer.parseInt(json.getElement(id, "priority"))));
+			root.setStartDate(new Date());
+			root.setEndDate(new Date());
+			
 			
 			// Starts at one because the 0 index is the root 	
 				for(int i = 1; i < subtasks.size(); i++){
 				JSONObject currentSubtask = (JSONObject) subtasks.get(i);
-				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-				Template root = (Template) model.getRoot();
-				
 				Template subtask = new Template(currentSubtask.get("name").toString());
 				subtask.setHeadTaskTitle(root.getTaskName());
 				subtask.setTaskDescription(currentSubtask.get("description").toString());
+				System.out.println("SUBTASK DESCRIPTION: " + currentSubtask.get("description").toString());
 				//subtask.setParent(newParent);
 				subtask.setEffort(Long.parseLong(currentSubtask.get("effort").toString()));
 				subtask.setPriority(getStringPriority(
