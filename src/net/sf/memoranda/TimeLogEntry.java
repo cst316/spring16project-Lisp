@@ -6,7 +6,6 @@ package net.sf.memoranda;
  */
 import nu.xom.Attribute;
 import nu.xom.Element;
-<<<<<<< HEAD
 import nu.xom.Elements;
 import nu.xom.Node;
 import nu.xom.Nodes;
@@ -17,9 +16,6 @@ public class TimeLogEntry {
 	private TimeLog _tl =null;
 	
 //Description: class to handle each time log entry.
-public class TimeLogEntry {
-	
-	private Element _element = null;
 	
     //Class constructor
 	public TimeLogEntry(Element timeLogElement) {
@@ -52,14 +48,14 @@ public class TimeLogEntry {
 	 * Returns: (String) task of this log entry
 	 */
 	public String getTask() {
-		return _element.getAttribute("task");
+		return _element.getAttribute("task").toString();
 	}
 	/*
 	 * MethodTitle: getLOC
 	 * Returns: (String) lines of code of this log entry
 	 */
 	public String getLOC() {
-		return _element.getAttribute("loc");
+		return _element.getAttribute("loc").toString();
 	}
 	/*
 	 * MethodTitle: getId

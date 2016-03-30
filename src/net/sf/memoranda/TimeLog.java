@@ -78,7 +78,7 @@ public class TimeLog {
 		Elements els = parent.getChildElements("entry");
 		for (int i = 0; i < els.size(); i++) {
 			Element el = els.get(i);
-			elements.put(el.getAttribute("id").getValue(), el);
+			els.put(el.getAttribute("id").getValue(), el);
 			buildElements(el);
 		}
 	}
