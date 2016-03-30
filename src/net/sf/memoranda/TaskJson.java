@@ -253,6 +253,7 @@ public class TaskJson {
 			file.write(jsonObject.toJSONString());		
 			System.out.println("Successfully Copied JSON Object to File...");
 		}
+		if(subIdList.size() > 0)
 		removeSubTasks(subIdList);
 	}
 	
