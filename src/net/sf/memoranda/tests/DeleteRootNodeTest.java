@@ -59,9 +59,9 @@ public class DeleteRootNodeTest {
 	@Test
 	public void testDeleteRootNode() throws FileNotFoundException, IOException, ParseException {
 		TaskJson tj = new TaskJson("template.json","tasks");
-		ArrayList<String> rid = tj.getRootIds();
-		String id = rid.get(rid.size()-1);
-		System.out.println("The id retrieved after the add = " + id + "\n");
+		int iid = tj.getHighestId();
+		System.out.println("The id retrieved after the add = " + iid + "\n");
+		String id = ""+iid;
 		boolean answer = false;
 		try {
 			tj.deleteNode(id);
@@ -79,8 +79,8 @@ public class DeleteRootNodeTest {
 			answer = false;
 		}
 		//check to see if the correct id was deleted
-		rid = tj.getRootIds();
-		String id2 = rid.get(rid.size()-1);
+		iid = tj.getHighestId();
+		String id2 = ""+iid;
 		System.out.println("The id retrieved after the delete = " + id2);
 		//check to see if the ids are different
 		if(!id.equals(id2)) {
