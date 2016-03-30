@@ -342,9 +342,9 @@ public class TaskJson {
 	
 	// Remove all of the subtasks that have the same id for parent
 	public void removeSubTasks(ArrayList<Integer> list) throws IOException{
-		
-		for(int i = 0; i < list.size(); i++){
-			JSONObject obj = (JSONObject) data.get(list.get(i) - 1);
+		Integer parentId = list.get(0)-1;
+		for(int i = 0; i < list.size(); i++){ 
+			JSONObject obj = (JSONObject) data.get(parentId);
 			data.remove(obj);
 			try (FileWriter file = new FileWriter(filePath)) {
 				file.write(jsonObject.toJSONString());		
