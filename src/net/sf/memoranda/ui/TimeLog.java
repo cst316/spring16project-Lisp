@@ -75,9 +75,7 @@ public class TimeLog extends JPanel {
 		btnAdd.setText("Add");
 		btnAdd.setIcon(new ImageIcon(TimeLog.class.getResource("/net/sf/memoranda/ui/resources/icons/event_new.png")));
 		toolBar.add(btnAdd);
-		
 
-        
         JButton btnRemove = new JButton("Remove");
         btnRemove.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -88,23 +86,12 @@ public class TimeLog extends JPanel {
         		
         	}
         });
-        
 
-
-		
-        	
         btnRemove.setIcon(new ImageIcon(TimeLog.class.getResource("/net/sf/memoranda/ui/resources/icons/event_remove.png")));
         toolBar.add(btnRemove);
         this.add(scrollPane, BorderLayout.CENTER);
         scrollPane.setViewportView(timeLogTable);
         this.add(toolBar, BorderLayout.NORTH);
 
-
-		
-		
-
-	}
-	
-	
-	
+	}	
 }
