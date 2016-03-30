@@ -37,6 +37,10 @@ public class TimeLogEntry {
 		return _element.getAttribute("comments");
 	}
 	
+	public String getComments() {
+		return _element.getAttribute("id");
+	}
+	
 	public void setPerson(String person) {
 		setAttr("person", person);
 	}
@@ -61,4 +65,7 @@ public class TimeLogEntry {
             attr.setValue(value);
     }
 	
+	public Element getContent() {
+        return _element;
+    }
 }

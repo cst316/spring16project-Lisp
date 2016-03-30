@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Vector;
 
+import net.sf.memoranda.util.Util;
 import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;
@@ -40,7 +41,13 @@ public class TimeLog {
 		el.addAttribute(new Attribute("startTime", startTime));
 		el.addAttribute(new Attribute("endTime", endTime));
 		el.addAttribute(new Attribute("comments", comments));
+		String id = Util.generateId();
+		el.addAttribute(new Attribute("id", id));
 		_root.appendChild(el);
+	}
+	
+	public boolean removeTimeLogEntry(TimeLogEntry entry) {
+		_root.removeChild(entry.getContent());            
 	}
 	
 	/*
