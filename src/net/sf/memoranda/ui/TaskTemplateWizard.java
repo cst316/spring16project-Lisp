@@ -56,6 +56,7 @@ import javax.swing.border.MatteBorder;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import org.w3c.dom.ranges.RangeException;
 
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.TaskJson;
@@ -592,17 +593,13 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	}
 	
 	public void reset(){
-		
-		// Template selected = (Template)tree.getSelectionPath().getLastPathComponent();
         task_name.setText("");
         description.setText("");
         est_effort.setText("");
         progress.setText("");
         priority.setSelectedItem("Normal");
         startDate.getModel().setValue(new Date());
-        endDate.getModel().setValue(new Date());
-		
-		
+        endDate.getModel().setValue(new Date());	
 	}
 	
 	public void loadIn() {
@@ -610,38 +607,21 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 		if(root == null) {	
 		}
-		//load the tree from the template wizard to the task panel
-		Template troot = (Template) model.getRoot();
-		troot.loadTemplate();
+		else {
+			Template troot = (Template) model.getRoot();
+			this.tree.setSelectionRow(0);
+			troot.setEffort(Long.parseLong(est_effort.getText()));
+			troot.loadTemplate();
+		}
 		this.dispose();
 	}
 	
 	public void saving() throws FileNotFoundException, IOException, ParseException{
 		DefaultTreeModel model = (DefaultTreeModel) this.tree.getModel();
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 		Template troot= (Template) model.getRoot();
 		troot.save();
 		this.dispose();
 	}
-	
-	public void ok(){
-
-		// dispose();	
-	}
-
-	
-	public void save(){
-		
-		DefaultMutableTreeNode selected = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
-		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-		Template root = (Template) model.getRoot();
-		
-		// This might be how we save it
-		// Export template.getName, getPriority, etc.
-		Template template = root;
-		
-	}
-	
 	
     void btnStartDate_actionPerformed(ActionEvent e) {
         startCalFrame.setLocation(btnStartDate.getLocation());
@@ -699,6 +679,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		loader.getContentPane().setLayout(null);
 		
 		ArrayList<String> names = new ArrayList<String>();
+		
 		try{
 			System.out.println("the size: " + ids.size());
 			TaskJson tj = new TaskJson("template.json","tasks");
@@ -707,8 +688,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				names.add(tj.getElement(ids.get(i), "name"));
 			}
 		}
-		catch(Exception e){
-			System.out.println("Unable to load tasks.");
+		catch(IOException | ParseException e){
+			System.out.println("Unable to load tasks in wizard.");
 		}
 		
 		
@@ -717,11 +698,11 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		JComboBox comboBox = new JComboBox();
 		
 		for(int i = 0; i < names.size(); i++){
-		    comboBox.addItem(names.get(i));
+			if(!names.get(i).isEmpty()) {
+				comboBox.addItem(names.get(i));
+			}	
 		}
 
-
-		
 		//comboBox.addItem("hi");
 		comboBox.setBounds(34, 69, 226, 27);
 		loader.getContentPane().add(comboBox);

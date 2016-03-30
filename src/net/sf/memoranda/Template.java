@@ -32,6 +32,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javafx.print.Printer;
+
 public class Template extends DefaultMutableTreeNode {
 	
 	// For loading tasks
@@ -230,8 +232,9 @@ public class Template extends DefaultMutableTreeNode {
 		try {
 			subtasks.remove(subtasks.indexOf(task));
 		}
-		catch(Exception ex) {
-			System.out.println("The element does not exist.");
+		catch(ArrayIndexOutOfBoundsException ex) {
+			System.out.println("Array out of bounds exception "
+					+ "thrown in Template.java");
 		}
 		return true;
 	}
@@ -259,15 +262,9 @@ public class Template extends DefaultMutableTreeNode {
  	* sub template objects to a .Json file.
  	*/
 public void save() throws FileNotFoundException, IOException, ParseException{
-		
-		TaskList tl = CurrentProject.getTaskList();
-		 //tl.createTask(getCalendarStartDate(), getCalendarEndDate(), 
-			//	getTaskName(), getPriority(), getEffort(), getTaskDescription(), null);
+
 		Vector<Template> loadvec = getSubtasks();
-		
-		TaskJson json = new TaskJson("template.json", "tasks");		
-		JSONArray template = new JSONArray();			
-		JSONObject root = new JSONObject();
+		TaskJson json = new TaskJson("template.json", "tasks");	
 		
 		//had to shift further
 		ArrayList<String> children = new ArrayList<String>();
@@ -275,23 +272,31 @@ public void save() throws FileNotFoundException, IOException, ParseException{
 			children.add(String.valueOf(i));
 		}
 		
-		json.addNode(getTaskName(), "2/3/4", "2/2/3", String.valueOf(getEffort()), 
+		try {
+			json.addNode(getTaskName(), "2/3/4", "2/2/3", String.valueOf(getEffort()), 
 				String.valueOf(getProgress()), String.valueOf(getPriority()), 
 				getTaskDescription(), "null", children);
+		}
+		catch(IOException ex) {
+			System.out.println("\nIOException thrown, Template.java");
+			ex.printStackTrace();
+		}
 		
 		if(loadvec.size()!=0) {
-			String currentSize = String.valueOf(json.getHighestId());
-			
-			//This is a hack on taskListImpl in order to get the parents id.
-			String parent = CurrentProject.getTaskList().getParentaskID();
-			
+			String currentSize = String.valueOf(json.getHighestId());		
 			ArrayList<String> childNode = new ArrayList<String>();
+			
 			for(int i = 0; i<loadvec.size(); i++) {
-				json.addNode(loadvec.get(i).getTaskName(), "2/2/3", "3/4/3", 
+				try {
+					json.addNode(loadvec.get(i).getTaskName(), "2/2/3", "3/4/3", 
 						String.valueOf(loadvec.get(i).getEffort()), 
 						"null", String.valueOf(loadvec.get(i).getPriority()), 
 						loadvec.get(i).getTaskDescription(), currentSize, childNode);
-				System.out.println(loadvec.get(i).getTaskName());
+				}
+				catch(IOException ex) {
+					System.out.println("\nIOException thrown, Template.java");
+					ex.printStackTrace();
+				}
 			}
 		}		
 	}
@@ -308,18 +313,16 @@ public void save() throws FileNotFoundException, IOException, ParseException{
 				getTaskName(), getPriority(), getEffort(), getTaskDescription(), null);
 		Vector<Template> loadvec = getSubtasks();
 		
+		//This is a hack on taskListImpl in order to get the parents id.
+		String par = CurrentProject.getTaskList().getParentaskID();
+		
 		int vecsize = loadvec.size();
 		if(vecsize != 0) {
 			CurrentProject.updateProject();
-			
-			//This is a hack on taskListImpl in order to get the parents id.
-			String par = CurrentProject.getTaskList().getParentaskID();
-			
 			loadTemplateChildren(loadvec, par);
 		}
 		//save the task list
-		CurrentStorage.get().storeTaskList(tl, CurrentProject.get());
-		//CurrentProject.save();
+		CurrentStorage.get().storeTaskList(tl, CurrentProject.get());;
 		CurrentProject.updateProject();
 	}
 	
@@ -347,6 +350,7 @@ public void save() throws FileNotFoundException, IOException, ParseException{
  	*/ 
 	public Template getJsonTemplate(JSONArray ja) {
 		JSONObject job = (JSONObject) ja.get(0);
+		assert job != null:"The returned JSONObject was null";
 		Template root = new Template(job.get("name").toString());
 		root.setPriority(job.get("priority").toString());
 		root.setProgress(Integer.parseInt(job.get("progress").toString()));
