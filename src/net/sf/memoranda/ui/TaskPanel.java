@@ -2,8 +2,10 @@ package net.sf.memoranda.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -19,6 +21,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.event.ListSelectionEvent;
@@ -60,6 +63,16 @@ public class TaskPanel extends JPanel {
 	JPopupMenu taskPPMenu = new JPopupMenu();
 	JMenuItem ppRemoveTask = new JMenuItem();
 	JMenuItem ppNewTask = new JMenuItem();
+	
+	//color menu
+	JMenuItem ppColorMenu = new JMenu();
+	JMenuItem cmNoColor = new JMenuItem();
+	JMenuItem cmRed = new JMenuItem();
+	JMenuItem cmBlue = new JMenuItem();
+	JMenuItem cmGreen = new JMenuItem();
+	JMenuItem cmYellow = new JMenuItem();
+	JMenuItem cmOrange = new JMenuItem();
+	
 	JMenuItem ppCompleteTask = new JMenuItem();
 	//JMenuItem ppSubTasks = new JMenuItem();
 	//JMenuItem ppParentTask = new JMenuItem();
@@ -249,6 +262,76 @@ public class TaskPanel extends JPanel {
                 ppEditTask_actionPerformed(e);
             }
         });
+    
+    
+    //color menu items
+    ppColorMenu.setEnabled(false);
+    ppColorMenu.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/colors_paintBucket.png")));
+    ppColorMenu.setFont(new java.awt.Font("Dialog", 1, 11));
+    ppColorMenu.setText(Local.getString("Colors"));
+    
+    //Colors in the colors menu
+    	//clear color
+    cmNoColor.setEnabled(true);
+    cmNoColor.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/Colors_NoColor.png")));
+    cmNoColor.setFont(new java.awt.Font("Dialog", 1, 11));
+    cmNoColor.setText(Local.getString("None"));
+    cmNoColor.addActionListener(new java.awt.event.ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		colorSetter(5);
+    	}
+    });
+    	//Red
+    cmRed.setEnabled(true);
+    cmRed.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/Colors_Red.png")));
+    cmRed.setFont(new java.awt.Font("Dialog", 1, 11));
+    cmRed.setText(Local.getString("Red"));
+    cmRed.addActionListener(new java.awt.event.ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		colorSetter(0);
+    	}
+    });
+    	//Blue
+    cmBlue.setEnabled(true);
+    cmBlue.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/Colors_Blue.png")));
+    cmBlue.setFont(new java.awt.Font("Dialog", 1, 11));
+    cmBlue.setText(Local.getString("Blue"));
+    cmBlue.addActionListener(new java.awt.event.ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		colorSetter(1);
+    	}
+    });
+    	//Green
+    cmGreen.setEnabled(true);
+    cmGreen.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/Colors_Green.png")));
+    cmGreen.setFont(new java.awt.Font("Dialog", 1, 11));
+    cmGreen.setText(Local.getString("Green"));
+    cmGreen.addActionListener(new java.awt.event.ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		colorSetter(2);
+    	}
+    });
+    	//Yellow
+    cmYellow.setEnabled(true);
+    cmYellow.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/Colors_Yellow.png")));
+    cmYellow.setFont(new java.awt.Font("Dialog", 1, 11));
+    cmYellow.setText(Local.getString("Yellow"));
+    cmYellow.addActionListener(new java.awt.event.ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		colorSetter(3);
+    	}
+    });
+    	//Orange
+    cmOrange.setEnabled(true);
+    cmOrange.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/Colors_Orange.png")));
+    cmOrange.setFont(new java.awt.Font("Dialog", 1, 11));
+    cmOrange.setText(Local.getString("Orange"));
+    cmOrange.addActionListener(new java.awt.event.ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		colorSetter(4);
+    	}
+    });
+    
     ppEditTask.setEnabled(false);
     //==================================================================== GARY
     //ppEditTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_edit.png")));
@@ -336,8 +419,7 @@ public class TaskPanel extends JPanel {
 	ppCalcTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete2.png")));
 	//-------------------------------------------------------------------- GARY
 	ppCalcTask.setEnabled(false);
-
-    scrollPane.getViewport().add(taskTable, null);
+    scrollPane.setViewportView(taskTable);
         this.add(scrollPane, BorderLayout.CENTER);
         tasksToolBar.add(historyBackB, null);
         tasksToolBar.add(historyForwardB, null);
@@ -378,7 +460,7 @@ public class TaskPanel extends JPanel {
         taskTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 boolean enbl = (taskTable.getRowCount() > 0)&&(taskTable.getSelectedRow() > -1);
-                editTaskB.setEnabled(enbl);ppEditTask.setEnabled(enbl);
+                editTaskB.setEnabled(enbl);ppEditTask.setEnabled(enbl);ppColorMenu.setEnabled(enbl);
                 removeTaskB.setEnabled(enbl);ppRemoveTask.setEnabled(enbl);
 				
 				ppCompleteTask.setEnabled(enbl);
@@ -417,6 +499,14 @@ public class TaskPanel extends JPanel {
 		//ppSubTasks.setEnabled(false);
 		//ppParentTask.setEnabled(false);
     taskPPMenu.add(ppEditTask);
+    taskPPMenu.add(ppColorMenu);
+    ppColorMenu.add(cmNoColor);
+    ppColorMenu.add(cmRed);
+    ppColorMenu.add(cmBlue);
+    ppColorMenu.add(cmGreen);
+    ppColorMenu.add(cmYellow);
+    ppColorMenu.add(cmOrange);
+    
     
     taskPPMenu.addSeparator();
     taskPPMenu.add(ppNewTask);
@@ -545,7 +635,45 @@ public class TaskPanel extends JPanel {
         parentPanel.updateIndicators();
         //taskTable.updateUI();
     }
-
+    
+    //color setting method - after changed have to fix the update.
+    public void colorSetter(int n){	
+    	Task t =
+           CurrentProject.getTaskList().getTask(
+           taskTable.getModel().getValueAt(
+        		   taskTable.getSelectedRow(), TaskTable.TASK_ID).toString());
+    	switch(n) {
+    	case 0:
+    		taskTable.setSelectionBackground(Color.RED);
+    		//t.setTaskColor(Color.RED);
+    		//taskTable.updateTry();
+    		//need to repaint with the new tasks
+    		break;
+    	case 1:
+    		taskTable.setSelectionBackground(Color.BLUE);
+    		break;
+    	case 2:
+    		taskTable.setSelectionBackground(Color.GREEN);
+    		break;
+    	case 3:
+    		taskTable.setSelectionBackground(Color.YELLOW);
+    		break;
+    	case 4:
+    		taskTable.setSelectionBackground(Color.ORANGE);
+    		break;
+    	default:
+    		taskTable.setSelectionBackground(Color.WHITE);
+    		break;
+    	}
+    	
+    	//updateTableStuff();
+    }
+    
+    public void updateTableStuff(){
+    	taskTable.tableChanged();
+        parentPanel.updateIndicators();
+    }
+    
     void addSubTask_actionPerformed(ActionEvent e) {
         TaskDialog dlg = new TaskDialog(App.getFrame(), Local.getString("New Task"));
         String parentTaskId = taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString();

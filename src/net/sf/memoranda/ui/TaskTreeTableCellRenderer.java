@@ -1,4 +1,3 @@
-
 package net.sf.memoranda.ui;
 
 import net.sf.memoranda.Project;
@@ -84,7 +83,8 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         //return getTaskTreeCellRenderer(t, selected, hasFocus);
         return this;
     }
-
+    
+    //EFFECTS COLORS OF INDIVIDUAL ROWS -- JASON
     public Component getTableCellRendererComponent(JTable ignore, Object value, boolean selected,
             boolean hasFocus, int row, int column) {        
         Task t = (Task) table.getValueAt(row, 1);
@@ -113,6 +113,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         }
         // if( column_name.equals("") ){
         if (column == 0) {
+        	//label.setBackground(t.getTaskColor()); //this will pull color in task
             return getPriorityIconCellRenderer(t, selected, hasFocus);
         }
         // if( column_name.equals(Local.getString("Start date")) ||
@@ -161,6 +162,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         return label;
     }
 
+    //SETS THE COLOR ON THE DATES AND BEFOR NAME LABEL ON TABLE -- JASON
     // some convenience methods
     private void applySelectionStyle(boolean selected, JComponent c) {
         if (selected)
@@ -257,6 +259,4 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         System.err.println("Problem finding priority icon");
         return null;
     }
-    
-    
 }
