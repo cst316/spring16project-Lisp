@@ -34,7 +34,11 @@ public class TaskListImpl implements TaskList {
     private Project _project = null;
     private Document _doc = null;
     private Element _root = null;
+    
+    private String parentaskID;
 	
+
+
 	/*
 	 * Hastable of "task" XOM elements for quick searching them by ID's
 	 * (ID => element) 
@@ -60,7 +64,14 @@ public class TaskListImpl implements TaskList {
 	public Project getProject() {
 		return _project;
 	}
-		
+	
+	public String getParentaskID() {
+		return parentaskID;
+	}
+
+	public void setParentaskID(String parentaskID) {
+		this.parentaskID = parentaskID;
+	}	
 	/*
 	 * Build the hashtable recursively
 	 */
@@ -70,6 +81,7 @@ public class TaskListImpl implements TaskList {
 			Element el = els.get(i);
 			elements.put(el.getAttribute("id").getValue(), el);
 			buildElements(el);
+			
 		}
 	}
 	
@@ -108,6 +120,7 @@ public class TaskListImpl implements TaskList {
         el.addAttribute(new Attribute("startDate", startDate.toString()));
         el.addAttribute(new Attribute("endDate", endDate != null? endDate.toString():""));
 		String id = Util.generateId();
+		setParentaskID(id);
         el.addAttribute(new Attribute("id", id));
         el.addAttribute(new Attribute("progress", "0"));
         el.addAttribute(new Attribute("effort", String.valueOf(effort)));
@@ -344,7 +357,7 @@ public class TaskListImpl implements TaskList {
         }
         return v;
     }
-
+    
     private Collection filterActiveTasks(Collection tasks,CalendarDate date) {
         Vector v = new Vector();
         for (Iterator iter = tasks.iterator(); iter.hasNext();) {

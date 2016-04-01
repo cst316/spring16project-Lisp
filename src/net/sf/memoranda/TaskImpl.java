@@ -38,7 +38,8 @@ public class TaskImpl implements Task, Comparable {
     public TaskImpl(Element taskElement, TaskList tl) {
         _element = taskElement;
         _tl = tl;
-        taskColor = java.awt.Color.white;
+
+        //taskColor = java.awt.Color.white;
     }
 
     public Element getContent() {

@@ -20,12 +20,13 @@ import nu.xom.Element;
 public class ProjectImpl implements Project {
 
     private Element _root = null;
-
+    
     /**
      * Constructor for ProjectImpl.
      */
     public ProjectImpl(Element root) {        
         _root = root;
+        
     }
 
     /**

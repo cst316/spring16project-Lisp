@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Metrics scope="Template.java" type="CompilationUnit" date="2016-03-25" xmlns="http://metrics.sourceforge.net/2003/Metrics-First-Flat">
+   <Metric id = "PAR" description ="Number of Parameters" max ="5" hint ="Move invoked method or pass an object">
+      <Values per = "method" avg = "0.735" stddev = "1.357" max = "8" maxinrange="false">
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="8" inrange="false"/>
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="addSubtask" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getJsonTemplate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="removeSubtask" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setCalendarEndDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setCalendarStartDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setEffort" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setEndDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setHeadTaskTitle" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setParentId" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setPriority" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setProgress" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setStartDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setSubtasks" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setTaskDescription" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setTaskId" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setTaskName" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="getCalendarEndDate" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="getCalendarStartDate" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="getEffort" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="getEndDate" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="getHeadTaskTitle" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="getParentId" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="getPriority" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="getProgress" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="getStartDate" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="getSubtasks" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="getTaskDescription" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="getTaskId" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="getTaskName" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="loadTemplate" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+         <Value name="save" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+      </Values>
+   </Metric>
+   <Metric id = "NSF" description ="Number of Static Attributes">
+      <Values per = "type" total = "0" avg = "0" stddev = "0" max = "0">
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+      </Values>
+   </Metric>
+   <Metric id = "CE" description ="Efferent Coupling">
+   </Metric>
+   <Metric id = "SIX" description ="Specialization Index">
+      <Values per = "type" avg = "0" stddev = "0" max = "0">
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+      </Values>
+   </Metric>
+   <Metric id = "NOC" description ="Number of Classes">
+      <Value value="1"/>
+   </Metric>
+   <Metric id = "NOF" description ="Number of Attributes">
+      <Values per = "type" total = "15" avg = "15" stddev = "0" max = "15">
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="15"/>
+      </Values>
+   </Metric>
+   <Metric id = "RMA" description ="Abstractness">
+   </Metric>
+   <Metric id = "RMD" description ="Normalized Distance">
+   </Metric>
+   <Metric id = "NSM" description ="Number of Static Methods">
+      <Values per = "type" total = "0" avg = "0" stddev = "0" max = "0">
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+      </Values>
+   </Metric>
+   <Metric id = "NOI" description ="Number of Interfaces">
+      <Value value="0"/>
+   </Metric>
+   <Metric id = "TLOC" description ="Total Lines of Code">
+      <Value value="248"/>
+   </Metric>
+   <Metric id = "WMC" description ="Weighted methods per Class">
+      <Values per = "type" total = "46" avg = "46" stddev = "0" max = "46">
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="46"/>
+      </Values>
+   </Metric>
+   <Metric id = "NOM" description ="Number of Methods">
+      <Values per = "type" total = "34" avg = "34" stddev = "0" max = "34">
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="34"/>
+      </Values>
+   </Metric>
+   <Metric id = "DIT" description ="Depth of Inheritance Tree">
+      <Values per = "type" avg = "2" stddev = "0" max = "2">
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="2"/>
+      </Values>
+   </Metric>
+   <Metric id = "NOP" description ="Number of Packages">
+   </Metric>
+   <Metric id = "RMI" description ="Instability">
+   </Metric>
+   <Metric id = "VG" description ="McCabe Cyclomatic Complexity" max ="10" hint ="use Extract-method to split the method up">
+      <Values per = "method" avg = "1.353" stddev = "1.026" max = "6">
+         <Value name="setPriority" source ="Template.java" package ="net.sf.memoranda" value ="6"/>
+         <Value name="save" source ="Template.java" package ="net.sf.memoranda" value ="4"/>
+         <Value name="loadTemplate" source ="Template.java" package ="net.sf.memoranda" value ="3"/>
+         <Value name="getJsonTemplate" source ="Template.java" package ="net.sf.memoranda" value ="2"/>
+         <Value name="removeSubtask" source ="Template.java" package ="net.sf.memoranda" value ="2"/>
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="addSubtask" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getCalendarEndDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getCalendarStartDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getEffort" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getEndDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getHeadTaskTitle" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getParentId" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getPriority" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getProgress" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getStartDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getSubtasks" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getTaskDescription" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getTaskId" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getTaskName" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setCalendarEndDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setCalendarStartDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setEffort" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setEndDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setHeadTaskTitle" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setParentId" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setProgress" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setStartDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setSubtasks" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setTaskDescription" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setTaskId" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setTaskName" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+      </Values>
+   </Metric>
+   <Metric id = "NBD" description ="Nested Block Depth" max ="5" hint ="use Extract-method to split the method up">
+      <Values per = "method" avg = "1.176" stddev = "0.513" max = "3">
+         <Value name="loadTemplate" source ="Template.java" package ="net.sf.memoranda" value ="3"/>
+         <Value name="save" source ="Template.java" package ="net.sf.memoranda" value ="3"/>
+         <Value name="getJsonTemplate" source ="Template.java" package ="net.sf.memoranda" value ="2"/>
+         <Value name="removeSubtask" source ="Template.java" package ="net.sf.memoranda" value ="2"/>
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="addSubtask" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getCalendarEndDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getCalendarStartDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getEffort" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getEndDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getHeadTaskTitle" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getParentId" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getPriority" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getProgress" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getStartDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getSubtasks" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getTaskDescription" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getTaskId" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getTaskName" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setCalendarEndDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setCalendarStartDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setEffort" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setEndDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setHeadTaskTitle" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setParentId" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setPriority" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setProgress" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setStartDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setSubtasks" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setTaskDescription" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setTaskId" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setTaskName" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+      </Values>
+   </Metric>
+   <Metric id = "LCOM" description ="Lack of Cohesion of Methods">
+      <Values per = "type" avg = "0.948" stddev = "0" max = "0.948">
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="0.948"/>
+      </Values>
+   </Metric>
+   <Metric id = "MLOC" description ="Method Lines of Code">
+      <Values per = "method" total = "136" avg = "4" stddev = "6.813" max = "26">
+         <Value name="save" source ="Template.java" package ="net.sf.memoranda" value ="26"/>
+         <Value name="setPriority" source ="Template.java" package ="net.sf.memoranda" value ="22"/>
+         <Value name="loadTemplate" source ="Template.java" package ="net.sf.memoranda" value ="20"/>
+         <Value name="getJsonTemplate" source ="Template.java" package ="net.sf.memoranda" value ="19"/>
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="10"/>
+         <Value name="removeSubtask" source ="Template.java" package ="net.sf.memoranda" value ="7"/>
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="5"/>
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="addSubtask" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getCalendarEndDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getCalendarStartDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getEffort" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getEndDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getHeadTaskTitle" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getParentId" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getPriority" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getProgress" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getStartDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getSubtasks" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getTaskDescription" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getTaskId" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="getTaskName" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setCalendarEndDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setCalendarStartDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setEffort" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setEndDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setHeadTaskTitle" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setParentId" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setProgress" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setStartDate" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setSubtasks" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setTaskDescription" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setTaskId" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+         <Value name="setTaskName" source ="Template.java" package ="net.sf.memoranda" value ="1"/>
+      </Values>
+   </Metric>
+   <Metric id = "NORM" description ="Number of Overridden Methods">
+      <Values per = "type" total = "0" avg = "0" stddev = "0" max = "0">
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="0"/>
+      </Values>
+   </Metric>
+   <Metric id = "CA" description ="Afferent Coupling">
+   </Metric>
+   <Metric id = "NSC" description ="Number of Children">
+      <Values per = "type" total = "2" avg = "2" stddev = "0" max = "2">
+         <Value name="Template" source ="Template.java" package ="net.sf.memoranda" value ="2"/>
+      </Values>
+   </Metric>
+   </Metrics>

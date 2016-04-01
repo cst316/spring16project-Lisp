@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<templates>
+<template>
+    <id>1</id>
+    <name>aname</name>
+    <startDate>today</startDate>
+    <endDate>tommorrow</endDate>
+    <progress>newprogress</progress>
+    <effort>myEffort</effort>
+    <description>this task is hard</description>
+    <parent>null</parent>
+  </template>
+<template>
+    <id>2</id>
+    <name>second name</name>
+    <startDate>today second</startDate>
+    <endDate>tommorrow 2</endDate>
+    <progress>myProgress 2</progress>
+    <effort>myEffort 2</effort>
+    <description>this task is hard 2</description>
+    <parent>nul</parent>
+  </template>
+</templates>

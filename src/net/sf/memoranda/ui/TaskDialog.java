@@ -8,6 +8,7 @@ import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -38,7 +39,10 @@ import javax.swing.JCheckBox;
 
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.date.CalendarDate;
+import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.util.Local;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /*$Id: TaskDialog.java,v 1.25 2005/12/01 08:12:26 alexeya Exp $*/
 public class TaskDialog extends JDialog {
@@ -76,7 +80,7 @@ public class TaskDialog extends JDialog {
     boolean ignoreEndChanged = false;
     JPanel jPanel4 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     JPanel jPanel6 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    JLabel jLabel6 = new JLabel();
+    JLabel jLabel6 = new JLabel(); 
     JButton setStartDateB = new JButton();
     JPanel jPanel1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     JLabel jLabel2 = new JLabel();
@@ -106,6 +110,8 @@ public class TaskDialog extends JDialog {
 	CalendarDate startDateMax = CurrentProject.get().getEndDate();
 	CalendarDate endDateMin = startDateMin;
 	CalendarDate endDateMax = startDateMax;
+	private final JButton templateB = new JButton("Templates");
+	private final JLabel label = new JLabel("                            ");
     
     public TaskDialog(Frame frame, String title) {
         super(frame, title, true);
@@ -120,7 +126,7 @@ public class TaskDialog extends JDialog {
     
     void jbInit() throws Exception {
 	this.setResizable(false);
-	this.setSize(new Dimension(430,300));
+	this.setSize(new Dimension(430,300)); 
         border1 = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         border2 = BorderFactory.createEtchedBorder(Color.white, 
             new Color(142, 142, 142));
@@ -161,6 +167,7 @@ public class TaskDialog extends JDialog {
         okB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 okB_actionPerformed(e);
+                
             }
         });
         
@@ -327,6 +334,15 @@ public class TaskDialog extends JDialog {
         getContentPane().add(mPanel);
         mPanel.add(areaPanel, BorderLayout.CENTER);
         mPanel.add(buttonsPanel, BorderLayout.SOUTH);
+        templateB.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		TemplateB_actionPerformed(e);
+        	}
+        });
+       
+        buttonsPanel.add(templateB);
+        
+        buttonsPanel.add(label);
         buttonsPanel.add(okB, null);
         buttonsPanel.add(cancelB, null);
         this.getContentPane().add(dialogTitlePanel, BorderLayout.NORTH);
@@ -399,8 +415,17 @@ public class TaskDialog extends JDialog {
 	}
 	
     void okB_actionPerformed(ActionEvent e) {
-	CANCELLED = false;
+    	CANCELLED = false;
         this.dispose();
+    }
+
+    void TemplateB_actionPerformed(ActionEvent e) {
+    	this.dispose();
+    	TaskTemplateWizard ttw = new TaskTemplateWizard();
+    	ttw.setLocation(this.getLocation());
+    	ttw.setSize(getPreferredSize());
+    	ttw.setVisible(true);
+    	ttw.toFront();
     }
 
     void cancelB_actionPerformed(ActionEvent e) {
@@ -421,6 +446,7 @@ public class TaskDialog extends JDialog {
 	}
 
     void setStartDateB_actionPerformed(ActionEvent e) {
+    	System.out.println("Start Date Clicked");
         startCalFrame.setLocation(setStartDateB.getLocation());
         startCalFrame.setSize(200, 200);
         this.getLayeredPane().add(startCalFrame);
