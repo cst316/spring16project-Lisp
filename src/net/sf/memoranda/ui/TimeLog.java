@@ -12,6 +12,7 @@ import net.sf.memoranda.TimeLogJson;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
@@ -125,24 +126,30 @@ public class TimeLog extends JPanel {
         JButton btnRemove = new JButton("Remove");
         btnRemove.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		Component par = timeLogTable.getComponentPopupMenu();
         		if(timeLogTable.getSelectedRow() == -1) {
         			String boxTitle = "Notification!";
         			String msg = "No log event selected, Please try again.";
         			new NotificationPopUp(
-        					timeLogTable.getComponentPopupMenu(), boxTitle, msg);
+        					par, boxTitle, msg);
         		} else {
         		
-        			DefaultTableModel model = (DefaultTableModel)timeLogTable.getModel();
+        			String boxTitle = "WARNING";
+        			String msg = "Are you sure you want to delete this?";
+        			DecisionBox db = new DecisionBox(par, boxTitle, msg);
+        			if(db.getDecision() == true) {
+        				DefaultTableModel model = (DefaultTableModel)timeLogTable.getModel();
         		
-        			// Remove log from the json file
-        			try {
-        				TimeLogJson json = new TimeLogJson("timeLog.json");
-        				json.deleteCell(timeLogTable.getSelectedRow());
-        			} catch (IOException | ParseException e1) {
-        				e1.printStackTrace();
+        				// Remove log from the json file
+        				try {
+        					TimeLogJson json = new TimeLogJson("timeLog.json");
+        					json.deleteCell(timeLogTable.getSelectedRow());
+        				} catch (IOException | ParseException e1) {
+        					e1.printStackTrace();
+        				}
+        		
+        				model.removeRow(timeLogTable.getSelectedRow());
         			}
-        		
-        			model.removeRow(timeLogTable.getSelectedRow());
         		}
         	}
         });
