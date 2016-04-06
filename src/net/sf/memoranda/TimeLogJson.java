@@ -55,13 +55,10 @@ public class TimeLogJson {
 	@SuppressWarnings("unchecked")
 	public void editCell(int column, int row, String value) {
 		
-		String key = getkey(column);
+		String key = getKey(column);
 		
 		JSONObject obj = (JSONObject) data.get(row);
 		
-		//System.out.println("size is: " + data.size());
-		//System.out.println("row: " + row);
-		//System.out.println("column: " + column);
 		obj.replace(key, value);
 		
 		try {
@@ -83,11 +80,11 @@ public class TimeLogJson {
 		}
 	}
 	
-	public String getkey(int row){
+	public static String getKey(int column){
 		
 		String key = "";
 		
-		switch(row){
+		switch(column){
 		case 0:
 			key = "name";
 			break;
@@ -108,6 +105,20 @@ public class TimeLogJson {
 		}
 		
 		return key;
+	}
+	
+	public String getElement(int row, String key){
+		
+		String element = "";
+		
+		JSONObject obj = (JSONObject) data.get(row);
+		element = obj.get(key).toString();
+		
+		return element;
+	}
+	
+	public int size(){
+		return data.size();
 	}
 	
 	public void writeToFile(String message) throws IOException{

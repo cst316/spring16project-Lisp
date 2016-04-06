@@ -35,7 +35,13 @@ public class TimeLog extends JPanel {
 	
 	
 	public TimeLog() {
-				
+		
+		try {
+			populatePanel();
+		} catch (IOException | ParseException e2) {
+			e2.printStackTrace();
+		}
+		
 		this.setLayout(new BorderLayout());
 		scrollPane.getViewport().setBackground(Color.white);
 		scrollPane.addMouseListener(new MouseAdapter() {
@@ -140,5 +146,26 @@ public class TimeLog extends JPanel {
         scrollPane.setViewportView(timeLogTable);
         this.add(toolBar, BorderLayout.NORTH);
 
+	}
+
+
+	private void populatePanel() throws FileNotFoundException, IOException, ParseException {
+	
+		TimeLogJson json = new TimeLogJson("TimeLog.json");
+		
+		for(int i = 0; i < json.size(); i++){
+			
+			Object[] row = new Object[5];
+			
+			DefaultTableModel model = (DefaultTableModel)timeLogTable.getModel();
+			
+			row[0] = json.getElement(i, "name");
+			row[1] = json.getElement(i, "task");
+			row[2] = json.getElement(i, "LOC");
+			row[3] = json.getElement(i, "startTime");
+			row[4] = json.getElement(i, "endTime");
+			
+			model.addRow(row);
+		}
 	}	
 }
