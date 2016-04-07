@@ -92,7 +92,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	private JTextField description;
 	private JSpinner startDate;
 	private JSpinner endDate;
-	private JTextField est_effort;
+	private JComboBox est_effort;
 	private JComboBox priority;
 	private JTextField progress;
 	
@@ -202,7 +202,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			        // Populates text boxes
 			        task_name.setText(selectedText);
 			        description.setText(selected.getTaskDescription());
-			        est_effort.setText(new Integer((int)selected.getEffort()).toString());
+			        est_effort.setSelectedItem(new Integer((int)selected.getEffort()).toString());
 			        progress.setText(new Integer(selected.getProgress()).toString());
 			        priority.setSelectedItem(selected.getPriority());
 			        startDate.getModel().setValue(selected.getStartDate());
@@ -304,13 +304,13 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		endDate.setBounds(309, 138, 95, 28);
 		panel.add(endDate);
 		
-		JLabel lblEstEff = new JLabel("Est Effort (hrs)");
+		JLabel lblEstEff = new JLabel("Story Points");
 		lblEstEff.setBounds(6, 178, 90, 16);
 		panel.add(lblEstEff);
 		
-		est_effort = new JTextField();
+		est_effort = new JComboBox();
+		est_effort.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "5", "8", "10", "15", "20", "40"}));
 		est_effort.setName("");
-		est_effort.setColumns(20);
 		est_effort.setBounds(102, 172, 70, 28);
 		panel.add(est_effort);
 		
@@ -345,7 +345,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				
 				// Initializes Template object
 				selected.setTaskName(task_name.getText().toString());//
-				selected.setEffort(Integer.parseInt(est_effort.getText().toString()));
+				selected.setEffort(Integer.parseInt(est_effort.getSelectedItem().toString()));
 				selected.setHeadTaskTitle(task_name.getText().toString());
 				selected.setUserObject(task_name.getText().toString());
 				selected.setPriority(priority.getSelectedItem().toString());
@@ -477,7 +477,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				if(!name.isEmpty()) {
 					Date startD = (Date)startDate.getModel().getValue();
 					Date endD = (Date)endDate.getModel().getValue();
-					String effort = est_effort.getText();
+					String effort = est_effort.getSelectedItem().toString();
 					String prog = progress.getText();
 					String desc = description.getText();
 				
@@ -595,7 +595,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	public void reset(){
         task_name.setText("");
         description.setText("");
-        est_effort.setText("");
+        est_effort.setSelectedItem("");
         progress.setText("");
         priority.setSelectedItem("Normal");
         startDate.getModel().setValue(new Date());
@@ -610,7 +610,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		else {
 			Template troot = (Template) model.getRoot();
 			this.tree.setSelectionRow(0);
-			troot.setEffort(Long.parseLong(est_effort.getText()));
+			troot.setEffort(Long.parseLong(est_effort.getSelectedItem().toString()));
 			troot.loadTemplate();
 		}
 		this.dispose();
@@ -793,7 +793,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 					{
 						task_name.setText(name);
 				        description.setText(json.getElement(id, "description"));
-				        est_effort.setText(json.getElement(id, "effort"));
+				        est_effort.setSelectedItem(json.getElement(id, "effort"));
 				        progress.setText(json.getElement(id, "progress"));
 				        priority.setSelectedItem(getStringPriority(
 				        		Integer.parseInt(json.getElement(id, "priority"))
