@@ -219,7 +219,7 @@ public class TaskDialog extends JDialog {
         jLabelEffort.setText("Story Points");
         effortField.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "5", "8", "10", "15", "20", "40"}));
         effortField.setBorder(border8);
-        effortField.setPreferredSize(new Dimension(40, 24));
+        effortField.setPreferredSize(new Dimension(45, 24));
 
         startDate.setBorder(border8);
         startDate.setPreferredSize(new Dimension(80, 24));                

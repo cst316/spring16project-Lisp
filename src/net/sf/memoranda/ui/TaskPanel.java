@@ -596,7 +596,8 @@ public class TaskPanel extends JPanel {
         dlg.startDate.getModel().setValue(t.getStartDate().getDate());
         dlg.endDate.getModel().setValue(t.getEndDate().getDate());
         dlg.priorityCB.setSelectedIndex(t.getPriority());                
-        dlg.effortField.setSelectedItem(Util.getHoursFromMillis(t.getEffort()));
+        dlg.effortField.setSelectedItem(Integer.toString((int)t.getEffort()));
+        System.out.println("EFFORT:" + t.getEffort());
 	if((t.getStartDate().getDate()).after(t.getEndDate().getDate()))
 		dlg.chkEndDate.setSelected(false);
 	else
