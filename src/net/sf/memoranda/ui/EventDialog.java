@@ -119,7 +119,7 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.insets = new Insets(10, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(lblTime, gbc);
-        timeSpin.setPreferredSize(new Dimension(60, 24));
+        timeSpin.setPreferredSize(new Dimension(130, 24));
         gbc = new GridBagConstraints();
         gbc.gridx = 2; gbc.gridy = 0;
         gbc.insets = new Insets(10, 0, 5, 5);

@@ -121,8 +121,8 @@ public class EventsManager {
 		el.addAttribute(new Attribute("id", Util.generateId()));
 		el.addAttribute(new Attribute("hour", String.valueOf(hh)));
 		el.addAttribute(new Attribute("min", String.valueOf(mm)));
+		el.addAttribute(new Attribute("note", String.valueOf(note)));
 		el.appendChild(text);
-		el.appendChild(note);
 		Day d = getDay(date);
 		if (d == null)
 			d = createDay(date);
@@ -156,8 +156,8 @@ public class EventsManager {
 		el.addAttribute(new Attribute("period", String.valueOf(period)));
 		// new attribute for wrkin days - ivanrise
 		el.addAttribute(new Attribute("workingDays",String.valueOf(workDays)));
+		el.addAttribute(new Attribute("note",String.valueOf(note)));
 		el.appendChild(text);
-		el.appendChild(note);
 		rep.appendChild(el);
 		return new EventImpl(el);
 	}

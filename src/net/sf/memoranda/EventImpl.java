@@ -62,7 +62,7 @@ public class EventImpl implements Event, Comparable {
      * @see net.sf.memoranda.Event#getNote()
      */
     public String getNote() {
-        return _elem.getValue();
+    	return new String(_elem.getAttribute("note").getValue());
     }
 
     /**
