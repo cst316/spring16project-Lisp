@@ -83,8 +83,8 @@ public class EventDialog extends JDialog implements WindowListener {
     CalendarFrame endCalFrame = new CalendarFrame();
     CalendarFrame startCalFrame = new CalendarFrame();
     private Date eventDate;
-    private final JTextField textField_1 = new JTextField();
-    private final JLabel lblNote = new JLabel();
+    JTextField textField_1 = new JTextField();
+    JLabel lblNote = new JLabel();
     
     public EventDialog(Frame frame, String title) {
         super(frame, title, true);

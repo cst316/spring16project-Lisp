@@ -296,10 +296,11 @@ public class EventsPanel extends JPanel {
         //int hh = ((Date) dlg.timeSpin.getModel().getValue()).getHours();
         //int mm = ((Date) dlg.timeSpin.getModel().getValue()).getMinutes();
         String text = dlg.textField.getText();
+        String note = dlg.textField_1.getText();
         if (dlg.noRepeatRB.isSelected())
-   	    EventsManager.createEvent(CurrentDate.get(), hh, mm, text);
+   	    EventsManager.createEvent(CurrentDate.get(), hh, mm, text, note);
         else {
-	    updateEvents(dlg,hh,mm,text);
+	    updateEvents(dlg,hh,mm,text,note);
 	}    
 	saveEvents();
     }
@@ -341,13 +342,14 @@ public class EventsPanel extends JPanel {
     	//int hh = ((Date) dlg.timeSpin.getModel().getValue()).getHours();
     	//int mm = ((Date) dlg.timeSpin.getModel().getValue()).getMinutes();
     	String text = dlg.textField.getText();
+    	String note = dlg.textField_1.getText();
 		
 		CalendarDate eventCalendarDate = new CalendarDate(dlg.getEventDate());
 		
     	if (dlg.noRepeatRB.isSelected())
-    		EventsManager.createEvent(eventCalendarDate, hh, mm, text);
+    		EventsManager.createEvent(eventCalendarDate, hh, mm, text, note);
     	else {
-    		updateEvents(dlg,hh,mm,text);
+    		updateEvents(dlg,hh,mm,text,note);
     	}
     	saveEvents();
     }
@@ -360,7 +362,7 @@ public class EventsPanel extends JPanel {
         parentPanel.updateIndicators();
     }
 
-    private void updateEvents(EventDialog dlg, int hh, int mm, String text) {
+    private void updateEvents(EventDialog dlg, int hh, int mm, String text, String note) {
 	int rtype;
         int period;
         CalendarDate sd = new CalendarDate((Date) dlg.startDate.getModel().getValue());
@@ -388,7 +390,7 @@ public class EventsPanel extends JPanel {
             rtype = EventsManager.REPEAT_MONTHLY;
             period = ((Integer) dlg.dayOfMonthSpin.getModel().getValue()).intValue();
         }
-        EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, text, dlg.workingDaysOnlyCB.isSelected());
+        EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, text, note, dlg.workingDaysOnlyCB.isSelected());
     }
 
     void removeEventB_actionPerformed(ActionEvent e) {

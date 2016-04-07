@@ -34,6 +34,8 @@ public interface Event {
     
     int getRepeat();
     
+    String getNote();
+    
     CalendarDate getStartDate();
     CalendarDate getEndDate();
     int getPeriod();

@@ -128,6 +128,8 @@ public class EventsTable extends JTable {
                 return ev.getTimeString();
            else if (col == 1)
                 return ev.getText();
+           else if (col == 2)
+        	   return ev.getNote();
            else if (col == EVENT_ID)
                 return ev.getId();
            else return ev;
