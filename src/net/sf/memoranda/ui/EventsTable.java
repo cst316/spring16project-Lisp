@@ -98,7 +98,8 @@ public class EventsTable extends JTable {
         String[] columnNames = {
             //Local.getString("Task name"),
             Local.getString("Time"),
-                Local.getString("Text")
+                Local.getString("Text"),
+                Local.getString("Note")
         };
 
         EventsTableModel() {
@@ -106,7 +107,7 @@ public class EventsTable extends JTable {
         }
 
         public int getColumnCount() {
-            return 2;
+            return 3;
         }
 
         public int getRowCount() {
