@@ -32,12 +32,6 @@ public class TimeLogSaveAndLoadWhiteboxTest {
 		t2 = new TimeLogEntry(name, task, loc, startd, endd);
 	}
 
-	@After
-	public void tearDown() throws Exception {
-		t1 = null;
-		t2 = null;
-	}
-
 	@Test
 	public void CheckConstructorAndGetters() {
 		assert(t1.getLoc() != null);
@@ -71,6 +65,15 @@ public class TimeLogSaveAndLoadWhiteboxTest {
 		n2 = t1.getTask();
 		assertTrue(n1.equals(n2));
 	}
+	
+	public int checkJsonSize(int size) {
+		if(size == 0) {
+			return size;
+		}
+		else {
+			return size-1;
+		}
+	}
 	 
 	@Test
 	public void CheckLogSavingToJson() {
@@ -79,7 +82,7 @@ public class TimeLogSaveAndLoadWhiteboxTest {
 		try {
 			TimeLogJson jl = new TimeLogJson("TimeLog.json");
 			jl.addLog();
-			int row = jl.size()-1;
+			int row = checkJsonSize(jl.size());
 				
 			jl.editCell(0, row, "Elmo");
 			jl.editCell(1, row, "get this to work");
@@ -102,7 +105,7 @@ public class TimeLogSaveAndLoadWhiteboxTest {
 		
 		try {
 			TimeLogJson jl = new TimeLogJson("TimeLog.json");
-			int row = jl.size()-1;
+			int row = checkJsonSize(jl.size());
 			
 			loc = jl.getElement(row, "LOC");
 			name = jl.getElement(row, "name");
@@ -126,6 +129,21 @@ public class TimeLogSaveAndLoadWhiteboxTest {
 			e.printStackTrace();
 		}
 		assertTrue(check);
+		removeSavedFile();
 	}
 
+	public void removeSavedFile() {
+		try {
+			TimeLogJson jl = new TimeLogJson("TimeLog.json");
+			int row = checkJsonSize(jl.size());
+			jl.deleteCell(row);
+		} catch (IOException | ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	@After
+	public void tearDown() throws Exception {
+		t1 = null;
+		t2 = null;	
+	}
 }
