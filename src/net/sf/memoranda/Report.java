@@ -17,8 +17,7 @@ import net.sf.memoranda.date.CurrentDate;
 import java.util.Collection;
 import java.util.Iterator;
 
-//Wrapper class for the TaskListImpl to generate 
-//and export an HTML report of a Project and it's Tasks
+//Wrapper class for the TaskListImpl to generate and export an HTML report of a Project and it's Tasks
 public class Report {
 	
 	private String projectTitle;
@@ -52,25 +51,28 @@ public class Report {
 	}
 	
 	//Converts the report to a string so it can be displayed in a dialog box
-	public String toString(String id) {
-		String s = "";
-		Task current = null;
+	public String toString(String id, String s) {
+		Task task = null;
 		//Project info
-		s += projectTitle+"\n";
-		s += "Start Date: "+projectStartDate+"\n";
-		s += "End Date: "+projectEndDate+"\n";
-		s += "Status: "+projectStatus+"\n";
-		s += "\nTasks\n";
-		//Iterate through tasklist and add data about each task to the String
-		for (Iterator iterator = taskList.getAllSubTasks(id).iterator(); iterator.hasNext();) {
-			//System.out.println("DEBUG: This Task has Subtasks");
-			current = (Task)iterator.next();
-			s = taskToString(s, current); 
-			s += "\n";
-			if(current.hasSubTasks(current.getID())) {
-				s += toString(current.getID());
-			}
+		if(id == null) {
+			s += projectTitle+"\n";
+			s += "Start Date: "+projectStartDate+"\n";
+			s += "End Date: "+projectEndDate+"\n";
+			s += "Status: "+projectStatus+"\n";
+			s += "\nTasks\n";
 		}
+		
+		//Iterate through tasklist and add data about each task to the String
+		if(taskList.getTask(id) != null) {
+			task = taskList.getTask(id);
+			s = taskToString(s, task);
+		} if(taskList.hasSubTasks(id)){
+			Collection<Task> temp = taskList.getAllSubTasks(id);
+			Task[] subtasks = (Task[])temp.toArray();
+			for(int i=0; i<subtasks.length; ++i){
+				s = toString(subtasks[i].getID(), s);
+			}
+		} 
 		return s;
 	}
 	
@@ -112,16 +114,19 @@ public class Report {
 		}else {
 			s += "Priority: Highest\n";
 		}
+		s += "Effort: "+task.getEffort()+"\n";
 		s += "Progress: "+task.getProgress()+"\n";
 		return s;
 	}
 	
 	//Returns a String that contains the report in HTML
-	public String toHTML(String id) {
-		Task current = null;
+	public String toHTML(String id, String html) {
 		//Doctype and Head
-		String html = "<!DOCTYPE html><html>";
-		html += "<head><title>Project Report</title></head>";
+		Task task;
+		if(id == null) {
+			html = "<!DOCTYPE html><html>";
+			html += "<head><title>Project Report</title></head>";
+		
 		//Body
 		html += "<body>";
 		//Project info
@@ -130,20 +135,24 @@ public class Report {
 		html += "<p>End Date: "+projectEndDate+"</p>";
 		html += "<p>Status: "+projectStatus+"</p>";
 		html += "<br>";
-		//Iterate through tasklist and add data about each task to the HTML String
-		for (Iterator iterator = taskList.getAllSubTasks(id).iterator(); iterator.hasNext();) {
-			current = (Task)iterator.next();
-			html = taskToHTML(html, current);    
-			html += "<br>";
-			if(current.hasSubTasks(current.getID())) {
-				html += toString(current.getID());
+		}
+		//Iterate through tasklist and add data about each task to the String
+		if(taskList.getTask(id) != null) {
+			task = taskList.getTask(id);
+			html = taskToHTML(html, task);
+		} if(taskList.hasSubTasks(id)){
+			Collection<Task> temp = taskList.getAllSubTasks(id);
+			Task[] subtasks = (Task[])temp.toArray();
+			for(int i=0; i<subtasks.length; ++i){
+				html = toString(subtasks[i].getID(), html);
 			}
 		}
 		//End of body and HTML
-		html +="</body></html>";
+		if (id == null){
+			html +="</body></html>";
+		}
 		return html;
 	}
-	
 	private String taskToHTML (String html, Task task) {
 		html += "<p>Task: "+task.getText()+"</p>";
 		html += "<p>Start Date: "+task.getStartDate().toString()+"</p>";
@@ -171,7 +180,7 @@ public class Report {
 		}
 		
 		int priority = task.getPriority();
-		if(priority == 0){
+		if(status == 0){
 			html += "<p>Priority: Lowest</p>";
 		} else if (priority == 1) {
 			html += "<p>Priority: Low</p>";
@@ -182,6 +191,7 @@ public class Report {
 		}else {
 			html += "<p>Priority: Highest</p>";
 		}
+		html += "<p>Effort: "+task.getEffort()+"</p>";
 		html += "<p>Progress: "+task.getProgress()+"</p>";
 		return html;
 	}
