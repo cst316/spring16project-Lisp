@@ -85,19 +85,13 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		
 		tree = new JTree();
 		tree.setModel(new DefaultTreeModel(
-			new Template("Task") {
-				{
-
-				}
-			}
+			new Template("Task") {{}}
 		));
 		tree.setToolTipText("Right click to view options");
 		
 		tree.setEditable(true);
-	
-		
-	    //**********// MENU //************// 
-		
+
+		//MENU
 		JPopupMenu menu = new JPopupMenu();
 		
 		add = new JMenuItem("Add Task");
@@ -111,10 +105,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		menu.add(add);
 		menu.add(remove);
 		menu.add(rename);
-		
-		//******************************//
-		
-		
 		
 		// CALENDAR
 	    startCalFrame = new CalendarFrame();
@@ -137,9 +127,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
             }
         });
     
-		
-	    
-	
 		tree.setPreferredSize(new Dimension(430, 210));
 		tree.addMouseListener(new MouseAdapter() {
 			@Override
@@ -149,14 +136,12 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			        int row = tree.getClosestRowForLocation(event.getX(), event.getY());
 			        tree.setSelectionRow(row);
 			        menu.show(event.getComponent(), event.getX(), event.getY());
-
 			    }
 			    
 			    if (SwingUtilities.isLeftMouseButton(event)) {
 
 			        int row = tree.getClosestRowForLocation(event.getX(), event.getY());
 			        tree.setSelectionRow(row);
-
 			        
 			        // Gets the text from the selected node
 			        Template selected = (Template)tree.getSelectionPath().getLastPathComponent();
@@ -174,8 +159,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			    }	
 			}
 		});
-		
-		
+			
 		taskPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		tree.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		taskPanel.add(tree);
@@ -272,7 +256,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		panel.add(lblEstEff);
 		
 		estEffort = new JComboBox();
-		estEffort.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "5", "8", "10", "15", "20", "40"}));
+		estEffort.setModel(new DefaultComboBoxModel(new String[] {
+				"1", "2", "3", "5", "8", "10", "15", "20", "40"}));
 		estEffort.setName("");
 		estEffort.setBounds(102, 172, 70, 28);
 		panel.add(estEffort);
@@ -282,7 +267,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		panel.add(lblPriority);
 		
 		priority = new JComboBox();
-		priority.setModel(new DefaultComboBoxModel(new String[] {"Low", "Lowest", "Normal", "High", "Highest"}));
+		priority.setModel(new DefaultComboBoxModel(new String[] {
+				"Low", "Lowest", "Normal", "High", "Highest"}));
 		priority.setName("");
 		priority.setBounds(309, 167, 95, 28);
 		panel.add(priority);
@@ -319,8 +305,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				selected.setCalendarEndDate(new CalendarDate((Date)endDate.getModel().getValue()));
 				
 				tree.revalidate();
-							
-				
 			}
 		});
 		btnUpdate.setBounds(241, 207, 95, 29);
@@ -340,8 +324,10 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		CalendarDate endDateMax = startDateMax;
 		
 		btnStartDate = new JButton("");
-		btnStartDate.setIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
-		btnSelectedIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
+		btnStartDate.setIcon(new ImageIcon(TaskTemplateWizard.class.getResource(
+				"/net/sf/memoranda/ui/resources/icons/calendar.png")));
+		btnSelectedIcon(new ImageIcon(TaskTemplateWizard.class.getResource(
+				"/net/sf/memoranda/ui/resources/icons/calendar.png")));
 		btnStartDate.setBounds(171, 138, 32, 28);
         btnStartDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -353,7 +339,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		btnEndDate = new JButton("");
 		btnEndDate.setEnabled(false);
 
-		btnEndDate.setIcon(new ImageIcon(TaskTemplateWizard.class.getResource("/net/sf/memoranda/ui/resources/icons/calendar.png")));
+		btnEndDate.setIcon(new ImageIcon(TaskTemplateWizard.class.getResource(
+				"/net/sf/memoranda/ui/resources/icons/calendar.png")));
 		btnEndDate.setBounds(400, 138, 32, 28);
         btnEndDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -365,11 +352,12 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
         
         endDate.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent event) {
-            	// it's an ugly hack so that the spinner can increase day by day
-				//Template selected = (Template)tree.getSelectionPath().getLastPathComponent();
-				//DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-				//Template root = (Template) model.getRoot();
-            	SpinnerDateModel sdm = new SpinnerDateModel((Date)endDate.getModel().getValue(),null,null,Calendar.DAY_OF_WEEK);
+            	//it's an ugly hack so that the spinner can increase day by day
+				Template selected = (Template)tree.getSelectionPath().getLastPathComponent();
+				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+				Template root = (Template) model.getRoot();
+            	SpinnerDateModel sdm = new SpinnerDateModel((Date)endDate.getModel().getValue(),
+            			null,null,Calendar.DAY_OF_WEEK);
             	endDate.setModel(sdm);
             	
                 if (ignoreEndChanged)
@@ -428,29 +416,13 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			public void mouseClicked(MouseEvent event) {
 				String name = taskName.getText();
 				if(!name.isEmpty()) {
-					//Date startD = (Date)startDate.getModel().getValue();
-					//Date endD = (Date)endDate.getModel().getValue();
-					//String effort = estEffort.getSelectedItem().toString();
-					//String prog = progress.getText();
-					//String desc = description.getText();
-					//int index = priority.getSelectedIndex();
-					//String prior = "";
-					//System.out.println(index);
-					//prior = getStringPriority(index);
-				
-				try {
-					saving();
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		
+					try {
+						saving();
+					} catch (FileNotFoundException e1) {
+						e1.printStackTrace();
+					} catch (IOException | ParseException e1) {
+						e1.printStackTrace();
+					}
 				}
 				else {
 					taskName.setBackground(Color.red);
@@ -460,27 +432,18 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				 
 			
 		});
-		
-		
-		
+			
 		//WORKING -- Load the tree from the template screen to the task list.
 		btnLoad.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent event) {
-				
+			public void mouseClicked(MouseEvent event) {	
 				JDialog loader = getLoader();
 				loader.setVisible(true);
-
-
-
 			}
 		});
-		
-
 	}
 	
 	private void btnSelectedIcon(ImageIcon imageIcon) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -500,7 +463,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		
 		Template selected = (Template)tree.getSelectionPath().getLastPathComponent();
 		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 		Template root = (Template) model.getRoot();
@@ -530,11 +492,9 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		else if (item.equals(rename)){
 			tree.startEditingAtPath(tree.getSelectionPath());
 			String selectedText = selected.getUserObject().toString();
-			selected.setHeadTaskTitle(selectedText); // Changed this to selected, should be root maybe? idk
+			selected.setHeadTaskTitle(selectedText);
 			tree.revalidate();
-		}
-
-		
+		}	
 	}
 	
 	public void reset(){
@@ -550,9 +510,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	public void loadIn() {
 		DefaultTreeModel model = (DefaultTreeModel) this.tree.getModel();
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-		if(root == null) {	
-		}
-		else {
+		if(root != null) {	
 			Template troot = (Template) model.getRoot();
 			this.tree.setSelectionRow(0);
 			troot.setEffort(Long.parseLong(estEffort.getSelectedItem().toString()));
@@ -563,7 +521,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	
 	public void saving() throws FileNotFoundException, IOException, ParseException{
 		DefaultTreeModel model = (DefaultTreeModel) this.tree.getModel();
-		Template troot= (Template) model.getRoot();
+		Template troot = (Template) model.getRoot();
 		troot.save();
 		this.dispose();
 	}
@@ -573,7 +531,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
         startCalFrame.setSize(200, 200);
         this.getLayeredPane().add(startCalFrame);
         startCalFrame.show();
-
     }
 
     void btnEndDateActionPerformed(ActionEvent event) {
@@ -598,30 +555,23 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 	}
 	
 	public String getStringPriority(int p) {
-		String tmp;
 		switch(p) {
-		case 0: tmp = "Lowest";
-		break;
-		case 1: tmp = "Low";
-		break;
-		case 2: tmp = "Normal";
-		break;
-		case 3: tmp = "High";
-		break;
-		case 4: tmp = "Highest";
-		break;
-		default: tmp = "Lowest";
-		break;
-		}
-		return tmp;
+		case 0: return "Lowest";
+		case 1: return "Low";
+		case 2: return "Normal";
+		case 3: return "High";
+		case 4: return "Highest";
+		default:return "Lowest";
+		}	
 	}
 	
 	public JDialog getLoader() {
-		selectRootNode(); //sets the root node as the selected node for loading
+		selectRootNode();
 		ArrayList<String> ids = getLoaderNames();
 		JDialog loader = new JDialog(this, true);
 		loader.setTitle("Load Template");
 		loader.getContentPane().setLayout(null);
+		loader.setSize(new Dimension(340,200));
 		
 		ArrayList<String> names = new ArrayList<String>();
 		
@@ -632,10 +582,8 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			}
 		}
 		catch(IOException | ParseException e){
+			e.printStackTrace();
 		}
-		
-		
-		loader.setSize(new Dimension(340,200));
 		
 		JComboBox comboBox = new JComboBox();
 		
@@ -645,7 +593,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 			}	
 		}
 
-		//comboBox.addItem("hi");
 		comboBox.setBounds(34, 69, 226, 27);
 		loader.getContentPane().add(comboBox);
 		
@@ -653,25 +600,18 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		lblTemplates.setBounds(46, 50, 174, 16);
 		loader.getContentPane().add(lblTemplates);
 		
+		//ok button
 		JButton btnOk = new JButton("Ok");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				
-				// Gets current selected name in ComboBox
-				
 				String current = comboBox.getSelectedItem().toString();
 				String id = String.valueOf(ids.get(comboBox.getSelectedIndex()));
 				try {
 					populateTreeFromLoad(id);
 				} catch (IOException | ParseException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				loader.dispose();
-				
-				
-				
+				loader.dispose();	
 			}
 		});
 		btnOk.setBounds(33, 93, 117, 29);
@@ -685,18 +625,20 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		});
 		btnCancel.setBounds(143, 93, 117, 29);
 		
+		//delete button
 		JButton btnDeleteTemplate = new JButton("");
 		btnDeleteTemplate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				String tmp = "Are you sure you want to delete ";
 				String cur = comboBox.getSelectedItem().toString();
 				tmp = tmp + cur + "?";
-				DecisionBox db = new DecisionBox(loader, "Warning",
-						tmp, String.valueOf(ids.get(comboBox.getSelectedIndex())));
+				getDecision(loader, "Warning", tmp, 
+						String.valueOf(ids.get(comboBox.getSelectedIndex())));
 			}
 		});
 		btnDeleteTemplate.setToolTipText("Delete Selected Template");
-		btnDeleteTemplate.setIcon(new ImageIcon(TaskTemplateLoader.class.getResource("/com/sun/java/swing/plaf/motif/icons/Error.gif")));
+		btnDeleteTemplate.setIcon(new ImageIcon(TaskTemplateLoader.class.getResource(
+				"/com/sun/java/swing/plaf/motif/icons/Error.gif")));
 		btnDeleteTemplate.setBounds(263, 69, 31, 27);
 		loader.getContentPane().add(btnDeleteTemplate);
 		loader.getContentPane().add(btnCancel);
@@ -704,6 +646,10 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		loader.setLocationRelativeTo(this);
 		
 		return loader;
+	}
+	
+	private void getDecision(JDialog parent, String title, String question, String jsonid) {
+		new DecisionBox(parent, "Warning", question, jsonid);
 	}
 	
 	public ArrayList<String> getLoaderNames(){
@@ -717,9 +663,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		catch(Exception exception){
 			exception.printStackTrace();
 		}
-
 		return names;
-
 	}
 	
 	// This is going to take in a JSONArray or an array of something, not a name
@@ -728,7 +672,7 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 		TaskJson json = new TaskJson("template.json", "tasks");
 		String name = json.getElement(id, "name");
 		// Sets root template with the name
-		//Template root = new Template(name); //might need to set all the sub tasks to subtasks of root this way.
+		//Template root = new Template(name);
 		tree.setModel(new DefaultTreeModel(
 				new Template(name)) {
 					{
@@ -741,8 +685,6 @@ public class TaskTemplateWizard extends JDialog implements ActionListener{
 				        ));
 				        startDate.getModel().setValue(new Date());
 				        endDate.getModel().setValue(new Date());
-
-
 					}
 				}
 			);
