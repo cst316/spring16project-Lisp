@@ -11,11 +11,9 @@ package net.sf.memoranda;
 
 import net.sf.memoranda.TaskList;
 import net.sf.memoranda.Task;
-import net.sf.memoranda.Project;
 import net.sf.memoranda.date.CurrentDate;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 //Wrapper class for the TaskListImpl to generate and export an HTML report of a Project and it's Tasks
 public class Report {
@@ -34,89 +32,51 @@ public class Report {
 		} else {
 			this.projectEndDate = taskList.getProject().getEndDate().toString();
 		}
-		int status = taskList.getProject().getStatus();
-		if(status == 0){
-			this.projectStatus = "Scheduled";
-		} else if (status == 1) {
-			this.projectStatus = "Active";
-		} else if (status == 2) {
-			this.projectStatus = "Completed";
-		} else if (status == 4) {
-			this.projectStatus = "Frozen";
-		} else {
-			this.projectStatus = "Failed";
-		}
-		
+		this.projectStatus = getProjectStatusString(taskList.getProject().getStatus());
 		this.taskList = taskList; 
 	}
 	
 	//Converts the report to a string so it can be displayed in a dialog box
-	public String toString(String id, String s) {
+	public String toString(String id, String str) {
 		Task task = null;
 		//Project info
 		if(id == null) {
-			s += projectTitle+"\n";
-			s += "Start Date: "+projectStartDate+"\n";
-			s += "End Date: "+projectEndDate+"\n";
-			s += "Status: "+projectStatus+"\n";
-			s += "\nTasks\n";
+			str += projectTitle+"\n";
+			str += "Start Date: "+projectStartDate+"\n";
+			str += "End Date: "+projectEndDate+"\n";
+			str += "Status: "+projectStatus+"\n";
+			str += "\nTasks\n";
 		}
 		
 		//Iterate through tasklist and add data about each task to the String
 		if(taskList.getTask(id) != null) {
 			task = taskList.getTask(id);
-			s = taskToString(s, task);
+			str = taskToString(str, task);
 		} if(taskList.hasSubTasks(id)){
 			Collection<Task> temp = taskList.getAllSubTasks(id);
 			Task[] subtasks = (Task[])temp.toArray();
 			for(int i=0; i<subtasks.length; ++i){
-				s = toString(subtasks[i].getID(), s);
+				str = toString(subtasks[i].getID(), str);
 			}
 		} 
-		return s;
+		return str;
 	}
 	
-	public String taskToString(String s, Task task) {
-		s += "Task: "+task.getText()+"\n";
-		s += "Start Date: "+task.getStartDate().toString()+"\n";
+	public String taskToString(String str, Task task) {
+		str += "Task: "+task.getText()+"\n";
+		str += "Start Date: "+task.getStartDate().toString()+"\n";
 		if(task.getEndDate() == null) {
-			s += "End Date: None\n";
+			str += "End Date: None\n";
 		} else {
-			s += "End Date: "+task.getEndDate().toString()+"\n";
+			str += "End Date: "+task.getEndDate().toString()+"\n";
 		}
-		
 		int status = task.getStatus(CurrentDate.get());
-		if(status == 0){
-			s += "Status: Scheduled\n";
-		} else if (status == 1) {
-			s += "Status: Active\n";
-		} else if (status == 2) {
-			s += "Status: Completed\n";
-		} else if (status == 4) {
-			s += "Status: Frozen\n";
-		} else if (status == 5) {
-			s += "Status: Failed\n";
-		}else if (status == 6) {
-			s += "Status: Locked\n";
-		}else {
-			s += "Status: Deadline\n";
-		}
-		
+		str += getTaskStatusString(status)+"\n";
 		int priority = task.getPriority();
-		if(priority == 0){
-			s += "Priority: Lowest\n";
-		} else if (priority == 1) {
-			s += "Priority: Low\n";
-		} else if (priority == 2) {
-			s += "Priority: Normal\n";
-		} else if (priority == 3) {
-			s += "Priority: High\n";
-		}else {
-			s += "Priority: Highest\n";
-		}
-		s += "Effort: "+task.getEffort()+"\n";
-		s += "Progress: "+task.getProgress()+"\n";
-		return s;
+		str += getTaskPriorityString(priority)+"\n";
+		str += "Effort: "+task.getEffort()+"\n";
+		str += "Progress: "+task.getProgress()+"\n";
+		return str;
 	}
 	
 	//Returns a String that contains the report in HTML
@@ -161,38 +121,64 @@ public class Report {
 		} else {
 			html += "<p>End Date: "+task.getEndDate().toString()+"</p>";
 		}
-		
 		int status = task.getStatus(CurrentDate.get());
-		if(status == 0){
-			html += "<p>Status: Scheduled</p>";
-		} else if (status == 1) {
-			html += "<p>Status: Active</p>";
-		} else if (status == 2) {
-			html += "<p>Status: Completed</p>";
-		} else if (status == 4) {
-			html += "<p>Status: Frozen</p>";
-		} else if (status == 5) {
-			html += "<p>Status: Failed</p>";
-		}else if (status == 6) {
-			html += "<p>Status: Locked</p>";
-		}else {
-			html += "<p>Status: Deadline</p>";
-		}
-		
+		html += "<p>"+getTaskStatusString(status)+"</p>";
 		int priority = task.getPriority();
-		if(status == 0){
-			html += "<p>Priority: Lowest</p>";
-		} else if (priority == 1) {
-			html += "<p>Priority: Low</p>";
-		} else if (priority == 2) {
-			html += "<p>Priority: Normal</p>";
-		} else if (priority == 3) {
-			html += "<p>Priority: High</p>";
-		}else {
-			html += "<p>Priority: Highest</p>";
-		}
+		html += "<p>"+getTaskPriorityString(priority)+"</p>";
 		html += "<p>Effort: "+task.getEffort()+"</p>";
 		html += "<p>Progress: "+task.getProgress()+"</p>";
 		return html;
+	}
+	
+	private String getProjectStatusString(int status) {
+		String statusStr;
+		if(status == 0){
+			statusStr = "Scheduled";
+		} else if (status == 1) {
+			statusStr = "Active";
+		} else if (status == 2) {
+			statusStr = "Completed";
+		} else if (status == 4) {
+			statusStr = "Frozen";
+		} else {
+			statusStr = "Failed";
+		}
+		return statusStr;
+	}
+	
+	private String getTaskStatusString(int status) {
+		String statusStr;
+		if(status == 0){
+			statusStr = "Status: Scheduled";
+		} else if (status == 1) {
+			statusStr = "Status: Active";
+		} else if (status == 2) {
+			statusStr = "Status: Completed";
+		} else if (status == 4) {
+			statusStr = "Status: Frozen";
+		} else if (status == 5) {
+			statusStr = "Status: Failed";
+		}else if (status == 6) {
+			statusStr = "Status: Locked";
+		}else {
+			statusStr = "Status: Deadline";
+		}
+		return statusStr;
+	}
+	
+	private String getTaskPriorityString(int priority) {
+		String priorityStr; 
+		if(priority == 0){
+			priorityStr = "Priority: Lowest";
+		} else if (priority == 1) {
+			priorityStr = "Priority: Low";
+		} else if (priority == 2) {
+			priorityStr = "Priority: Normal";
+		} else if (priority == 3) {
+			priorityStr = "Priority: High";
+		}else {
+			priorityStr = "Priority: Highest";
+		}
+		return priorityStr;
 	}
 }
