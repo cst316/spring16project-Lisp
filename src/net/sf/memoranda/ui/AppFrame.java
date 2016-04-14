@@ -697,10 +697,18 @@ public class AppFrame extends JFrame {
     	  ex.printStackTrace();
     	} finally {
     		if (fWriter != null) {
-    			fWriter.close();
+    			try {
+    				fWriter.close();
+    			} catch (IOException ie) {
+    				ie.printStackTrace();
+    			}	
     		}
     		if(writer != null) {
-    			writer.close(); 
+    			try {
+    				writer.close();
+    			} catch (IOException ie) {
+    				ie.printStackTrace();
+    			} 
     		}
     	}
     }
