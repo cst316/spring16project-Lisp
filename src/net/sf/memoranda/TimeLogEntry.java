@@ -12,15 +12,10 @@ public class TimeLogEntry {
 	
 	public TimeLogEntry(String name, String task, String loc, String startTime, String endTime){
 		this.name = name;
-		assert name != null:"name is equal to null";
 		this.task = task;
-		assert task != null:"task is equal to null";
 		this.loc = loc;
-		assert loc != null:"loc is equal to null";
 		this.startTime = startTime;
-		assert startTime != null:"startTime is equal to null";
 		this.endTime = endTime;
-		assert endTime != null:"endTime is equal to null";
 	}
 
 	public String getName() {
