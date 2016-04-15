@@ -23,12 +23,7 @@ public class TimeLogEntry {
 	}
 
 	public void setName(String name) {
-		if(name.isEmpty()) {
-			this.name = "Name";
-		}
-		else {
-			this.name = name;
-		}
+		this.name = name;
 	}
 
 	public String getTask() {
@@ -36,12 +31,7 @@ public class TimeLogEntry {
 	}
 
 	public void setTask(String task) {
-		if(task.isEmpty()){
-			this.task = "Task";
-		}
-		else {
-			this.task = task;
-		}
+		this.task = task;
 	}
 
 	public String getLoc() {
@@ -49,12 +39,7 @@ public class TimeLogEntry {
 	}
 
 	public void setLoc(String loc) {
-		if(loc.isEmpty()) {
-			this.loc = "0";
-		}
-		else {
-			this.loc = loc;
-		}
+		this.loc = loc;
 	}
 
 	public String getStartTime() {
@@ -62,12 +47,7 @@ public class TimeLogEntry {
 	}
 
 	public void setStartTime(String startTime) {
-		if(startTime.isEmpty()) {
-			this.startTime = "6:00 PM";
-		}
-		else {
-			this.startTime = startTime;
-		}
+		this.startTime = startTime;
 	}
 
 	public String getEndTime() {
@@ -75,11 +55,7 @@ public class TimeLogEntry {
 	}
 
 	public void setEndTime(String endTime) {
-		if(endTime.isEmpty()) {
-			this.endTime = "7:00 PM";
-		}
-		else {
-			this.endTime = endTime;
-		}
+		this.endTime = endTime;
+		
 	}
 }
