@@ -24,8 +24,8 @@ import java.awt.Component;
 public class DecisionBox {
 	
 	private JDialog panel;
-	private JDialog Jparent;
-	private Component Cparent;
+	private JDialog jdialogParent;
+	private Component componentParent;
 	private JButton yes;
 	private JButton no;
 	private String Jtitle;
@@ -45,9 +45,9 @@ public class DecisionBox {
 	 * 				 question = the yes or no question being asked
 	 *               id = specific to Json files
 	 */
-	public DecisionBox(JDialog jd, String title, String question, String id) {
+	public DecisionBox(JDialog jdialogParent, String title, String question, String id) {
 		
-		this.Jparent = jd;
+		this.jdialogParent = jdialogParent;
 		this.title = title;
 		this.question = question;
 		this.id = id;
@@ -70,12 +70,12 @@ public class DecisionBox {
 	 * 				 Title = title of the panel its self
 	 * 				 question = the yes or no question being asked
 	 */
-	public DecisionBox(Component Cparent, String title, String question) {
+	public DecisionBox(Component componentParent, String title, String question) {
 		
-		this.Cparent = Cparent;
+		this.componentParent = componentParent;
 		this.title = title;
 		this.question = question;
-		Jparent = null;
+		jdialogParent = null;
 		id = "";
 		decision = false;
 		
@@ -125,7 +125,7 @@ public class DecisionBox {
 		
 		yes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Jparent != null) {
+				if(jdialogParent != null) {
 					TaskJson tj = null;
 					try {
 						tj = new TaskJson("template.json","tasks");
@@ -140,7 +140,7 @@ public class DecisionBox {
 					//dispose this panel
 					panel.dispose();
 			    	//dispose the original dialog
-					Jparent.dispose();
+					jdialogParent.dispose();
 				}
 				else {
 					decision = true;
@@ -181,13 +181,13 @@ public class DecisionBox {
 	
 	//checks to see what type of container is called
 	public void initCheckContainer() {
-		if(Jparent == null) {
+		if(jdialogParent == null) {
 			panel = new JDialog();
-			panel.setLocationRelativeTo(Cparent);
+			panel.setLocationRelativeTo(componentParent);
 		}
 		else {
-			panel = new JDialog(Jparent);
-			panel.setLocation(Jparent.getLocation());
+			panel = new JDialog(jdialogParent);
+			panel.setLocation(jdialogParent.getLocation());
 		}
 	}
 }

@@ -26,6 +26,12 @@ public class NotificationPopUp {
 	private JLabel questionLabel;
 	private JButton okButton;
 	
+	/*
+	 * Author: Jason Rice
+	 * Description: Constructor takes in the parents panel for location and display purposes,
+	 * also takes in the title of the box and the notification and returns a notification
+	 * that displays in a pop up and has an ok button to click when the user has seen it.
+	 */
 	public NotificationPopUp(Component parent, String pTitle, String notification){
 		dialog = new JDialog();
 		topPanel = new JPanel();
@@ -40,9 +46,12 @@ public class NotificationPopUp {
 		init();
 	}
 	
+	/*
+	 * Author: Jason Rice
+	 * Description: init function initializes the pop up and builds the pop up.
+	 */
 	public void init() {
 		String tmp;
-		
 		
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setSize(new Dimension (400, 100));
@@ -79,7 +88,10 @@ public class NotificationPopUp {
 		
 	}
 	
-	//getters for init() function
+	/*
+	 * Author: Jason Rice
+	 * Description: private getters and setters.
+	 */
 	private String getNotification() {
 		return notification;
 	}
