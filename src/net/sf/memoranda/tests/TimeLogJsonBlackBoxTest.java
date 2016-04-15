@@ -8,7 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 import net.sf.memoranda.TimeLogEntry;
 import net.sf.memoranda.TimeLogJson;
-
+/*
+ * Author: Jason Rice
+ * Description: this is a blackbox junit test for timelog
+ */
 public class TimeLogJsonBlackBoxTest {
 
 	TimeLogEntry t1;
