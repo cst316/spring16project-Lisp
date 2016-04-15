@@ -187,7 +187,7 @@ public class DecisionBox {
 		}
 		else {
 			panel = new JDialog(jdialogParent);
-			panel.setLocation(jdialogParent.getLocation());
+			panel.setLocationRelativeTo(jdialogParent);
 		}
 	}
 }

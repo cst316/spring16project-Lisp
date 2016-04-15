@@ -1,5 +1,7 @@
 package net.sf.memoranda;
 
+import java.util.Date;
+
 public class TimeLogEntry {
 	
 	private String name;
@@ -21,7 +23,12 @@ public class TimeLogEntry {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		if(name.isEmpty()) {
+			this.name = "Name";
+		}
+		else {
+			this.name = name;
+		}
 	}
 
 	public String getTask() {
@@ -29,7 +36,12 @@ public class TimeLogEntry {
 	}
 
 	public void setTask(String task) {
-		this.task = task;
+		if(task.isEmpty()){
+			this.task = "Task";
+		}
+		else {
+			this.task = task;
+		}
 	}
 
 	public String getLoc() {
@@ -37,7 +49,12 @@ public class TimeLogEntry {
 	}
 
 	public void setLoc(String loc) {
-		this.loc = loc;
+		if(loc.isEmpty()) {
+			this.loc = "0";
+		}
+		else {
+			this.loc = loc;
+		}
 	}
 
 	public String getStartTime() {
@@ -45,7 +62,12 @@ public class TimeLogEntry {
 	}
 
 	public void setStartTime(String startTime) {
-		this.startTime = startTime;
+		if(startTime.isEmpty()) {
+			this.startTime = "0/0/00";
+		}
+		else {
+			this.startTime = startTime;
+		}
 	}
 
 	public String getEndTime() {
@@ -53,6 +75,11 @@ public class TimeLogEntry {
 	}
 
 	public void setEndTime(String endTime) {
-		this.endTime = endTime;
+		if(endTime.isEmpty()) {
+			this.endTime = "0/0/00";
+		}
+		else {
+			this.endTime = endTime;
+		}
 	}
 }
