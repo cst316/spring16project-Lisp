@@ -63,7 +63,7 @@ public class TimeLogEntry {
 
 	public void setStartTime(String startTime) {
 		if(startTime.isEmpty()) {
-			this.startTime = "0/0/00";
+			this.startTime = "6:00 PM";
 		}
 		else {
 			this.startTime = startTime;
@@ -76,7 +76,7 @@ public class TimeLogEntry {
 
 	public void setEndTime(String endTime) {
 		if(endTime.isEmpty()) {
-			this.endTime = "0/0/00";
+			this.endTime = "7:00 PM";
 		}
 		else {
 			this.endTime = endTime;
