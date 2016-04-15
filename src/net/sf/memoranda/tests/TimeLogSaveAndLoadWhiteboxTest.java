@@ -12,7 +12,6 @@ import net.sf.memoranda.TimeLogJson;
 public class TimeLogSaveAndLoadWhiteboxTest {
 	
 	TimeLogEntry t1;
-	TimeLogEntry t2;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -23,13 +22,6 @@ public class TimeLogSaveAndLoadWhiteboxTest {
 		String startd = "01/02/15";
 		String endd = "02/03/15";
 		t1 = new TimeLogEntry(name, task, loc, startd, endd);
-		
-		name = "bill";
-		task = "follow john";
-		loc = "10";
-		startd = "05/20/13";
-		endd = "10/01/15";
-		t2 = new TimeLogEntry(name, task, loc, startd, endd);
 	}
 
 	@Test
@@ -143,7 +135,5 @@ public class TimeLogSaveAndLoadWhiteboxTest {
 	}
 	@After
 	public void tearDown() throws Exception {
-		t1 = null;
-		t2 = null;	
 	}
 }
