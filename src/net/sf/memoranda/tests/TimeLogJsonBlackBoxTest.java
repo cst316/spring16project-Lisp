@@ -19,6 +19,7 @@ public class TimeLogJsonBlackBoxTest {
 	
 	@Before
 	public void setUp() throws Exception {
+		System.setProperty("java.awt.headless", "true");
 		String name = "DeleteTest1";
 		String task = "toDeleteThings";
 		String loc = "2";
@@ -29,6 +30,8 @@ public class TimeLogJsonBlackBoxTest {
 	
 	@After
 	public void tearDown() throws Exception {
+		t1 = null;
+		System.setProperty("java.awt.headless", "false");
 	}
 
 	//constructor was used in the set up so just need to 
@@ -44,7 +47,6 @@ public class TimeLogJsonBlackBoxTest {
 			TimeLogJson tlj = new TimeLogJson("TimeLogBlackBoxTest.json");
 			tlj.addLog();			
 		} catch (IOException | ParseException e) {
-			e.printStackTrace();
 			check = false;
 		}
 		assertTrue(check);
@@ -77,7 +79,6 @@ public class TimeLogJsonBlackBoxTest {
 			assert(name.equals(testname));
 			
 		} catch (IOException | ParseException e) {
-			e.printStackTrace();
 			check = false;
 		}
 		assertTrue(check);
@@ -90,7 +91,6 @@ public class TimeLogJsonBlackBoxTest {
 			int row = rowCheck(tlj.size());
 			tlj.deleteCell(row);
 		} catch (IOException | ParseException e) {
-			e.printStackTrace();
 			check = false;
 		}
 		assertTrue(check);

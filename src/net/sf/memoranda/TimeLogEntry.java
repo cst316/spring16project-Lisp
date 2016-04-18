@@ -16,6 +16,7 @@ public class TimeLogEntry {
 		this.loc = loc;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		
 	}
 
 	public String getName() {
@@ -56,6 +57,5 @@ public class TimeLogEntry {
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
-		
 	}
 }

@@ -10,11 +10,11 @@ import net.sf.memoranda.TimeLogEntry;
 import net.sf.memoranda.TimeLogJson;
 
 public class TimeLogSaveAndLoadWhiteboxTest {
-	
 	TimeLogEntry t1;
 	
 	@Before
 	public void setUp() throws Exception {
+		System.setProperty("java.awt.headless", "true");
 		//create a couple of new log events.
 		String name = "John";
 		String task = "build stuff";
@@ -85,7 +85,6 @@ public class TimeLogSaveAndLoadWhiteboxTest {
 				
 		} catch (IOException | ParseException e) {
 			check = false;
-			e.printStackTrace();
 		}
 		assertTrue(check);
 	}
@@ -118,7 +117,6 @@ public class TimeLogSaveAndLoadWhiteboxTest {
 			
 		} catch (IOException | ParseException e) {
 			check = false;
-			e.printStackTrace();
 		}
 		assertTrue(check);
 		removeSavedFile();
@@ -130,10 +128,11 @@ public class TimeLogSaveAndLoadWhiteboxTest {
 			int row = checkJsonSize(jl.size());
 			jl.deleteCell(row);
 		} catch (IOException | ParseException e) {
-			e.printStackTrace();
 		}
 	}
 	@After
 	public void tearDown() throws Exception {
+		System.setProperty("java.awt.headless", "false");
+		t1 = null;
 	}
 }
