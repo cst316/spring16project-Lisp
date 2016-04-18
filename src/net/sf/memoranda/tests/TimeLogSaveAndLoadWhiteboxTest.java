@@ -72,7 +72,7 @@ public class TimeLogSaveAndLoadWhiteboxTest {
 		boolean check = true;
 		
 		try {
-			TimeLogJson jl = new TimeLogJson("TimeLog.json");
+			TimeLogJson jl = new TimeLogJson("TimeLogWhiteBoxTest.json");
 			jl.addLog();
 			int row = checkJsonSize(jl.size());
 				
@@ -96,7 +96,7 @@ public class TimeLogSaveAndLoadWhiteboxTest {
 		String name, task, loc, sd, ed, temp;
 		
 		try {
-			TimeLogJson jl = new TimeLogJson("TimeLog.json");
+			TimeLogJson jl = new TimeLogJson("TimeLogWhiteBoxTest.json");
 			int row = checkJsonSize(jl.size());
 			
 			loc = jl.getElement(row, "LOC");
@@ -126,7 +126,7 @@ public class TimeLogSaveAndLoadWhiteboxTest {
 
 	public void removeSavedFile() {
 		try {
-			TimeLogJson jl = new TimeLogJson("TimeLog.json");
+			TimeLogJson jl = new TimeLogJson("TimeLogWhiteBoxTest.json");
 			int row = checkJsonSize(jl.size());
 			jl.deleteCell(row);
 		} catch (IOException | ParseException e) {

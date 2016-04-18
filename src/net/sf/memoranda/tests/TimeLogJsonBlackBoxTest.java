@@ -41,7 +41,7 @@ public class TimeLogJsonBlackBoxTest {
 	@Test
 	public void BlackboxAddLogTest() {
 		try {
-			TimeLogJson tlj = new TimeLogJson("TimeLog.json");
+			TimeLogJson tlj = new TimeLogJson("TimeLogBlackBoxTest.json");
 			tlj.addLog();			
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
@@ -62,7 +62,7 @@ public class TimeLogJsonBlackBoxTest {
 	@Test
 	public void EditCellAndGetElementTest() {
 		try {
-			TimeLogJson tlj = new TimeLogJson("TimeLog.json");
+			TimeLogJson tlj = new TimeLogJson("TimeLogBlackBoxTest.json");
 			int row = rowCheck(tlj.size());
 			TimeLogEntry tmp = t1;
 			tlj.editCell(0, row, tmp.getName());
@@ -86,7 +86,7 @@ public class TimeLogJsonBlackBoxTest {
 	@Test
 	public void BlackBoxDeleteCellTest() {
 		try {
-			TimeLogJson tlj = new TimeLogJson("TimeLog.json");
+			TimeLogJson tlj = new TimeLogJson("TimeLogBlackBoxTest.json");
 			int row = rowCheck(tlj.size());
 			tlj.deleteCell(row);
 		} catch (IOException | ParseException e) {
@@ -99,7 +99,7 @@ public class TimeLogJsonBlackBoxTest {
 	@Test
 	public void BlackBoxGetKeyTest() {
 		try {
-			TimeLogJson tlj = new TimeLogJson("TimeLog.json");
+			TimeLogJson tlj = new TimeLogJson("TimeLogBlackBoxTest.json");
 			for(int i = 0; i < 5; i++) {
 				@SuppressWarnings("static-access")
 				String str = tlj.getKey(i);
