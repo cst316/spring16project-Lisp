@@ -557,5 +557,4 @@ public class EventDialog extends JDialog implements WindowListener {
 	public void windowActivated( WindowEvent e ) {}
 
 	public void windowDeactivated( WindowEvent e ) {}
-
 }
