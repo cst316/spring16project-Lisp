@@ -52,6 +52,12 @@ public class TimeLogJson {
 		}
 	}
 	
+	public void clearData() throws IOException{
+		
+		data.clear();
+		writeToFile("Data cleared");
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void editCell(int column, int row, String value) {
 		
