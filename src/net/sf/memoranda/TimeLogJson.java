@@ -89,7 +89,13 @@ public class TimeLogJson {
 		
 		String[] keys = {"name","task","LOC","startTime","endTime"};
 		
-		return keys[column];
+		String key = "";
+		
+		if(column < 5){
+			key = keys[column];
+		}
+		
+		return key;
 	}
 	
 	public String getElement(int row, String key){
