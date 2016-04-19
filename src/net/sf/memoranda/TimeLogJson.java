@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -88,29 +87,9 @@ public class TimeLogJson {
 	
 	public static String getKey(int column){
 		
-		String key = "";
+		String[] keys = {"name","task","LOC","startTime","endTime"};
 		
-		switch(column){
-		case 0:
-			key = "name";
-			break;
-		case 1:
-			key = "task";
-			break;
-		case 2:
-			key = "LOC";
-			break;
-		case 3:
-			key = "startTime";
-			break;
-		case 4:
-			key = "endTime";
-			break;
-		default:
-			System.out.println("Row not recognized");
-		}
-		
-		return key;
+		return keys[column];
 	}
 	
 	public String getElement(int row, String key){
