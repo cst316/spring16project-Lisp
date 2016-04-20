@@ -11,8 +11,6 @@ package net.sf.memoranda;
 import java.util.Collection;
 import java.util.Vector;
 
-import com.sun.prism.paint.Color;
-
 import java.util.Calendar;
 
 import net.sf.memoranda.date.CalendarDate;
