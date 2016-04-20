@@ -54,15 +54,17 @@ public class Report {
 		}
 		
 		//Iterate through tasklist and add data about each task to the String
-		if(taskList.getTask(id) != null) {
-			task = taskList.getTask(id);
-			str = taskToString(str, task);
-			if(taskList.hasSubTasks(id)){
-				Collection<Task> subTasks = taskList.getAllSubTasks(id);
-				for (Task taskElement : subTasks) {
-					toString(taskElement.getID(), str); 
-				}
-			} 
+		if(id != null){
+			if(taskList.getTask(id) != null) {
+				task = taskList.getTask(id);
+				str = taskToString(str, task);
+				if(taskList.hasSubTasks(id)){
+					Collection<Task> subTasks = taskList.getAllSubTasks(id);
+					for (Task taskElement : subTasks) {
+						toString(taskElement.getID(), str); 
+					}
+				} 
+			}
 		} 
 		return str;
 	}

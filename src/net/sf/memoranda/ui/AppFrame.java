@@ -670,7 +670,6 @@ public class AppFrame extends JFrame {
     }
     //Generate Report Action Performed
     protected void doGenReport(ActionEvent ev) {
-    	System.out.println("doGenReport called");
     	String str = new Report(CurrentProject.getTaskList()).toString(null, "");
     	JOptionPane.showMessageDialog(this,
     		    str,
