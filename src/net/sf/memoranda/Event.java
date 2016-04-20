@@ -33,6 +33,7 @@ public interface Event {
     nu.xom.Element getContent();
     
     int getRepeat();
+    String getNote();
     
     CalendarDate getStartDate();
     CalendarDate getEndDate();

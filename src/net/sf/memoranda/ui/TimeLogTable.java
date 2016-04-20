@@ -15,6 +15,4 @@ public class TimeLogTable extends JTable {
 		this.setModel(model);
 		
 	}
-
-
 }
