@@ -15,6 +15,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -673,27 +674,47 @@ public class AppFrame extends JFrame {
     }
     //Generate Report Action Performed
     protected void doGenReport(ActionEvent ev) {
-    	String s = new Report(CurrentProject.getTaskList()).toString(null);
+    	String str = new Report(CurrentProject.getTaskList()).toString(null, "");
     	JOptionPane.showMessageDialog(this,
-    		    s,
+    		    str,
     		    "Project Report",
     		    JOptionPane.PLAIN_MESSAGE);
     }
     //Export Report Action Performed
     protected void doExpReport(ActionEvent ev) {
-    	String HTML = new Report(CurrentProject.getTaskList()).toHTML(null);
+    	String html = new Report(CurrentProject.getTaskList()).toHTML(null, "");
     	FileWriter fWriter = null;
     	BufferedWriter writer = null;
     	try {
-    	    fWriter = new FileWriter(System.getProperty("user.dir")+CurrentProject.get().getTitle()+"Report.html",true);
+    	    fWriter = new FileWriter(System.getProperty("user.dir")+
+    	    		CurrentProject.get().getTitle()+"Report.html",true);
     	    writer = new BufferedWriter(fWriter);
-    	    writer.write(HTML);
+    	    writer.write(html);
     	    writer.newLine(); 
-    	    writer.close(); 
+    	} catch (IOException ie) {
+    		JOptionPane.showMessageDialog(this,
+        		    "Export of the report failed.",
+        		    "Export Failed",
+        		    JOptionPane.PLAIN_MESSAGE);
+    		ie.printStackTrace();
     	} catch (Exception ex) {
     	  ex.printStackTrace();
+    	} finally {
+    		if (fWriter != null) {
+    			try {
+    				fWriter.close();
+    			} catch (IOException ie) {
+    				ie.printStackTrace();
+    			}	
+    		}
+    		if(writer != null) {
+    			try {
+    				writer.close();
+    			} catch (IOException ie) {
+    				ie.printStackTrace();
+    			} 
+    		}
     	}
-    	//System.out.println("DEBUG: Report Exported to HTML File");
     }
     
     protected void jMenuHelpBug_actionPerformed(ActionEvent e) {
