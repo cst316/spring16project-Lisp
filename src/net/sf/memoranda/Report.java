@@ -49,7 +49,7 @@ public class Report {
 			
 			Collection<Task> mainTasks = taskList.getAllSubTasks(id);
 			for (Task taskElement : mainTasks) {
-				toString(taskElement.getID(), str); 
+				str = toString(taskElement.getID(), str); 
 		    }
 		}
 		
@@ -57,11 +57,12 @@ public class Report {
 		if(taskList.getTask(id) != null) {
 			task = taskList.getTask(id);
 			str = taskToString(str, task);
-		} if(taskList.hasSubTasks(id)){
-			Collection<Task> subTasks = taskList.getAllSubTasks(id);
-			for (Task taskElement : subTasks) {
-				toString(taskElement.getID(), str); 
-			}
+			if(taskList.hasSubTasks(id)){
+				Collection<Task> subTasks = taskList.getAllSubTasks(id);
+				for (Task taskElement : subTasks) {
+					toString(taskElement.getID(), str); 
+				}
+			} 
 		} 
 		return str;
 	}
@@ -109,11 +110,12 @@ public class Report {
 		if(taskList.getTask(id) != null) {
 			task = taskList.getTask(id);
 			html = taskToHTML(html, task);
-		} if(taskList.hasSubTasks(id)){
-			Collection<Task> subTasks = taskList.getAllSubTasks(id);
-			for (Task taskElement : subTasks) {
-				toString(taskElement.getID(), html); 
-		    }
+			if(taskList.hasSubTasks(id)){
+				Collection<Task> subTasks = taskList.getAllSubTasks(id);
+				for (Task taskElement : subTasks) {
+					toString(taskElement.getID(), html); 
+			    }
+			} 
 		}
 		//End of body and HTML
 		if (id == null){
