@@ -688,8 +688,11 @@ public class AppFrame extends JFrame {
     	BufferedWriter writer = null;
     	try {
     		// determines location
-    	    fWriter = new FileWriter(System.getProperty("user.dir")+
-    	    		CurrentProject.get().getTitle()+"Report.html",true);
+//    	    fWriter = new FileWriter(System.getProperty("user.dir")+
+//    	    		CurrentProject.get().getTitle()+"Report.html",true);
+    		fWriter = new FileWriter(System.getProperty("user.dir") +
+    				File.separator + CurrentProject.get().getTitle() +
+    				"Report.html", true);
     	    writer = new BufferedWriter(fWriter);
     	    writer.write(html);
     	    writer.newLine(); 
