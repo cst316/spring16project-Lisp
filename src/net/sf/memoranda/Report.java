@@ -46,6 +46,12 @@ public class Report {
 			str += "End Date: "+projectEndDate+"\n";
 			str += "Status: "+projectStatus+"\n";
 			str += "\nTasks\n";
+			
+			Collection<Task> temp = taskList.getAllSubTasks(id);
+			Task[] subtasks = (Task[])temp.toArray();
+			for(int i=0; i<subtasks.length; ++i){
+				str = toString(subtasks[i].getID(), str);
+			}
 		}
 		
 		//Iterate through tasklist and add data about each task to the String
@@ -87,14 +93,20 @@ public class Report {
 			html = "<!DOCTYPE html><html>";
 			html += "<head><title>Project Report</title></head>";
 		
-		//Body
-		html += "<body>";
-		//Project info
-		html += "<h2>"+projectTitle+"</h2>";
-		html += "<p>Start Date: "+projectStartDate+"</p>";
-		html += "<p>End Date: "+projectEndDate+"</p>";
-		html += "<p>Status: "+projectStatus+"</p>";
-		html += "<br>";
+			//Body
+			html += "<body>";
+			//Project info
+			html += "<h2>"+projectTitle+"</h2>";
+			html += "<p>Start Date: "+projectStartDate+"</p>";
+			html += "<p>End Date: "+projectEndDate+"</p>";
+			html += "<p>Status: "+projectStatus+"</p>";
+			html += "<br>";
+		
+			Collection<Task> temp = taskList.getAllSubTasks(id);
+			Task[] subtasks = (Task[])temp.toArray();
+			for(int i=0; i<subtasks.length; ++i){
+				html = toString(subtasks[i].getID(), html);
+			}
 		}
 		//Iterate through tasklist and add data about each task to the String
 		if(taskList.getTask(id) != null) {
