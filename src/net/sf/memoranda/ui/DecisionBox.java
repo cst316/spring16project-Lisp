@@ -19,40 +19,86 @@ import org.json.simple.parser.ParseException;
 
 import net.sf.memoranda.TaskJson;
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 public class DecisionBox {
+	
 	private JDialog panel;
+	private JDialog jdialogParent;
+	private Component componentParent;
 	private JButton yes;
 	private JButton no;
 	private String Jtitle;
-	JPanel panel_1;
-	JPanel panel_2;
-	JPanel textPanel;
-	JLabel questionLabel;
+	private JPanel insideTopPanel;
+	private JPanel insideBottomPanel;
+	private JPanel textPanel;
+	private JLabel questionLabel;
+	private String title;
+	private String question; 
+	private String id;
+	public boolean decision;
 	
 	/*
 	 * public constructor to initialize a new decision box
 	 * Requirements: Dialog owner = the parent panel denoted by "this"
 	 * 				 Title = title of the panel its self
 	 * 				 question = the yes or no question being asked
+	 *               id = specific to Json files
 	 */
-	public DecisionBox(JDialog jd, String title, String question, String id) {
+	public DecisionBox(JDialog jdialogParent, String title, String question, String id) {
 		
-		panel = new JDialog(jd);
+		this.jdialogParent = jdialogParent;
+		this.title = title;
+		this.question = question;
+		this.id = id;
+		yes = new JButton();
+		no = new JButton();
 		
+		initCheckContainer();
 		textPanel = new JPanel();
-		panel_1 = new JPanel();
-		panel_2 = new JPanel();
-		
+		insideTopPanel = new JPanel();
+		insideBottomPanel = new JPanel();
 		questionLabel = new JLabel();
+		
+		init();
+		panel.setVisible(true);
+	}
+	
+	/*
+	 * public constructor to initialize a new decision box
+	 * Requirements: Componant owner = the parent panel denoted by "this"
+	 * 				 Title = title of the panel its self
+	 * 				 question = the yes or no question being asked
+	 */
+	public DecisionBox(Component componentParent, String title, String question) {
+		
+		this.componentParent = componentParent;
+		this.title = title;
+		this.question = question;
+		jdialogParent = null;
+		id = "";
+		decision = false;
 		
 		yes = new JButton();
 		no = new JButton();
 		
+		initCheckContainer();
+		textPanel = new JPanel();
+		insideTopPanel = new JPanel();
+		insideBottomPanel = new JPanel();
+		questionLabel = new JLabel();
+		
+		init();
+		panel.setVisible(true);
+	}
+	
+	public void init() {
+		
+		setJtitle(title); 
+	
 		//set specifics
 		panel.setMinimumSize(new Dimension(390, 150));
 		panel.setPreferredSize(new Dimension(390, 150));
-		panel.setLocation(jd.getLocation());
 		panel.setTitle(title);
 		panel.setModal(true);
 		panel.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -61,53 +107,57 @@ public class DecisionBox {
 		panel.setResizable(false);
 		panel.toFront(); 
 		
-		setJtitle(title); 
-		panel.getContentPane().add(panel_1, BorderLayout.NORTH);
-		panel_1.setBounds(6, 6, 378, 54);
+		panel.getContentPane().add(insideTopPanel, BorderLayout.NORTH);
+		insideTopPanel.setBounds(6, 6, 378, 54);
 		
 		//panel_1
-		panel_1.add(questionLabel);
+		insideTopPanel.add(questionLabel);
 		questionLabel.setText(question);
 		questionLabel.setVisible(true);
 
 		//panel_2
-		panel_2.setBounds(6, 72, 378, 50);
-		panel.getContentPane().add(panel_2);
+		insideBottomPanel.setBounds(6, 72, 378, 50);
+		panel.getContentPane().add(insideBottomPanel);
 		
 		//Yes Button
-		panel_2.add(yes);
+		insideBottomPanel.add(yes);
 		yes.setText("Yes");
 		
 		yes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TaskJson tj = null;
-				try {
-					tj = new TaskJson("template.json","tasks");
-				} catch (IOException | ParseException e1) {
-					e1.printStackTrace();
+				if(jdialogParent != null) {
+					TaskJson tj = null;
+					try {
+						tj = new TaskJson("template.json","tasks");
+					} catch (IOException | ParseException e1) {
+						e1.printStackTrace();
+					}
+					try {
+						tj.deleteNode(id);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					//dispose this panel
+					panel.dispose();
+			    	//dispose the original dialog
+					jdialogParent.dispose();
 				}
-				try {
-					tj.deleteNode(id);
-				} catch (IOException e1) {
-					e1.printStackTrace();
+				else {
+					decision = true;
+					panel.dispose();
 				}
-				//dispose this panel
-				panel.dispose();
-			    //dispose the original dialog
-				jd.dispose();
 			}
 		});
 		
 		//No Button
-		panel_2.add(no);
+		insideBottomPanel.add(no);
 		no.setText("No");
 		no.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				decision = false;
 				panel.dispose();
 			}
 		});
-		
-		panel.setVisible(true);
 	}
 	
 	//gets the panel title
@@ -122,7 +172,22 @@ public class DecisionBox {
 		}
 		else {
 			Jtitle = "no question";
+		}	
+	}
+	
+	public boolean getDecision() {
+		return decision;
+	}
+	
+	//checks to see what type of container is called
+	public void initCheckContainer() {
+		if(jdialogParent == null) {
+			panel = new JDialog();
+			panel.setLocationRelativeTo(componentParent);
 		}
-		
+		else {
+			panel = new JDialog(jdialogParent);
+			panel.setLocationRelativeTo(jdialogParent);
+		}
 	}
 }
