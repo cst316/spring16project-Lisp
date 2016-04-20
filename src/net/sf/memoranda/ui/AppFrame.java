@@ -1,5 +1,7 @@
 package net.sf.memoranda.ui;
 
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -70,7 +72,9 @@ import nu.xom.Elements;
 /*$Id: AppFrame.java,v 1.33 2005/07/05 08:17:24 alexeya Exp $*/
 
 public class AppFrame extends JFrame {
-
+	//===================================================================== GARY
+	TrayIcon trayIcon;
+	//--------------------------------------------------------------------- GARY
     JPanel contentPane;
     JMenuBar menuBar = new JMenuBar();
     JMenu jMenuFile = new JMenu();
@@ -748,7 +752,62 @@ public class AppFrame extends JFrame {
     public void doMinimize() {
         exitNotify();
         App.closeWindow();
+        //=========================================================================== GARY
+        this.setEnabled(true);
     }
+    
+    public void doHide() {
+    	exitNotify();
+    	this.dispose();
+    }
+    
+    public boolean trayActive() {
+    	return trayIcon != null;
+    }
+    
+    public void addTray() {
+    	trayIcon = null;
+    	
+    	if(SystemTray.isSupported()) {
+    		SystemTray tray = SystemTray.getSystemTray();
+    		Image image = Toolkit.getDefaultToolkit().getImage(
+    				AppFrame.class.getResource("resources/icons/date.png"));
+    	
+	    	ActionListener restoreListener = new ActionListener() {
+	    		public void actionPerformed(ActionEvent e) {
+	    			App.openWindow();
+	    			SystemTray.getSystemTray().remove(trayIcon);
+	    		}
+	    	};
+	    	
+	    	ActionListener exitListener = new ActionListener() {
+	    		public void actionPerformed(ActionEvent e) {
+	    			doExit();
+	    		}
+	    	};
+	    	
+	    	PopupMenu popup = new PopupMenu();
+	    	
+	    	MenuItem restoreItem = new MenuItem("Restore");
+	    	restoreItem.addActionListener(restoreListener);
+	    	popup.add(restoreItem);
+	    	
+	    	MenuItem exitItem = new MenuItem("Exit");
+	    	exitItem.addActionListener(exitListener);
+	    	popup.add(exitItem);
+	    	
+	    	trayIcon = new TrayIcon(image, "Memoranda", popup);
+	    	
+	    	trayIcon.addActionListener(restoreListener);
+	    	
+	    	try {
+	    		tray.add(trayIcon);
+	    	} catch (AWTException e) {
+	    		System.err.println(e);
+	    	}
+    	}
+    }
+    //-------------------------------------------------------------------------------- GARY
 
     //Help | About action performed
     public void jMenuHelpAbout_actionPerformed(ActionEvent e) {
@@ -766,11 +825,17 @@ public class AppFrame extends JFrame {
             if (Configuration.get("ON_CLOSE").equals("exit"))
                 doExit();
             else
-                doMinimize();
+            	//============================================================================= GARY            	
+                //doMinimize();
+            	doHide();
+            	addTray();
+            	//----------------------------------------------------------------------------- GARY
         }
         else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
-            super.processWindowEvent(new WindowEvent(this,
-                    WindowEvent.WINDOW_CLOSING));
+            //============================================================================= GARY
+            //super.processWindowEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        	super.processWindowEvent(new WindowEvent(this, WindowEvent.WINDOW_ICONIFIED));
+        	//----------------------------------------------------------------------------- GARY
             doMinimize();
         }
         else

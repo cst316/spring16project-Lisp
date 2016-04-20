@@ -137,13 +137,23 @@ public class App {
 		frame.requestFocus();
 
 	}
+	
+	//=================================================================== GARY
+	public static void openWindow() {
+		if(frame == null) return;
+		frame.setVisible(true);
+		frame.setEnabled(true);
+		frame.setExtendedState(JFrame.NORMAL);
+	}
 
 	public static void closeWindow() {
 		if (frame == null)
 			return;
-		frame.dispose();
+		frame.setEnabled(false);
+		//frame.dispose();
 	}
-
+	//--------------------------------------------------------------------- GARY
+	
 	/**
 	 * Method showSplash.
 	 */

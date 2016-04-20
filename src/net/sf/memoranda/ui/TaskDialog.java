@@ -43,6 +43,7 @@ import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.util.Local;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.DefaultComboBoxModel;
 
 /*$Id: TaskDialog.java,v 1.25 2005/12/01 08:12:26 alexeya Exp $*/
 public class TaskDialog extends JDialog {
@@ -65,7 +66,7 @@ public class TaskDialog extends JDialog {
     JTextField todoField = new JTextField();
     
     // added by rawsushi
-    JTextField effortField = new JTextField();
+    JComboBox effortField = new JComboBox();
     JTextArea descriptionField = new JTextArea();
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
     
@@ -215,9 +216,10 @@ public class TaskDialog extends JDialog {
 
         jLabelEffort.setMaximumSize(new Dimension(100, 16));
         jLabelEffort.setMinimumSize(new Dimension(60, 16));
-        jLabelEffort.setText(Local.getString("Est Effort(hrs)"));
+        jLabelEffort.setText("Story Points");
+        effortField.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "5", "8", "10", "15", "20", "40"}));
         effortField.setBorder(border8);
-        effortField.setPreferredSize(new Dimension(30, 24));
+        effortField.setPreferredSize(new Dimension(45, 24));
 
         startDate.setBorder(border8);
         startDate.setPreferredSize(new Dimension(80, 24));                
