@@ -670,6 +670,7 @@ public class AppFrame extends JFrame {
     }
     //Generate Report Action Performed
     protected void doGenReport(ActionEvent ev) {
+    	System.out.println("doGenReport called");
     	String str = new Report(CurrentProject.getTaskList()).toString(null, "");
     	JOptionPane.showMessageDialog(this,
     		    str,
@@ -678,6 +679,7 @@ public class AppFrame extends JFrame {
     }
     //Export Report Action Performed
     protected void doExpReport(ActionEvent ev) {
+    	System.out.println("doExpReport called");
     	String html = new Report(CurrentProject.getTaskList()).toHTML(null, "");
     	FileWriter fWriter = null;
     	BufferedWriter writer = null;
