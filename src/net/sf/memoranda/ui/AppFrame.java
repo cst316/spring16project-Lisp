@@ -682,10 +682,12 @@ public class AppFrame extends JFrame {
     }
     //Export Report Action Performed
     protected void doExpReport(ActionEvent ev) {
+    	System.out.println("doExpReport called");
     	String html = new Report(CurrentProject.getTaskList()).toHTML(null, "");
     	FileWriter fWriter = null;
     	BufferedWriter writer = null;
     	try {
+    		// determines location
     	    fWriter = new FileWriter(System.getProperty("user.dir")+
     	    		CurrentProject.get().getTitle()+"Report.html",true);
     	    writer = new BufferedWriter(fWriter);
@@ -700,13 +702,13 @@ public class AppFrame extends JFrame {
     	} catch (Exception ex) {
     	  ex.printStackTrace();
     	} finally {
-    		if (fWriter != null) {
-    			try {
-    				fWriter.close();
-    			} catch (IOException ie) {
-    				ie.printStackTrace();
-    			}	
-    		}
+//    		if (fWriter != null) {
+//    			try {
+//    				fWriter.close();
+//    			} catch (IOException ie) {
+//    				ie.printStackTrace();
+//    			}	
+//    		}
     		if(writer != null) {
     			try {
     				writer.close();
@@ -714,6 +716,7 @@ public class AppFrame extends JFrame {
     				ie.printStackTrace();
     			} 
     		}
+    		JOptionPane.showMessageDialog(null, "Your report has been generated.");
     	}
     }
     

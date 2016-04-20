@@ -16,7 +16,6 @@ public class TimeLogEntry {
 		this.loc = loc;
 		this.startTime = startTime;
 		this.endTime = endTime;
-		
 	}
 
 	public String getName() {

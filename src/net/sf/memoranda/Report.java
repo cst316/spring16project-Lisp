@@ -46,17 +46,24 @@ public class Report {
 			str += "End Date: "+projectEndDate+"\n";
 			str += "Status: "+projectStatus+"\n";
 			str += "\nTasks\n";
+			
+			Collection<Task> mainTasks = taskList.getAllSubTasks(id);
+			for (Task taskElement : mainTasks) {
+				str = toString(taskElement.getID(), str); 
+		    }
 		}
 		
 		//Iterate through tasklist and add data about each task to the String
-		if(taskList.getTask(id) != null) {
-			task = taskList.getTask(id);
-			str = taskToString(str, task);
-		} if(taskList.hasSubTasks(id)){
-			Collection<Task> temp = taskList.getAllSubTasks(id);
-			Task[] subtasks = (Task[])temp.toArray();
-			for(int i=0; i<subtasks.length; ++i){
-				str = toString(subtasks[i].getID(), str);
+		if(id != null){
+			if(taskList.getTask(id) != null) {
+				task = taskList.getTask(id);
+				str = taskToString(str, task);
+				if(taskList.hasSubTasks(id)){
+					Collection<Task> subTasks = taskList.getAllSubTasks(id);
+					for (Task taskElement : subTasks) {
+						toString(taskElement.getID(), str); 
+					}
+				} 
 			}
 		} 
 		return str;
@@ -87,24 +94,31 @@ public class Report {
 			html = "<!DOCTYPE html><html>";
 			html += "<head><title>Project Report</title></head>";
 		
-		//Body
-		html += "<body>";
-		//Project info
-		html += "<h2>"+projectTitle+"</h2>";
-		html += "<p>Start Date: "+projectStartDate+"</p>";
-		html += "<p>End Date: "+projectEndDate+"</p>";
-		html += "<p>Status: "+projectStatus+"</p>";
-		html += "<br>";
+			//Body
+			html += "<body>";
+			//Project info
+			html += "<h2>"+projectTitle+"</h2>";
+			html += "<p>Start Date: "+projectStartDate+"</p>";
+			html += "<p>End Date: "+projectEndDate+"</p>";
+			html += "<p>Status: "+projectStatus+"</p>";
+			html += "<br>";
+		
+			Collection<Task> mainTasks = taskList.getAllSubTasks(id);
+			for (Task taskElement : mainTasks) {
+				toString(taskElement.getID(), html); 
+		    }
 		}
 		//Iterate through tasklist and add data about each task to the String
-		if(taskList.getTask(id) != null) {
-			task = taskList.getTask(id);
-			html = taskToHTML(html, task);
-		} if(taskList.hasSubTasks(id)){
-			Collection<Task> temp = taskList.getAllSubTasks(id);
-			Task[] subtasks = (Task[])temp.toArray();
-			for(int i=0; i<subtasks.length; ++i){
-				html = toString(subtasks[i].getID(), html);
+		if (id != null){
+			if(taskList.getTask(id) != null) {
+				task = taskList.getTask(id);
+				html = taskToHTML(html, task);
+				if(taskList.hasSubTasks(id)){
+					Collection<Task> subTasks = taskList.getAllSubTasks(id);
+					for (Task taskElement : subTasks) {
+						toString(taskElement.getID(), html); 
+				    }
+				} 
 			}
 		}
 		//End of body and HTML
