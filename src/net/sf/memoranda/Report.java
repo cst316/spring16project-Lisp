@@ -109,15 +109,17 @@ public class Report {
 		    }
 		}
 		//Iterate through tasklist and add data about each task to the String
-		if(taskList.getTask(id) != null) {
-			task = taskList.getTask(id);
-			html = taskToHTML(html, task);
-			if(taskList.hasSubTasks(id)){
-				Collection<Task> subTasks = taskList.getAllSubTasks(id);
-				for (Task taskElement : subTasks) {
-					toString(taskElement.getID(), html); 
-			    }
-			} 
+		if (id != null){
+			if(taskList.getTask(id) != null) {
+				task = taskList.getTask(id);
+				html = taskToHTML(html, task);
+				if(taskList.hasSubTasks(id)){
+					Collection<Task> subTasks = taskList.getAllSubTasks(id);
+					for (Task taskElement : subTasks) {
+						toString(taskElement.getID(), html); 
+				    }
+				} 
+			}
 		}
 		//End of body and HTML
 		if (id == null){
