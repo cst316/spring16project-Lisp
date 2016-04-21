@@ -32,14 +32,15 @@ import net.sf.memoranda.ui.ExceptionDialog;
 /*$Id: ProjectPackager.java,v 1.10 2007/03/20 06:21:46 alexeya Exp $*/
 public class ProjectPackager {
 
-    /*private static String JN_DOCPATH = System.getProperty("user.home") 
-        + File.separator + ".memoranda" + File.separator;  //Chaned .jnotes2 to be
-        //.memoranda so the pack feature would work.  (jcscoobyrs) on 17-Nov-2003
-        //at 14:57:06 PM
-    Changed to: */
-    private static String JN_DOCPATH = Util.getEnvDir(); 
-    // for compatibility with previous installations (jnotes2) [alexeyA]
+	/*private static String JN_DOCPATH = System.getProperty("user.home")  
+	+ File.separator + ".memoranda" + File.separator;  //Chaned .jnotes2 to be 
+	//.memoranda so the pack feature would work.  (jcscoobyrs) on 17-Nov-2003 
+	//at 14:57:06 PM 
+	Changed to: */ 
+	private static String JN_DOCPATH = Util.getEnvDir();  
+	// for compatibility with previous installations (jnotes2) [alexeyA] 
 
+    
     public static void pack(Project prj, File zipfile) {
         ZipOutputStream zip = null;
         

@@ -93,12 +93,12 @@ public class Util {
    public static String getEnvDir() {
       // Changed static building of getEnvDir
       // Now system-related path-separator is used
-      String p = System.getProperty("user.home") + File.separator
+      String p = System.getProperty("user.dir") + File.separator
             + ".jnotes2" + File.separator;
       if (new File(p).isDirectory()) {
          return p;
       }
-      return System.getProperty("user.home") + File.separator
+      return System.getProperty("user.dir") + File.separator
             + ".memoranda" + File.separator;
    }
 
