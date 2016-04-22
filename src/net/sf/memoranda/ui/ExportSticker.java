@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import net.sf.memoranda.EventsManager;
 import net.sf.memoranda.util.CurrentStorage;
+import net.sf.memoranda.util.FileStorage;
 import net.sf.memoranda.util.Local;
 import nu.xom.Document;
 import nu.xom.Element;
@@ -18,22 +19,6 @@ import nu.xom.Elements;
 public class ExportSticker {
 
         private String name; 
-        
-        /*public static Document _doc = null;
-        static Element _root = null;
-
-        static {
-                CurrentStorage.get().openEventsManager();
-                if (_doc == null) {
-                        _root = new Element("eventslist");
-/*                        _root.addNamespaceDeclaration("jnevents", NS_JNEVENTS);
-                        _root.appendChild(
-                                new Comment("This is JNotes 2 data file. Do not modify.")); */
-/*                        _doc = new Document(_root);
-                } else
-                        _root = _doc.getRootElement();
-
-        }*/
         
         public ExportSticker(String x) {
                 this.name = remove1(x);
@@ -57,11 +42,11 @@ public class ExportSticker {
         
         public boolean export(String src){
                 boolean result = true;
-                String fs = System.getProperty("file.separator");
+                String fs = FileStorage.JN_DOCPATH;
                 
                 String contents = getSticker();
                 try {
-                File file = new File(this.name+"."+src);
+                File file = new File(fs + this.name+"."+src);
                 
                 
                         FileWriter fwrite=new FileWriter(file,true);

@@ -43,7 +43,7 @@ import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.ui.StickerDialog;
 import net.sf.memoranda.ui.AppFrame;
 import net.sf.memoranda.util.CurrentStorage;
-
+import net.sf.memoranda.util.FileStorage;
 import net.sf.memoranda.util.Local;
 import nu.xom.Element;
 
@@ -61,14 +61,11 @@ public class ImportSticker {
 
    public boolean import_file() throws IOException {
 
-      File[] files = File.listRoots();
-      for (File f : files) {
-         f.getPath();
-         f1 = new File(name);
-      }
-
    try {
-      FileReader fr = new FileReader(name);
+	  String fs = FileStorage.JN_DOCPATH + name;
+	  File f1 = new File(fs);
+	  //JOptionPane.showMessageDialog(null, "Gary2: " + file.toString());
+      FileReader fr = new FileReader(f1);
       BufferedReader br = new BufferedReader(fr);
       while ((line = br.readLine()) != null) {
          if (line != null) {
